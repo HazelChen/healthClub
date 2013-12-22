@@ -12,8 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.xml.soap.Node;
 
-import view.MainFrame;
-import logic.Note;
 import logic.recognition.InputConfig;
 import logic.recognition.Recognize;
 
@@ -124,6 +122,7 @@ public class Input extends JPanel {
 				Recognize recognize = new Recognize();
 				ArrayList<Node> similarNodes = recognize.excute(pointList);
 				//TODO 加入到frame的选择区和直接添加音符
+				pointList.clear();
 			}
 		}
 		
