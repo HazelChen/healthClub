@@ -17,6 +17,7 @@ public class InputConfig {
 	private int staveTop;
 	private int staveBottom;
 	private int staveGap;
+	private int[] lineYs = new int[STAVE_COUNT];//每条五线谱的纵坐标
 	
 	private InputConfig(){}
 
@@ -31,19 +32,13 @@ public class InputConfig {
 		this.staveTop = top;
 		this.staveBottom = bottom;
 		staveGap = (staveBottom - staveTop) / STAVE_COUNT;
+		for(int i = 0;i < lineYs.length; i++){
+			lineYs[i] = staveTop + staveGap * i;
+		}	
 	}
 	
-	/**
-	 * @return 每条五线谱的纵坐标
-	 */
-	public ArrayList<Integer> getStaveYs () {
-		ArrayList<Integer> ys = new ArrayList<>();
-		
-		for(int i = 0;i < STAVE_COUNT; i++){
-			int lineY = staveTop + staveGap * i;
-			ys.add(lineY);
-		}	
-		return ys;
+	public int[] getStaveYs () {
+		return lineYs;
 	}
 	
 	public int getGap () {

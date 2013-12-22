@@ -95,9 +95,9 @@ public class Input extends JPanel {
 		
 		g.setColor(FOREGROUND_COLOR);
 		
-		ArrayList<Integer> lineYs = inputConfig.getStaveYs();
-		for(int i = 0;i < lineYs.size(); i++){
-			int lineY = lineYs.get(i);
+		int[] lineYs = inputConfig.getStaveYs();
+		for(int i = 0;i < lineYs.length; i++){
+			int lineY = lineYs[i];
 			g.drawLine(this.getX() + GAP_TO_BORDER, lineY, this.getX() + this.getWidth() - GAP_TO_BORDER, lineY);
 		}		
 	}

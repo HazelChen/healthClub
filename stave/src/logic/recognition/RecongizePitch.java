@@ -9,10 +9,10 @@ public class RecongizePitch {
 
 	public RecongizePitch () {
 		InputConfig inputConfig = InputConfig.instance();
-		ArrayList<Integer> lineYs = inputConfig.getStaveYs();
+		int[] lineYs = inputConfig.getStaveYs();
 		int staveGap = inputConfig.getGap();
 		
-		pointInLineCount = new int[lineYs.size() * 2 + 1];
+		pointInLineCount = new int[lineYs.length * 2 + 1];
 		initPitchLocation(lineYs, staveGap);
 	}
 	
@@ -20,13 +20,13 @@ public class RecongizePitch {
 //		
 //	}
 	
-	private void initPitchLocation (ArrayList<Integer> lineYs, int staveGap) {
+	private void initPitchLocation (int[] lineYs, int staveGap) {
 		pitchLocation = new int[pointInLineCount.length - 1];
 		for (int i = 0; i < pitchLocation.length; i++) {
 			if (i % 2 == 0) {
-				pitchLocation[i] = lineYs.get(i / 2);
+				pitchLocation[i] = lineYs[i / 2];
 			} else {
-				pitchLocation[i] = lineYs.get((i - 1) / 2) + staveGap / 2; 
+				pitchLocation[i] = lineYs[(i - 1) / 2] + staveGap / 2; 
 			}
 			System.out.println(pitchLocation[i]);
 		}
