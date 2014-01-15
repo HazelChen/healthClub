@@ -9,5 +9,6 @@ public class Setup {
 		
 		MainFrame track = new MainFrame();
 		track.setVisible(true);
+		//ilfusieu
 	}
 }
