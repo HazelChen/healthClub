@@ -23,3 +23,11 @@ a {
 	font-size:20px;
 	margin:10px;
 }
+
+body{
+	font-family:"Trebuchet MS", "Myriad Pro", Arial, sans-serif;
+	font-size:14px;
+	background:url(../images/bg.jpg) repeat top left;
+	color:#014d67;
+	overflow-y:scroll;
+}

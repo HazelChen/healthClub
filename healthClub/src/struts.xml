@@ -108,5 +108,11 @@
 			<result name="success" type="redirect">/admin/${prePage}</result>
 		</action>
 	</package>
+	
+	<package name="struts2-admin" extends="struts-default" namespace="/admin">
+		<action name="user" class="edu.nju.healthClub.actions.ManagerUserAction">
+			<result name="success" type="redirect">/manager/user.jsp</result>
+		</action>
+	</package>
 </struts>
 

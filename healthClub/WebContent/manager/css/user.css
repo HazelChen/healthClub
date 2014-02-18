@@ -6,6 +6,11 @@ display: block;
 -webkit-margin-start: 0px;
 -webkit-margin-end: 0px;
 }
+
+.row {
+	margin-left:100px;
+	margin-top:20px;
+}
 .row:before, .row:after {
 display: table;
 content: "";
@@ -35,4 +40,8 @@ line-height: 27px;
 
 .span4 {
 width: 370px;
+}
+form {
+	margin:0px;
+	display: inline
 }
