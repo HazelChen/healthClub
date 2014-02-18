@@ -1,0 +1,110 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "Trebuchet MS", "Myriad Pro", Arial, sans-serif;
+	font-size: 14px;
+	background: url(../images/bg.jpg) repeat top left;
+	color: #014d67;
+	text-shadow: 1px 1px 1px #edde8b;
+	overflow-y: scroll;
+}
+
+table {
+	display: block;
+	margin-top:10px
+}
+
+thread {
+	display: table-header-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+	font-size:20px;
+	font-weight:700;
+	color:#000;
+}
+
+tbody{
+display: table-row-group;
+vertical-align: middle;
+border-color: inherit;
+}
+
+.float-left{
+	float: left;
+}
+
+.main {
+	position: relative;
+	z-index: 1;
+	width: 800px;
+	margin: 0 auto;
+	margin-top:50px;
+	box-shadow: 0 -3px 3px 2px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 -3px 3px 2px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 0 -3px 3px 2px rgba(0, 0, 0, .2);
+	text-align: center;
+}
+
+#content {
+	box-shadow: 0 1px 3px 2px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 1px 3px 2px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 0 1px 3px 2px rgba(0, 0, 0, .2);
+	width: 980px;
+	position: relative;
+	display: block;
+}
+
+.bl {
+	border: solid 1px #f2f2f2;
+	height:50px;
+}
+
+.activity-title {
+	width: 220px
+}
+
+.activity-reserve-date {
+	width: 600px;
+}
+
+.activity-date {
+	width: 120px;
+}
+
+.tabs-content {
+	color: #000;
+	text-align: left;
+	font-size:18px;
+}
+
+.column{
+	width:47%;
+	float:left;
+}
+
+.formColumn{
+	margin-top:30px;
+}
+
+.align-center{
+	text-align:center;
+}
+
+#activationDiv{
+	text-align:left;
+	width:500;
+	height:500;
+}
+
+td a{
+	color:#014d67;
+}

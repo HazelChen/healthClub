@@ -1,0 +1,132 @@
+@charset "utf-8";
+
+ul{
+	list-style:none;
+}
+
+.clear{
+	clear:both;
+}
+a {
+	color: #edde8b;
+	text-decoration: none;
+	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
+	-ms-transition: 0.5s;
+	transition: 0.5s;
+}
+
+a:hover,.selected {
+	color: #808080;
+}
+
+.month-container{
+	background:#fffbdf;
+	width:224px;
+	height:auto;
+	margin-left:50px;
+	margin-top:50px;
+	box-shadow:2px 2px 8px 1px rgba(0,0,0,0.6);
+	float:left;
+}
+
+.month-head{
+	background:#89acb8;
+	width:224px;
+	height:30px;
+    font:20px "microsoft yahei";
+	text-align:center;
+}
+
+.month-head span {
+    color: #f8b217;
+    border-color: #fffbdf;
+	line-height:30px;
+}
+
+
+.month-cell {
+    float: left;
+	width:30px;
+	height:30px;
+	background:#89acb8;
+	border:1px solid #FEFEFE;
+}
+
+.month-cell:active{
+	box-shadow:inset 2px 2px 5px rgba(0,0,0,0.6);
+}
+
+.month-cell span {
+    display: block;
+    color: #cccccc;
+    font:20px "microsoft yahei";
+    text-align: center;
+	line-height:30px;
+    cursor:pointer;
+}
+
+.month-cell.active span {
+    border-color: #cccccc;
+}
+
+.month-cell.pink {
+    background: #608f9f;
+}
+
+.month-cell.pink span {
+    color: #f8b217;
+    border-color: #edde8b;
+}
+
+.month-cell.pink.active span {
+    border-color: #ffe295;
+}
+
+.month-cell.orange {
+    background: #f8b217;
+}
+
+.month-cell.orange span {
+    color: #014d67;
+    border-color: #fff5b4;
+}
+
+.month-cell.orange.active span {
+    border-color: #ffcf71;
+}
+
+.month-cell.red {
+    background: #f8b217;
+}
+
+.month-cell.red span {
+    color: #014d67;
+    border-color: #f8b217;
+}
+
+
+.month-cell.blue {
+    background: #edde8b;
+}
+
+.month-cell.blue span {
+    color: #608f9f;
+    border-color: #edde8b;
+}
+
+
+.flipContainer{
+	width:300px;
+	height:100px;
+	background:#FFF;
+	padding:10px;
+}
+
+.flip{
+	background:url(../images/filmstrip.png);
+	float:left;
+	width:53px;
+	height:103px;
+}

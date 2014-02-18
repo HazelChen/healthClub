@@ -1,0 +1,58 @@
+#top_href{
+	color: #edde8b;
+	text-decoration: none;
+	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
+	-ms-transition: 0.5s;
+	transition: 0.5s;
+}
+#top_href:hover,
+#top_href.selected {
+		color: #808080;
+	}
+#top {
+	position:fixed;
+	left:0;
+	top:20px;
+	width:100%;
+	height:40px;
+	}
+
+#top_profile {
+position: absolute;
+right:20px;
+top: 0;
+}
+
+.top_href {
+position: relative;
+height: 45px;
+line-height: 45px;
+text-indent: 46px;
+color: #fff;
+border-top: 0;
+background: transparent;
+box-shadow: none;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+margin:5px
+}
+
+#avatar {
+position: absolute;
+top: -5px;
+left: -30px;
+width: 25px;
+height: 25px;
+border: 1px solid rgba(0,0,0,.1);
+box-shadow: 0 1px 0 rgba(255,255,255,.1);
+}
+
+.top-input{
+	border: solid 1px #E5E5E5;
+	font-size:16px;
+	width:200px;
+	height:30px;
+}

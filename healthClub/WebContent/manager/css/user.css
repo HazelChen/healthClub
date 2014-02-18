@@ -1,0 +1,38 @@
+p {
+margin: 0 0 9px;
+display: block;
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+}
+.row:before, .row:after {
+display: table;
+content: "";
+line-height: 0;
+}
+
+.row:after {
+clear: both;
+}
+
+.span6 {
+width: 570px;
+}
+
+[class*="span"] {
+float: left;
+min-height: 1px;
+margin-left: 30px;
+}
+
+.lead {
+margin-bottom: 18px;
+font-size: 19.5px;
+font-weight: 200;
+line-height: 27px;
+}
+
+.span4 {
+width: 370px;
+}

@@ -1,0 +1,59 @@
+* {
+        padding: 0;
+        margin: 0;
+}
+ul li {
+        list-style: none;
+}
+a {
+        text-decoration: none;
+}
+img {
+        border: none;
+        float: left;
+}
+.clear {
+        clear: both;
+}
+html, body {
+        color: #737373;
+        background: url(../images/bg.jpg) #E4E7E8 repeat center center;
+        width: 100%;
+        height: 100%;
+        position: absolute
+}
+#container {
+        width: 100%;
+        position: absolute
+}
+#indexgs {
+        width: 1128px;
+        height: 300px;
+        position: relative;
+}
+#indexgs img {
+        position: absolute;
+}
+#indexg2 {
+        left: 911px;
+        top: 8px;
+}
+#indexg1 {
+        left: 132px;
+        top: -23px;
+        position: absolute
+}
+#indexg0 {
+        left: 97px;
+        top: 0px;
+        position: absolute;
+}
+#indexmask {
+        background: url(/images/bjd.png);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        display: none
+}
