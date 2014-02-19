@@ -1,32 +1,22 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@taglib prefix="s" uri="/struts-tags"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<link type="text/css" href="css/user.css" rel="stylesheet" />
-<link type="text/css" href="css/logo_small.css" rel="stylesheet" />
-<link type="text/css" href="css/top.css" rel="stylesheet" />
-
-<script type="text/javascript" src="js/jquery-1.8.2.js"></script>
-<script src="js/highcharts.js"></script>
-<script src="js/data.js"></script>
-<script src="js/drilldown.js"></script>
-<script src="js/exporting.js"></script>
-<script src="js/chart.js"></script>
-
-<title>user</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
 	<div class="row">
 		<div class="span6">
 			<h1><a href="../user/homepage.jsp" id="logo">Health Club</a></h1>
-			<a href="activity.jsp" class="navigation">会员统计</a>
+			<a href="user.jsp" class="navigation">会员统计</a>
 			<a href='<s:url action="place" />' class="navigation">活动统计</a>
 			<form action="" method="get">
 				<select name="month" class="navigation" onchange="this.form.submit()";>
-					<option value="volvo">Volvo</option>
-					<option value="saab">Saab</option>
-					<option value="fiat">Fiat</option>
-					<option value="audi">Audi</option>
+					<s:iterator value="months" status="st">
+					<option value="<s:property value="place"/>"><s:property /></option>
+					</s:iterator>
 				</select>
 			</form>
 			<p class="lead">This project is an attempt to build re-usable charts and chart components for d3.js without taking away the power that d3.js gives you. This is a very young collection of components, with the goal of keeping these components very customizeable, staying away from your standard cookie cutter solutions.</p>
