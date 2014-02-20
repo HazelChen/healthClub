@@ -73,17 +73,17 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Browser market shares. November, 2013'
+                    text: '会员流动情况'
                 },
                 subtitle: {
-                    text: 'Click the columns to view versions. Source: netmarketshare.com.'
+                    text: 'Click the columns to view versions.'
                 },
                 xAxis: {
                     type: 'category'
                 },
                 yAxis: {
                     title: {
-                        text: 'Total percent market share'
+                        text: '百分比'
                     }
                 },
                 legend: {
@@ -121,7 +121,7 @@ $(function () {
 $(function () {
 
     Highcharts.data({
-        csv: document.getElementById('tsv').innerHTML,
+        csv: document.getElementById('residence-tsv').innerHTML,
         itemDelimiter: '\t',
         parsed: function (columns) {
 
@@ -193,17 +193,17 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Browser market shares. November, 2013'
+                    text: '会员居住情况'
                 },
                 subtitle: {
-                    text: 'Click the columns to view versions. Source: netmarketshare.com.'
+                    text: 'Click the columns to view versions.'
                 },
                 xAxis: {
                     type: 'category'
                 },
                 yAxis: {
                     title: {
-                        text: 'Total percent market share'
+                        text: '百分比'
                     }
                 },
                 legend: {

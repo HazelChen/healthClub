@@ -19,7 +19,6 @@
 <title>user</title>
 </head>
 <body>
-<div>
-	<s:action name="activity" executeResult="true"></s:action>
+	<s:action name="user" executeResult="true"></s:action>
 </body>
 </html>
