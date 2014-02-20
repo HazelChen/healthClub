@@ -73,17 +73,17 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Browser market shares. November, 2013'
+                    text: '会员流动情况'
                 },
                 subtitle: {
-                    text: 'Click the columns to view versions. Source: netmarketshare.com.'
+                    text: 'Click the columns to view versions.'
                 },
                 xAxis: {
                     type: 'category'
                 },
                 yAxis: {
                     title: {
-                        text: 'Total percent market share'
+                        text: '百分比'
                     }
                 },
                 legend: {
@@ -121,7 +121,7 @@ $(function () {
 $(function () {
 
     Highcharts.data({
-        csv: document.getElementById('tsv').innerHTML,
+        csv: document.getElementById('residence-tsv').innerHTML,
         itemDelimiter: '\t',
         parsed: function (columns) {
 
@@ -193,17 +193,17 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Browser market shares. November, 2013'
+                    text: '会员居住情况'
                 },
                 subtitle: {
-                    text: 'Click the columns to view versions. Source: netmarketshare.com.'
+                    text: 'Click the columns to view versions.'
                 },
                 xAxis: {
                     type: 'category'
                 },
                 yAxis: {
                     title: {
-                        text: 'Total percent market share'
+                        text: '百分比'
                     }
                 },
                 legend: {
@@ -239,6 +239,7 @@ $(function () {
 });
 
 $(function () {
+	var data=eval(document.getElementById("ageInfomation").innerHTML);
     $('#age').highcharts({
         chart: {
             plotBackgroundColor: null,
@@ -246,7 +247,7 @@ $(function () {
             plotShadow: false
         },
         title: {
-            text: 'Browser market shares at a specific website, 2010'
+            text: '会员年龄情况'
         },
         tooltip: {
     	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -266,36 +267,22 @@ $(function () {
         series: [{
             type: 'pie',
             name: 'Browser share',
-            data: [
-                ['Firefox',   45.0],
-                ['IE',       26.8],
-                {
-                    name: 'Chrome',
-                    y: 12.8,
-                    sliced: true,
-                    selected: true
-                },
-                ['Safari',    8.5],
-                ['Opera',     6.2],
-                ['Others',   0.7]
-            ]
+            data: data,
         }]
     });
 });
 
 $(function () {
+	var data=eval(document.getElementById("sexInfomation").innerHTML);
     $('#sex').highcharts({
         chart: {
             type: 'bar'
         },
         title: {
-            text: 'Historic World Population by Region'
-        },
-        subtitle: {
-            text: 'Source: Wikipedia.org'
+            text: '会员性别情况'
         },
         xAxis: {
-            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+            categories: ['男', '女'],
             title: {
                 text: null
             }
@@ -303,7 +290,7 @@ $(function () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Population (millions)',
+                text: '人数',
                 align: 'high'
             },
             labels: {
@@ -311,7 +298,7 @@ $(function () {
             }
         },
         tooltip: {
-            valueSuffix: ' millions'
+            valueSuffix: '人'
         },
         plotOptions: {
             bar: {
@@ -335,14 +322,8 @@ $(function () {
             enabled: false
         },
         series: [{
-            name: 'Year 1800',
-            data: [107, 31, 635, 203, 2]
-        }, {
-            name: 'Year 1900',
-            data: [133, 156, 947, 408, 6]
-        }, {
-            name: 'Year 2008',
-            data: [973, 914, 4054, 732, 34]
+            name: '性别',
+            data: data
         }]
     });
 });
