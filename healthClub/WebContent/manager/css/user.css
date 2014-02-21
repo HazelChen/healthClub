@@ -26,6 +26,10 @@ p {
 	width: 570px;
 }
 
+.span12 {
+	width: 1170px;
+}
+
 [class*="span"] {
 	float: left;
 	min-height: 1px;

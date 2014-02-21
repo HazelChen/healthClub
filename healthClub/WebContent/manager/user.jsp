@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <link type="text/css" href="css/user.css" rel="stylesheet" />
 <link type="text/css" href="css/logo_small.css" rel="stylesheet" />
-<link type="text/css" href="css/top.css" rel="stylesheet" />
 
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script src="js/highcharts.js"></script>
