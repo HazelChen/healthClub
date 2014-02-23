@@ -110,6 +110,10 @@
 	</package>
 	
 	<package name="struts2-manager" extends="struts-default" namespace="/manager">
+		<action name="month" class="edu.nju.healthClub.actions.ManagerMonthAction">
+			<result name="success">/manager/month.jsp</result>
+		</action>
+		
 		<action name="user" class="edu.nju.healthClub.actions.ManagerUserAction">
 			<result name="success">/manager/userInner.jsp</result>
 		</action>
@@ -117,6 +121,20 @@
 		<action name="userWithMonth" class="edu.nju.healthClub.actions.ManagerUserAction">
 			<result name="success">/manager/user.jsp</result>
 		</action>
+		
+		<action name="club" class="edu.nju.healthClub.actions.ManagerClubAction">
+			<result name="success">/manager/clubInner.jsp</result>
+		</action>
+		
+		<action name="clubWithMonth" class="edu.nju.healthClub.actions.ManagerUserAction">
+			<result name="success">/manager/club.jsp</result>
+		</action>
+		
+		<action name="managerLogin" class="edu.nju.healthClub.actions.ManagerLoginAction">
+			<result name="success">/manager/user.jsp</result>
+			<result name="input" type="redirect">/manager/login.jsp</result>
+		</action>
+		
 	</package>
 </struts> 
 

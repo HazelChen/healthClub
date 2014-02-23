@@ -11,13 +11,9 @@
 		<div class="span6">
 			<h1><a href="../user/homepage.jsp" id="logo">Health Club</a></h1>
 			<a href="user.jsp" class="navigation">会员统计</a>
-			<a href='<s:url action="place" />' class="navigation">活动统计</a>
+			<a href='club.jsp' class="navigation">活动统计</a>
 			<form action="userWithMonth" method="get">
-				<select name="month" class="navigation" onchange="this.form.submit()">
-					<s:iterator value="monthSelections" status="st">
-					<option value="<s:property value="month"/>" <s:if test="%{selected==true}">selected="selected"</s:if>><s:property value="month"/></option>
-					</s:iterator>
-				</select>
+				<s:action name="month" executeResult="true"></s:action>
 			</form>
 			<p class="lead">这个月新增会员数为<s:property value="membershipStatistics.newCount"/>，暂停会员数为<s:property value="membershipStatistics.suspendCount"/>，停止会员数为<s:property value="membershipStatistics.stopCount"/>，净增长<s:property value="membershipStatistics.netGrowthCount"/>人。使用者中，年龄段<s:property value="memberAgeStatistics.bestAge"/>的人数最多，<s:property value="memberSexStatistics.bestSex"/>性使用者较多，而且大多居住在<s:property value="memberPlaceStatistics.bestPlace"/>。</p>
 		</div>
