@@ -2,19 +2,37 @@ package edu.nju.healthClub.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+
+@Entity
+@Table(name="activity")
 public class Activity {
 	private Date date;
 	private String imageUrl;
 	private String paragraph;
 	
+	@Id
 	private String id;
 	private String title;
 	private String place;
 	private String coach;
 	private boolean isScheduled;
+	
+	private Set<User> users = new HashSet<>();
 	
 	private ArrayList<String> userIds;
 	
@@ -127,4 +145,20 @@ public class Activity {
 	public void setCoach(String coach) {
 		this.coach = coach;
 	}
+
+	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+	@JoinTable(
+			name="activityreserve",
+			joinColumns=@JoinColumn(name="activityId", referencedColumnName="id"),
+			inverseJoinColumns=@JoinColumn(name="userid", referencedColumnName="id")
+			)
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+	
+	
 }

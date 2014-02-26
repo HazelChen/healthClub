@@ -1,5 +1,13 @@
 package edu.nju.healthClub.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+@Entity
+@Table(name="user")
 public class User {
 	private String id;
 	private String headerUrl;
@@ -8,6 +16,8 @@ public class User {
 	private String type;
 	private int childCount;
 	private boolean isActive;
+	@ManyToMany(mappedBy="user")
+	private Set<Activity> activities = new HashSet<>();
 	
 	public User(String id, String headerUrl, String username, String email, String type, int childCount, boolean isActive) {
 		this.id = id;
@@ -73,6 +83,14 @@ public class User {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public Set<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(Set<Activity> activities) {
+		this.activities = activities;
 	}
 	
 	

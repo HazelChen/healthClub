@@ -4,6 +4,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 public class ActivityReserveShow {
 	private String activityId;
 	private String name;
@@ -16,7 +20,8 @@ public class ActivityReserveShow {
 		this.reserveDate = reserveDate;
 		this.date = date;
 	}
-
+	
+	@Id
 	public String getActivityId() {
 		return activityId;
 	}
