@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.nju.healthClub.model.Activity;
+import edu.nju.healthClub.services.ActivityService;
 
 public class ActivityAction extends BaseAction{
 	private static final long serialVersionUID = -8934726765255655806L;
 	
 	private ArrayList<Activity> activities;
 	
-	public ArrayList<Activity> getActivities () {
-		return activities;
-	}
-	
+	private ActivityService service;
 	
 	public String getActivityFromDate () {
 		int year = Integer.parseInt(request.getParameter("year"));
@@ -107,35 +105,9 @@ public class ActivityAction extends BaseAction{
 		activities.add(a2);
 		return SUCCESS;
 	}
+	
 	public String getActivity () {
-		ArrayList<String> userIds = new ArrayList<>();
-		userIds.add("海维");
-		userIds.add("海维");
-		userIds.add("海维");
-		userIds.add("海维");
-		userIds.add("海维");
-		userIds.add("海维");
-		
-		this.activities = new ArrayList<>();
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(2012, 6, 21);
-		Activity a1 = new Activity("123",
-				calendar.getTime(), 
-				"images/spa.jpg", 
-				"赫敏应该和哈利波特在一起",
-				"英国",
-				"罗琳",
-				userIds);
-		activities.add(a1);
-		
-		Activity a2 = new Activity("456",
-				calendar.getTime(), 
-				"images/spa.jpg", 
-				"赫敏应该和哈利波特在一起",
-				"英国",
-				"罗琳",
-				userIds);
-		activities.add(a2);
+		activities = service.nowadaysActivity();
 		return SUCCESS;
 	}
 	
@@ -165,4 +137,14 @@ public class ActivityAction extends BaseAction{
 		activities.add(a2);
 		return SUCCESS;
 	}
+
+	public ArrayList<Activity> getActivities () {
+		return activities;
+	}
+	
+	public void setService(ActivityService service) {
+		this.service = service;
+	}
+	
+	
 }

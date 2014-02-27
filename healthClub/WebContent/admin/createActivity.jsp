@@ -31,7 +31,7 @@
 	</div></div>
 		<div class="content">
 			<div id="form_wrapper" class="form_wrapper">
-				<form class="register active" id="createActivity" action="createActivity" method="post">
+				<form class="register active" id="createActivity" action="createActivity" method="post" enctype="multipart/form-data">
 					<h3>Activity</h3>
 					<div class="column">
 						<div>

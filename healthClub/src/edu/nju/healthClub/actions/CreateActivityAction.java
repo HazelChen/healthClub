@@ -1,8 +1,17 @@
 package edu.nju.healthClub.actions;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 
 import edu.nju.healthClub.model.Activity;
+import edu.nju.healthClub.services.ActivityService;
+import edu.nju.healthClub.services.DateChangeService;
+import edu.nju.healthClub.services.FileUploadPathService;
 
 public class CreateActivityAction extends BaseAction{
 	
@@ -10,15 +19,16 @@ public class CreateActivityAction extends BaseAction{
 	
 	private Activity activity;
 	
-	public Activity getActivity() {
-		return activity;
-	}
-
-	public void setActivity(Activity activity) {
-		this.activity = activity;
-	}
-
+	private File imgFile;
+	private String imgFileFileName;
+	
+	private ActivityService service;
+	private DateChangeService dateChangeService;
+	private FileUploadPathService fileUploadPathService;
+	
 	public String create() {
+		Activity activity = getFormActivity();
+		service.save(activity);
 		return SUCCESS;
 	}
 	
@@ -31,6 +41,59 @@ public class CreateActivityAction extends BaseAction{
 				"微博", 
 				"机器人");
 		return SUCCESS;
+	}
+	
+	public Activity getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
+	}
+
+	public void setImgFile(File imgFile) {
+		this.imgFile = imgFile;
+	}
+
+	public void setImgFileFileName(String imgFileFileName) {
+		this.imgFileFileName = imgFileFileName;
+	}
+
+	public void setDateChangeService(DateChangeService dateChangeService) {
+		this.dateChangeService = dateChangeService;
+	}
+
+	public void setService(ActivityService service) {
+		this.service = service;
+	}
+	
+	public void setFileUploadPathService(FileUploadPathService fileUploadPathService) {
+		this.fileUploadPathService = fileUploadPathService;
+	}
+
+	private Activity getFormActivity () {
+		String id = "A" + System.currentTimeMillis();
+		String title = request.getParameter("title");
+		String place = request.getParameter("place");
+		String coach = request.getParameter("coach");
+		String dateString = request.getParameter("date");
+		Date date = dateChangeService.StringToDate(dateString);
+		String paragraph = request.getParameter("paragraph");
+		
+		int extensionPos = imgFileFileName.lastIndexOf( "." );
+		String fileName = id + imgFileFileName.substring(extensionPos);
+		String realPath = fileUploadPathService.getActivityPath() + fileName;
+        System.out.println(realPath);  
+        if(imgFile !=null ){  
+            File destFile = new File(realPath);//根据 parent 抽象路径名和 child 路径名字符串创建一个新 File 实例。  
+            try {
+				FileUtils.copyFile(imgFile, destFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+        }
+        Activity activity = new Activity(id, date, fileName, paragraph, title, place, coach);
+        return activity;
 	}
 	
 }

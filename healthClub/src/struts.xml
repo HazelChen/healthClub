@@ -4,6 +4,63 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+	<package name="struts2-user" extends="struts-default" namespace="/user">
+		<action name="recommand" class="edu.nju.healthClub.actions.RecommandAction">
+			<result name="success">/user/recommand.jsp</result>
+		</action>
+		
+		<action name="userBar" class="edu.nju.healthClub.actions.UserBarAction">
+			<result name="logon">/user/userBar.jsp</result>
+			<result name="notLogon">/user/notLoginBar.jsp</result>
+		</action>
+		
+		<action name="loginlogin" class="edu.nju.healthClub.actions.LoginAction" method="login">
+			<result name="success" type="redirect">/user/${prePage}</result>
+			<result name="input" type="redirect">/user/login.jsp</result>
+		</action>
+		
+		<action name="logout" class="edu.nju.healthClub.actions.LoginAction" method="logout">
+			<result name="success" type="redirect">/user/${prePage}</result>
+		</action>
+		
+		<action name="register" class="edu.nju.healthClub.actions.RegisterAction">
+			<result name="success">/user/showId.jsp</result>
+		</action>
+
+		<action name="submitCardId" class="edu.nju.healthClub.actions.RegisterAction" method="submitCardId">
+			<result name="success">/user/${prePage}</result>
+		</action>
+		
+		<action name="activityForDate" class="edu.nju.healthClub.actions.ActivityAction" method="getActivityFromDate">
+			<result name="success">/user/activityInner.jsp</result>
+		</action>
+		
+		<action name="activityForId" class="edu.nju.healthClub.actions.ActivityAction" method="getActivityFromId">
+			<result name="success">/user/activityInner.jsp</result>
+		</action>
+		
+		<action name="reserve" class="edu.nju.healthClub.actions.ReserveAction">
+			<result name="success" type="redirect">/user/${prePage}</result>
+			<result name="input" type="redirect">/user/login.jsp</result>
+		</action>
+		
+		<action name="cancelReserve" class="edu.nju.healthClub.actions.ReserveAction" method="userCancel">
+			<result name="success" type="redirect">/user/${prePage}</result>
+		</action>
+		 
+		<action name="userPage" class="edu.nju.healthClub.actions.UserPageAction">
+			<result name="success">/user/userPage.jsp</result>
+		</action>
+		
+		<action name="change" class="edu.nju.healthClub.actions.RegisterAction" method="change">
+			<result name="success" type="chain">userPage</result>
+		</action>
+		
+		<action name="cancel" class="edu.nju.healthClub.actions.RegisterAction" method="cancel">
+			<result name="success" type="chain">userPage</result>
+		</action>
+	</package>
+	
 	<package name="struts2-admin" extends="struts-default" namespace="/admin">
 	
 		<action name="adminLogin" class="adminLoginAction">
@@ -21,6 +78,57 @@
 		
 		<action name="activity" class="adminActivityAction" method="getActivity">
 			<result name="success">/admin/activityInner.jsp</result>
+		</action>
+		
+		<action name="createActivity" class="createActivityAction" method="create">
+			<result name="success">/admin/continueActivityCreation.jsp</result>
+		</action>
+		
+		<action name="changeActivity" class="createActivityAction" method="change">
+			<result name="success">/admin/createActivity.jsp</result>
+		</action>
+		
+		<action name="place" class="edu.nju.healthClub.actions.PlaceAction">
+			<result name="success">/admin/place.jsp</result>
+		</action>
+		
+		<action name="userPage" class="edu.nju.healthClub.actions.UserPageAction" method="getUserInfo">
+			<result name="success">/admin/userPage.jsp</result>
+		</action>
+		
+		<action name="cancelReserve" class="edu.nju.healthClub.actions.ReserveAction" method="adminCancel">
+			<result name="success" type="redirect">/admin/${prePage}</result>
+		</action>
+		
+		<action name="adminReserve" class="edu.nju.healthClub.actions.ReserveAction" method="adminReserve">
+			<result name="success" type="redirect">/admin/${prePage}</result>
+		</action>
+	</package>
+	
+	<package name="struts2-manager" extends="struts-default" namespace="/manager">
+		<action name="month" class="edu.nju.healthClub.actions.ManagerMonthAction">
+			<result name="success">/manager/month.jsp</result>
+		</action>
+		
+		<action name="user" class="edu.nju.healthClub.actions.ManagerUserAction">
+			<result name="success">/manager/userInner.jsp</result>
+		</action>
+		
+		<action name="userWithMonth" class="edu.nju.healthClub.actions.ManagerUserAction">
+			<result name="success">/manager/user.jsp</result>
+		</action>
+		
+		<action name="club" class="edu.nju.healthClub.actions.ManagerClubAction">
+			<result name="success">/manager/clubInner.jsp</result>
+		</action>
+		
+		<action name="clubWithMonth" class="edu.nju.healthClub.actions.ManagerUserAction">
+			<result name="success">/manager/club.jsp</result>
+		</action>
+		
+		<action name="managerLogin" class="edu.nju.healthClub.actions.ManagerLoginAction">
+			<result name="success">/manager/user.jsp</result>
+			<result name="input" type="redirect">/manager/login.jsp</result>
 		</action>
 	</package>
 </struts> 

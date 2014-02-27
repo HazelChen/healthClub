@@ -1,22 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	     xmlns:aop="http://www.springframework.org/schema/aop"
-	     xmlns:tx="http://www.springframework.org/schema/tx"
-	     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
-           
+
 	<bean id="adminActivityAction" class="edu.nju.healthClub.actions.ActivityAction">
+		<property name="service">
+			<ref bean="activityService" />
+		</property>
+	</bean>
+
+	<bean id="adminLoginAction" class="edu.nju.healthClub.actions.AdminLoginAction">
+		<property name="service">
+			<ref bean="adminVerificationService" />
+		</property>
+	</bean>
+	
+	<bean id="createActivityAction" class="edu.nju.healthClub.actions.CreateActivityAction">
+		<property name="service">
+			<ref bean="activityService" />
+		</property>
+		<property name="dateChangeService">
+			<ref bean="dateChangeService" />
+		</property>
+		<property name="fileUploadPathService">
+			<ref bean="fileUploadPathService" />
+		</property>
 	</bean>
 
 	<bean id="adminVerificationService" class="edu.nju.healthClub.services.AdminVerificationService">
 	</bean>
 	
-	<bean id="adminLoginAction" class="edu.nju.healthClub.actions.AdminLoginAction">
-		<property name="service">
-			<ref bean="adminVerificationService"/>
+	<bean id="activityService" class="edu.nju.healthClub.services.ActivityService">
+		<property name="activityDAO">
+			<ref bean="activityDAO" />
 		</property>
+
+		<property name="dateChangeService">
+			<ref bean="dateChangeService" />
+		</property>
+	</bean>
+
+	<bean id="dateChangeService" class="edu.nju.healthClub.services.DateChangeService">
+	</bean>
+	
+	<bean id="fileUploadPathService" class="edu.nju.healthClub.services.FileUploadPathService">
+	</bean>
+
+	<bean id="activityDAO" class="edu.nju.healthClub.dao.ActivityDAO">
 	</bean>
 </beans>

@@ -16,8 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-
 @Entity
 @Table(name="activity")
 public class Activity {
@@ -25,7 +23,6 @@ public class Activity {
 	private String imageUrl;
 	private String paragraph;
 	
-	@Id
 	private String id;
 	private String title;
 	private String place;
@@ -43,6 +40,8 @@ public class Activity {
 	public void setUserIds(ArrayList<String> userIds) {
 		this.userIds = userIds;
 	}
+	
+	public Activity(){}
 
 	public Activity(String id, Date date, String imageUrl, String paragraph) {
 		this.id = id;
@@ -60,6 +59,16 @@ public class Activity {
 		this.place = place;
 		this.coach = coach;
 		this.isScheduled = isScheduled;
+	}
+	//NEED
+	public Activity(String id, Date date, String imageUrl, String paragraph, String title, String place, String coach) {
+		this.id = id;
+		this.date = date;
+		this.imageUrl = imageUrl;
+		this.paragraph = paragraph;
+		this.title = title;
+		this.place = place;
+		this.coach = coach;
 	}
 	
 	public Activity(Date date, String paragraph, String title, String place, String coach) {
@@ -80,6 +89,7 @@ public class Activity {
 		this.userIds = userIds;
 	}
 	
+	@Id
 	public String getId() {
 		return id;
 	}
@@ -88,10 +98,8 @@ public class Activity {
 		this.id = id;
 	}
 	
-	public String getDate () {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String dateShort = dateFormat.format(date);
-		return dateShort;
+	public Date getDate () {
+		return date;
 	}
 	
 	public String getImageUrl () {
@@ -106,7 +114,7 @@ public class Activity {
 		return isScheduled;
 	}
 
-	public void setScheduled(boolean isScheduled) {
+	public void setIsScheduled(boolean isScheduled) {
 		this.isScheduled = isScheduled;
 	}
 

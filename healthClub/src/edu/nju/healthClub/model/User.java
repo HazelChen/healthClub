@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 @Entity
@@ -16,7 +17,7 @@ public class User {
 	private String type;
 	private int childCount;
 	private boolean isActive;
-	@ManyToMany(mappedBy="user")
+	
 	private Set<Activity> activities = new HashSet<>();
 	
 	public User(String id, String headerUrl, String username, String email, String type, int childCount, boolean isActive) {
@@ -28,7 +29,8 @@ public class User {
 		this.childCount = childCount;
 		this.isActive = isActive;
 	}
-
+	
+	@Id
 	public String getId() {
 		return id;
 	}
@@ -81,10 +83,10 @@ public class User {
 		return isActive;
 	}
 
-	public void setActive(boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
+	@ManyToMany(mappedBy="users")
 	public Set<Activity> getActivities() {
 		return activities;
 	}

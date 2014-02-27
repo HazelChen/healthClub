@@ -13,6 +13,8 @@
 		<!-- 自动把实体类与属性映射成数据库中的表与列 -->
 		<property name="hbm2ddl.auto">update</property>
 		
-		<mapping class="edu.nju.bankAccount.model.Activity"/>   
+		<mapping class="edu.nju.healthClub.model.Activity"/>   
+		<mapping class="edu.nju.healthClub.model.ActivityReserve"/>   
+		<mapping class="edu.nju.healthClub.model.User"/>   
 	</session-factory>
 </hibernate-configuration>

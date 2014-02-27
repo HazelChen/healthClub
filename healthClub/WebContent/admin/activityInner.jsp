@@ -10,13 +10,17 @@
 <body>
 	<s:iterator value="activities" status="st">
 	<div>
-		<img src='<s:property value="imageUrl"/>'/>
+		<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+		<img src='<%=basePath %>images/activity\<s:property value="imageUrl"/>'/>
 		<div class="info">
 			<h4><a href="../user/activity.jsp?id=<s:property value="id"/>"><s:property value="title"/></a></h4>
 			<ul>
 				<li>
 					<label class="t">时间</label>
-					<div class="ri-t"><s:property value="date"/></div>
+					<div class="ri-t"><s:date name="date" format="yyyy-MM-dd"/></div>
 				</li>
 				<li>
 					<label class="t">场地</label>

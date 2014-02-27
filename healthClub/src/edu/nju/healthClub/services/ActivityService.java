@@ -26,4 +26,18 @@ public class ActivityService {
 		return result;
 	}
 	
+	public void save(Activity activity) {
+		activityDAO.save(activity);
+	}
+
+	public void setActivityDAO(ActivityDAO activityDAO) {
+		this.activityDAO = activityDAO;
+	}
+
+	public void setDateChangeService(DateChangeService dateChangeService) {
+		this.dateChangeService = dateChangeService;
+	}
+	
+	
+	
 }
