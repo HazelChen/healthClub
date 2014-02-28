@@ -9,13 +9,9 @@ public class UserBarAction extends BaseAction{
 	
 	private String id;
 
-	public String getId () {
-		return id;
-	}
-	
 	@Override
 	public String execute () throws ServletException, IOException {
-		String id = (String) session.get("id");
+		String id = (String) session.get("userid");
 		if (id == null) {
 			return "notLogon";
 		} else {
@@ -23,5 +19,9 @@ public class UserBarAction extends BaseAction{
 			return "logon";
 		}
 		
+	}
+	
+	public String getId () {
+		return id;
 	}
 }

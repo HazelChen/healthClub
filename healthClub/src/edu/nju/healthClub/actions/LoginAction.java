@@ -36,7 +36,7 @@ public class LoginAction extends BaseAction{
 		if (prePage.contains("userPage")) {
 			prePage = "homepage.jsp";
 		}
-		session.remove("id");
+		session.remove("userid");
 		session.remove("fail");
 		return SUCCESS;
 	}
@@ -46,4 +46,11 @@ public class LoginAction extends BaseAction{
 		String queryUrl = (String) session.get("queryUrl");
 		prePage = userPrePageChangeService.change(url, queryUrl);
 	}
+
+	public void setUserPrePageChangeService(
+			UserPrePageChangeService userPrePageChangeService) {
+		this.userPrePageChangeService = userPrePageChangeService;
+	}
+	
+	
 }

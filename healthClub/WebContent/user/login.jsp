@@ -30,7 +30,7 @@
 						<h3>Register</h3>
 						<div class="column">
 					<div>
-						<label>Email:</label> 
+						<label>身份证号:</label> 
 						<input type="text" id="email" name="email"/> 
 						<span class="error"></span>
 					</div>

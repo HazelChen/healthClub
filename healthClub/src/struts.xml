@@ -9,7 +9,7 @@
 			<result name="success">/user/recommand.jsp</result>
 		</action>
 		
-		<action name="userBar" class="edu.nju.healthClub.actions.UserBarAction">
+		<action name="userBar" class="userBarAction">
 			<result name="logon">/user/userBar.jsp</result>
 			<result name="notLogon">/user/notLoginBar.jsp</result>
 		</action>
@@ -19,16 +19,16 @@
 			<result name="input" type="redirect">/user/login.jsp</result>
 		</action>
 		
-		<action name="logout" class="edu.nju.healthClub.actions.LoginAction" method="logout">
+		<action name="logout" class="loginAction" method="logout">
 			<result name="success" type="redirect">/user/${prePage}</result>
 		</action>
 		
-		<action name="register" class="edu.nju.healthClub.actions.RegisterAction">
+		<action name="register" class="registerAction">
 			<result name="success">/user/showId.jsp</result>
 		</action>
 
 		<action name="submitCardId" class="edu.nju.healthClub.actions.RegisterAction" method="submitCardId">
-			<result name="success">/user/${prePage}</result>
+			<result name="success" type="redirect">/user/${prePage}</result>
 		</action>
 		
 		<action name="activityForDate" class="activityAction" method="getActivityByDate">

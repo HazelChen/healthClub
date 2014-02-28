@@ -6,7 +6,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
-           
+    
+    <bean id="userBarAction" class="edu.nju.healthClub.actions.UserBarAction">
+	</bean>   
+	
 	<bean id="recommandAction" class="edu.nju.healthClub.actions.RecommandAction">
 		<property name="activityService">
 			<ref bean="activityService" />
@@ -25,6 +28,24 @@
 	<bean id="activityAction" class="edu.nju.healthClub.actions.ActivityAction">
 		<property name="service">
 			<ref bean="activityService" />
+		</property>
+	</bean>
+	
+	<bean id="registerAction" class="edu.nju.healthClub.actions.RegisterAction">
+		<property name="userPrePageChangeService">
+			<ref bean="userPrePageChangeService" />
+		</property>
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="bankService">
+			<ref bean="bankService" />
+		</property>
+	</bean>
+	
+	<bean id="loginAction" class="edu.nju.healthClub.actions.LoginAction">
+		<property name="userPrePageChangeService">
+			<ref bean="userPrePageChangeService" />
 		</property>
 	</bean>
 
@@ -58,6 +79,18 @@
 			<ref bean="dateChangeService" />
 		</property>
 	</bean>
+	
+	<bean id="userService" class="edu.nju.healthClub.services.UserService">
+		<property name="userDAO">
+			<ref bean="userDAO" />
+		</property>
+	</bean>
+	
+	<bean id="bankService" class="edu.nju.healthClub.services.BankService">
+		<property name="bankDAO">
+			<ref bean="bankDAO" />
+		</property>
+	</bean>
 
 	<bean id="dateChangeService" class="edu.nju.healthClub.services.DateChangeService">
 	</bean>
@@ -72,5 +105,11 @@
 	</bean>
 
 	<bean id="activityDAO" class="edu.nju.healthClub.dao.ActivityDAO">
+	</bean>
+	
+	<bean id="userDAO" class="edu.nju.healthClub.dao.UserDAO">
+	</bean>
+	
+	<bean id="bankDAO" class="edu.nju.healthClub.dao.BankDAO">
 	</bean>
 </beans>
