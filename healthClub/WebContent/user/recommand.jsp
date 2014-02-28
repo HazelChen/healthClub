@@ -4,12 +4,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <body> 
+	<%String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/images/activity\\";
+	%>
 		<div id="timeline">
 		<ul id="dates">
 		<%int i = 0; %>
 		<s:iterator value="recommandActivities" status="st">
 			<%i++;%>
-			<li><a href="#<%=i%>"><s:property value="date"/></a></li>
+			<li><a href="#<%=i%>"><s:date name="date" format="yyyy-MM-dd"/></a></li>
 		</s:iterator>
 		
 		</ul>
@@ -17,8 +20,8 @@
 		<%i = 0;%>
 		<s:iterator value="recommandActivities" status="st">
 			<li id="<%=i%>">
-				<img width="256" height="256" src="<s:property value="imageUrl"/>"></img>
-				<h1><a href="activity.jsp?id=<s:property value="id"/>"><s:property value="date"/></a></h1>
+				<img width="256" height="256" src="<%=basePath %><s:property value="imageUrl"/>"></img>
+				<h1><a href="activity.jsp?id=<s:property value="id"/>"><s:date name="date" format="yyyy-MM-dd"/></a></h1>
 				<p><s:property value="paragraph"/></p>
 			</li>
 		</s:iterator>	

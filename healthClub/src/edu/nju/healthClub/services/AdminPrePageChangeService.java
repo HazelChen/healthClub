@@ -1,9 +1,7 @@
 package edu.nju.healthClub.services;
 
-public class AdminPrePageChangeService implements PrePageChangeServiceInterface{
-	private static PrePageChangeServiceInterface service;
+public class AdminPrePageChangeService{
 
-	@Override
 	public String change(String url, String queryUrl) {
 		int index = url.indexOf("admin") + 6;
 		String rootUrl = url.substring(index);
@@ -12,10 +10,4 @@ public class AdminPrePageChangeService implements PrePageChangeServiceInterface{
 		return prePage;
 	}
 	
-	public static PrePageChangeServiceInterface instance() {
-		if (service == null) {
-			service = new AdminPrePageChangeService();
-		}
-		return service;
-	}
 }

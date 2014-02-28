@@ -1,29 +1,24 @@
 package edu.nju.healthClub.actions;
 
-import edu.nju.healthClub.factorys.ServiceFactory;
-import edu.nju.healthClub.services.PrePageChangeServiceInterface;
+import java.util.Set;
+
+import edu.nju.healthClub.services.AdminPrePageChangeService;
+import edu.nju.healthClub.services.UserPrePageChangeService;
 
 public class ReserveAction extends BaseAction{
 	private static final long serialVersionUID = 6822203867640557812L;
 	
-	private PrePageChangeServiceInterface prePageChangeService;
 	private String prePage;
 	
-	public String getPrePage() {
-		return prePage;
-	}
-
-	public void setPrePage(String prePage) {
-		this.prePage = prePage;
-	}
+	private UserPrePageChangeService userPrePageChangeService;
+	private AdminPrePageChangeService adminPrePageChangeService;
 	
 	@Override
 	public String execute() {
 		String url = (String) session.get("prePage");
 		String queryUrl = (String) session.get("queryUrl");
-		prePageChangeService = ServiceFactory.getUserPrePageChangeService();
-		prePage = prePageChangeService.change(url, queryUrl);
-		if (session.containsKey("id")) {
+		prePage = userPrePageChangeService.change(url, queryUrl);
+		if (session.containsKey("userId")) {
 			return SUCCESS;
 		} else {
 			return INPUT;
@@ -33,8 +28,7 @@ public class ReserveAction extends BaseAction{
 	public String adminReserve () {
 		String url = (String) session.get("prePage");
 		String queryUrl = (String) session.get("queryUrl");
-		prePageChangeService = ServiceFactory.getAdminPrePageChangeService();
-		prePage = prePageChangeService.change(url, queryUrl);
+		prePage = adminPrePageChangeService.change(url, queryUrl);
 		String userId = request.getParameter("userId");
 		String activityId = request.getParameter("activityId");
 		System.out.println(userId + " " + activityId);
@@ -44,8 +38,7 @@ public class ReserveAction extends BaseAction{
 	public String userCancel () {
 		String url = (String) session.get("prePage");
 		String queryUrl = (String) session.get("queryUrl");
-		prePageChangeService = ServiceFactory.getUserPrePageChangeService();
-		prePage = prePageChangeService.change(url, queryUrl);
+		prePage = userPrePageChangeService.change(url, queryUrl);
 		return cancel();
 	}
 	
@@ -53,9 +46,26 @@ public class ReserveAction extends BaseAction{
 		String url = (String) session.get("prePage");
 		url = url.replace(".jsp", "");
 		String queryUrl = (String) session.get("queryUrl");
-		prePageChangeService = ServiceFactory.getAdminPrePageChangeService();
-		prePage = prePageChangeService.change(url, queryUrl);
+		prePage = adminPrePageChangeService.change(url, queryUrl);
 		return cancel();
+	}
+	
+	public String getPrePage() {
+		return prePage;
+	}
+
+	public void setPrePage(String prePage) {
+		this.prePage = prePage;
+	}
+	
+	public void setUserPrePageChangeService(
+			UserPrePageChangeService userPrePageChangeService) {
+		this.userPrePageChangeService = userPrePageChangeService;
+	}
+
+	public void setAdminPrePageChangeService(
+			AdminPrePageChangeService adminPrePageChangeService) {
+		this.adminPrePageChangeService = adminPrePageChangeService;
 	}
 	
 	private String cancel() {

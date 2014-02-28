@@ -1,11 +1,8 @@
 package edu.nju.healthClub.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,16 +28,6 @@ public class Activity {
 	
 	private Set<User> users = new HashSet<>();
 	
-	private ArrayList<String> userIds;
-	
-	public ArrayList<String> getUserIds() {
-		return userIds;
-	}
-
-	public void setUserIds(ArrayList<String> userIds) {
-		this.userIds = userIds;
-	}
-	
 	public Activity(){}
 
 	public Activity(String id, Date date, String imageUrl, String paragraph) {
@@ -48,45 +35,6 @@ public class Activity {
 		this.date = date;
 		this.imageUrl = imageUrl;
 		this.paragraph = paragraph;
-	}
-	
-	public Activity(String id, Date date, String imageUrl, String paragraph, String title, String place, String coach, boolean isScheduled) {
-		this.id = id;
-		this.date = date;
-		this.imageUrl = imageUrl;
-		this.paragraph = paragraph;
-		this.title = title;
-		this.place = place;
-		this.coach = coach;
-		this.isScheduled = isScheduled;
-	}
-	//NEED
-	public Activity(String id, Date date, String imageUrl, String paragraph, String title, String place, String coach) {
-		this.id = id;
-		this.date = date;
-		this.imageUrl = imageUrl;
-		this.paragraph = paragraph;
-		this.title = title;
-		this.place = place;
-		this.coach = coach;
-	}
-	
-	public Activity(Date date, String paragraph, String title, String place, String coach) {
-		this.date = date;
-		this.paragraph = paragraph;
-		this.title = title;
-		this.place = place;
-		this.coach = coach;
-	}
-	
-	public Activity(String id, Date date, String imageUrl, String title, String place, String coach, ArrayList<String> userIds) {
-		this.id = id;
-		this.date = date;
-		this.imageUrl = imageUrl;
-		this.title = title;
-		this.place = place;
-		this.coach = coach;
-		this.userIds = userIds;
 	}
 	
 	@Id

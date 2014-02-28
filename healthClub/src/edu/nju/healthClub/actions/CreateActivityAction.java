@@ -2,11 +2,9 @@ package edu.nju.healthClub.actions;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
 
 import edu.nju.healthClub.model.Activity;
 import edu.nju.healthClub.services.ActivityService;
@@ -27,19 +25,23 @@ public class CreateActivityAction extends BaseAction{
 	private FileUploadPathService fileUploadPathService;
 	
 	public String create() {
-		Activity activity = getFormActivity();
+		String id = "A" + System.currentTimeMillis();
+		Activity activity = getFormActivityAndSaveImg(id);
 		service.save(activity);
 		return SUCCESS;
 	}
 	
 	public String change() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(1992, 01, 01);
-		activity = new Activity(calendar.getTime(), 
-				"【微软通过Android获16亿美元年收入】最新报告显示，Android系统每年给微软带来了巨额授权收入。由于谷歌和微软之间的授权协议，微软通过每台Android设备获得约5美元的授权收入，而微软的授权协议已覆盖70%市场。而Windows Phone相同财年给微软带来的利润是3.47亿美元。", 
-				"微软and安卓", 
-				"微博", 
-				"机器人");
+		String id = request.getParameter("id");
+		activity = service.findById(id);
+		
+		return SUCCESS;
+	}
+	
+	public String changeSave() {
+		String id = request.getParameter("id");
+		Activity activity = getFormActivityAndSaveImg(id);
+		service.update(activity);
 		return SUCCESS;
 	}
 	
@@ -71,28 +73,32 @@ public class CreateActivityAction extends BaseAction{
 		this.fileUploadPathService = fileUploadPathService;
 	}
 
-	private Activity getFormActivity () {
-		String id = "A" + System.currentTimeMillis();
-		String title = request.getParameter("title");
-		String place = request.getParameter("place");
-		String coach = request.getParameter("coach");
+	private Activity getFormActivityAndSaveImg (String id) {
+		Activity activity = new Activity();
+		activity.setId(id);
+		activity.setTitle(request.getParameter("title"));
+		activity.setPlace(request.getParameter("place"));
+		activity.setCoach(request.getParameter("coach"));
+		
 		String dateString = request.getParameter("date");
 		Date date = dateChangeService.StringToDate(dateString);
-		String paragraph = request.getParameter("paragraph");
+		activity.setDate(date);
+		activity.setParagraph(request.getParameter("paragraph"));
 		
-		int extensionPos = imgFileFileName.lastIndexOf( "." );
-		String fileName = id + imgFileFileName.substring(extensionPos);
-		String realPath = fileUploadPathService.getActivityPath() + fileName;
-        System.out.println(realPath);  
-        if(imgFile !=null ){  
+		if(imgFile !=null ){  
+			int extensionPos = imgFileFileName.lastIndexOf(".");
+			String fileName = id + imgFileFileName.substring(extensionPos);
+			String realPath = fileUploadPathService.getActivityPath() + fileName;
             File destFile = new File(realPath);//根据 parent 抽象路径名和 child 路径名字符串创建一个新 File 实例。  
             try {
 				FileUtils.copyFile(imgFile, destFile);
 			} catch (IOException e) {
 				e.printStackTrace();
-			}  
+			}
+            activity.setImageUrl(fileName);
+        } else {
+        	activity.setImageUrl(request.getParameter("imageUrl"));
         }
-        Activity activity = new Activity(id, date, fileName, paragraph, title, place, coach);
         return activity;
 	}
 	

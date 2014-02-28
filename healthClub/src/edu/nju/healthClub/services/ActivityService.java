@@ -12,11 +12,22 @@ public class ActivityService {
 	private ActivityDAO activityDAO;
 	private DateChangeService dateChangeService;
 	
-	public ArrayList<Activity> nowadaysActivity () {
+	public ArrayList<Activity> getActivitiesAfterToday() {
 		ArrayList<Activity> result = new ArrayList<>();
 		
 		Calendar calendar = Calendar.getInstance();
-		for (int i = 0; i < 7; i++) {
+		Date date = calendar.getTime();
+		String dateString = dateChangeService.dateToString(date);
+		List<Activity> activities = activityDAO.findActivityAfterDate(dateString);
+		result.addAll(activities);
+		return result;
+	}
+	
+	public ArrayList<Activity> recommand () {
+		ArrayList<Activity> result = new ArrayList<>();
+		
+		Calendar calendar = Calendar.getInstance();
+		while (result.size() < 5) {
 			Date date = calendar.getTime();
 			String dateString = dateChangeService.dateToString(date);
 			List<Activity> activities = activityDAO.findActivityByDate(dateString);
@@ -26,8 +37,27 @@ public class ActivityService {
 		return result;
 	}
 	
+	public ArrayList<Activity> findByDate(int year, int month, int date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(year, month, date);
+		String dateString = dateChangeService.dateToString(calendar.getTime());
+		List<Activity> list = activityDAO.findActivityByDate(dateString);
+		ArrayList<Activity> activities = new ArrayList<>();
+		activities.addAll(list);
+		return activities;
+	}
+	
+	public Activity findById(String id) {
+		Activity activity = activityDAO.findActivityById(id);
+		return activity;
+	}
+	
 	public void save(Activity activity) {
 		activityDAO.save(activity);
+	}
+	
+	public void update(Activity activity) {
+		activityDAO.update(activity);
 	}
 
 	public void setActivityDAO(ActivityDAO activityDAO) {

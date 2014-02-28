@@ -8,15 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/images/activity\\";
+	%>
 		<s:iterator value="activities" status="st">
 		<div>
-		<img src='<s:property value="imageUrl"/>'/>
+		<img src='<%=basePath %><s:property value="imageUrl"/>'/>
 		<div class="info">
 			<h1><s:property value="title"/></h1>
 			<ul>
 				<li>
 					<label class="t">时间</label>
-					<div class="ri-t"><s:property value="date"/></div>
+					<div class="ri-t"><s:date name="date" format="yyyy-MM-dd"/></div>
 				</li>
 				<li>
 					<label class="t">场地</label>
@@ -31,14 +34,14 @@
 			<%String url = request.getRequestURL().toString();
 			String queryUrl = request.getQueryString();
 			session.setAttribute("prePage", url);
-			session.setAttribute("queryUrl", queryUrl);
-			boolean isScheduled = (Boolean)request.getAttribute("isScheduled");
-			if(isScheduled) {
-			%>
-			<a href='<s:url action="reserve"/>' class="right_button">立即预定</a>
-			<%}else {%>
-			<a href="cancelReserve?userId=<s:property value="session.id"/>&activityId=<s:property value="activityId"/>">取消预订</a>
-			<%}%>
+			session.setAttribute("queryUrl", queryUrl);%>
+			
+			<s:if test="%{session.id in users.id}">
+				<a href="cancelReserve?userId=<s:property value="session.id"/>&activityId=<s:property value="activityId"/>" class="right_button">取消预订</a>
+			</s:if>
+			<s:else>
+				<a href='<s:url action="reserve"/>' class="right_button">立即预定</a>
+			</s:else>
 		</div>
 		</div>
 		</s:iterator>

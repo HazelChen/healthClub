@@ -50,6 +50,52 @@ function checkForm() {
 	return true;
 }
 
+function checkChangeForm() {
+	$("#title").next(".error").html("");
+	$("#imgFile").next(".error").html("");
+	$("#place").next(".error").html("");
+	$("#coach").next(".error").html("");
+	$("#date").next(".error").html("");
+	$("#paragraph").next(".error").html("");
+	
+	var title=$("#title").attr('value');
+	if (title=="") {
+		$("#title").next(".error").html("请填写标题！");
+		return false;
+	}
+	
+	var place=$("#place").attr('value');
+	if(place=="") {
+		$("#place").next(".error").html("请填写场地");
+		return false;
+	}
+	
+	var coach=$("#coach").attr('value');
+	if(coach=="") {
+		$("#coach").next(".error").html("请填写教练");
+		return false;
+	}
+	
+	var date=$("#date").attr('value');
+	if(date=="") {
+		$("#date").next(".error").html("请填写时间");
+		return false;
+	} else {
+		var regex =  /^\d{4}(\-)\d{1,2}\1\d{1,2}$/;
+		if(!regex.test(date)) {
+			$("#date").next(".error").html("日期格式不正确！");
+			return false;
+		}
+	}
+	var paragraph=$("#paragraph").attr('value');
+	if(paragraph=="") {
+		$("#paragraph").next(".error").html("请填写描述");
+		return false;
+	}
+	$("#changeActivity").submit();
+	return true;
+}
+
 function HS_DateAdd(interval,number,date){
 	number = parseInt(number);
 	if (typeof(date)=="string"){var date = new Date(date.split("-")[0],date.split("-")[1],date.split("-")[2])}

@@ -24,9 +24,36 @@ public class ActivityDAO {
 		Query query = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<Activity> list = query.list();
-		session.close();
-		sessionFactory.close();
 		return list;
+	}
+	
+	public List<Activity> findActivityAfterDate (String dateString) {
+		Configuration config = new Configuration().configure();
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
+				config.getProperties()).buildServiceRegistry();
+		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		Session session = sessionFactory.openSession();
+		
+		String hql = "from edu.nju.healthClub.model.Activity where date >= '" + dateString + "'";
+		Query query = session.createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<Activity> list = query.list();
+		return list;
+	}
+	
+	public Activity findActivityById (String id) {
+		Configuration config = new Configuration().configure();
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
+				config.getProperties()).buildServiceRegistry();
+		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		Session session = sessionFactory.openSession();
+		
+		String hql = "from edu.nju.healthClub.model.Activity where id = '" + id + "'";
+		Query query = session.createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<Activity> list = query.list();
+		Activity activity = list.get(0);
+		return activity;
 	}
 	
 	public void save(Activity activity) {
@@ -37,6 +64,19 @@ public class ActivityDAO {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(activity);
+		transaction.commit();
+		session.close();
+		sessionFactory.close();
+	}
+	
+	public void update(Activity activity) {
+		Configuration config = new Configuration().configure();
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
+				config.getProperties()).buildServiceRegistry();
+		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.merge(activity);
 		transaction.commit();
 		session.close();
 		sessionFactory.close();

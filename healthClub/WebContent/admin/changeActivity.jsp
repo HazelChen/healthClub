@@ -31,12 +31,16 @@
 	</div>
 		<div class="content">
 			<div id="form_wrapper" class="form_wrapper">
-				<form class="register active" id="createActivity" action="createActivity" method="post" enctype="multipart/form-data">
+				<form class="register active" id="changeActivity" action="changeSaveActivity" method="post" enctype="multipart/form-data">
 					<h3>Activity</h3>
 					<div class="column">
 						<div>
+							<label>ID:</label> 
+							<input type="text" name="id" value='<s:property value="activity.id"/>' readonly="readonly" />
+						</div>
+						<div>
 							<label>标题:</label> 
-							<input type="text" name="title" id="title" />
+							<input type="text" name="title" id="title" value='<s:property value="activity.title"/>'/>
 							<span class="error"></span>
 						</div>
 						<div>
@@ -46,29 +50,34 @@
     					</div>  
 						<div>
 							<label>场地:</label> 
-							<input type="text" name="place" id="place" />
+							<input type="text" name="place" id="place" value='<s:property value="activity.place"/>'/>
 							<span class="error"></span>
 						</div>
 						<div>
 							<label>教练:</label> 
-							<input type="text" name="coach" id="coach" />
+							<input type="text" name="coach" id="coach" value='<s:property value="activity.coach"/>'/>
 							<span class="error"></span>
 						</div>
 					</div>
 					<div class="column">
 						<div>
 							<label>日期:</label> 
-							<input type="text" name="date" id="date" onfocus="HS_setDate(this)" />
+							<input type="text" name="date" id="date" onfocus="HS_setDate(this)"  value='<s:date name="activity.date" format="yyyy-MM-dd"/>'/>
 							<span class="error"></span>
 						</div>
 						<div>
 							<label>描述:</label> 
-							<textarea rows="11" cols="23" name="paragraph" id="paragraph"></textarea>
+							<textarea rows="16" cols="23" name="paragraph" id="paragraph">
+								<s:property value="activity.paragraph"/>
+							</textarea>
 							<span class="error"></span>
+						</div>
+						<div class="hide">
+							<input type="text" name="imageUrl" value='<s:property value="activity.imageUrl"/>'/>
 						</div>
 					</div>
 					<div class="bottom">
-						<input type="submit" value="完成" onclick="checkForm()"></input> 
+						<input type="submit" value="完成" onclick="checkChangeForm()"></input> 
 						<div class="clear"></div>
 					</div>
 				</form>

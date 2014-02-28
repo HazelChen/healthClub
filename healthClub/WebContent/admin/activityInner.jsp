@@ -33,8 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>
 					<label class="t">预定会员</label>
 					<div class="ri-t">
-						<s:iterator value="userIds" status="st">
-						<s:property />&nbsp;
+						<s:iterator value="users" status="st">
+						<s:property value="id"/>&nbsp;
 						</s:iterator>
 					</div>
 				</li>

@@ -5,7 +5,7 @@
 
 <struts>
 	<package name="struts2-user" extends="struts-default" namespace="/user">
-		<action name="recommand" class="edu.nju.healthClub.actions.RecommandAction">
+		<action name="recommand" class="recommandAction">
 			<result name="success">/user/recommand.jsp</result>
 		</action>
 		
@@ -31,11 +31,11 @@
 			<result name="success">/user/${prePage}</result>
 		</action>
 		
-		<action name="activityForDate" class="edu.nju.healthClub.actions.ActivityAction" method="getActivityFromDate">
+		<action name="activityForDate" class="activityAction" method="getActivityByDate">
 			<result name="success">/user/activityInner.jsp</result>
 		</action>
 		
-		<action name="activityForId" class="edu.nju.healthClub.actions.ActivityAction" method="getActivityFromId">
+		<action name="activityForId" class="activityAction" method="getActivityById">
 			<result name="success">/user/activityInner.jsp</result>
 		</action>
 		
@@ -68,11 +68,11 @@
 			<result name="input" type="redirect">/admin/login.jsp</result>
 		</action>
 		
-		<action name="activityForDate" class="adminActivityAction" method="getActivityFromDateWithUser">
+		<action name="activityForDate" class="activityAction" method="getActivityByDate">
 			<result name="success">/admin/activityInner.jsp</result>
 		</action>
 		
-		<action name="activityForId" class="adminActivityAction" method="getActivityFromIdWithUser">
+		<action name="activityForId" class="activityAction" method="getActivityById">
 			<result name="success">/admin/activityInner.jsp</result>
 		</action>
 		
@@ -85,7 +85,11 @@
 		</action>
 		
 		<action name="changeActivity" class="createActivityAction" method="change">
-			<result name="success">/admin/createActivity.jsp</result>
+			<result name="success">/admin/changeActivity.jsp</result>
+		</action>
+		
+		<action name="changeSaveActivity" class="createActivityAction" method="changeSave">
+			<result name="success">/admin/activity.jsp</result>
 		</action>
 		
 		<action name="place" class="edu.nju.healthClub.actions.PlaceAction">

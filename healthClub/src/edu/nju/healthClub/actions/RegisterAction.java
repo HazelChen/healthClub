@@ -1,11 +1,13 @@
 package edu.nju.healthClub.actions;
 
-import edu.nju.healthClub.factorys.ServiceFactory;
-import edu.nju.healthClub.services.PrePageChangeServiceInterface;
+import edu.nju.healthClub.services.UserPrePageChangeService;
+
 
 public class RegisterAction extends BaseAction{
 	private static final long serialVersionUID = 8034555455451599580L;
-
+	
+	private UserPrePageChangeService userPrePageChangeService;
+	
 	private String prePage;
 
 	private String id;
@@ -16,8 +18,7 @@ public class RegisterAction extends BaseAction{
 	public String getPrePage() {
 		String url = (String) session.get("prePage");
 		String queryUrl = (String) session.get("queryUrl");
-		PrePageChangeServiceInterface service = ServiceFactory.getUserPrePageChangeService();
-		prePage = service.change(url, queryUrl);
+		prePage = userPrePageChangeService.change(url, queryUrl);
 		return prePage;
 	}
 	

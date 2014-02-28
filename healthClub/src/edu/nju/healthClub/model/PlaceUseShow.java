@@ -2,9 +2,6 @@ package edu.nju.healthClub.model;
 
 import java.util.Date;
 
-import edu.nju.healthClub.factorys.ServiceFactory;
-import edu.nju.healthClub.services.PrePageChangeServiceInterface;
-
 public class PlaceUseShow {
 	private String place;
 	private String activityId;

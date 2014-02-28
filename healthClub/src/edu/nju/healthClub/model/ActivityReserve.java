@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -14,6 +15,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="activityReserve")
 public class ActivityReserve implements Serializable{
+	private static final long serialVersionUID = 282753946532440965L;
+	
 	private User user;
 	private Activity activity;
 	private Date date;

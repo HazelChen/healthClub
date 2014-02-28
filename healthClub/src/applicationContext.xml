@@ -6,8 +6,23 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
-
-	<bean id="adminActivityAction" class="edu.nju.healthClub.actions.ActivityAction">
+           
+	<bean id="recommandAction" class="edu.nju.healthClub.actions.RecommandAction">
+		<property name="activityService">
+			<ref bean="activityService" />
+		</property>
+	</bean>
+	
+	<bean id="reserveAction" class="edu.nju.healthClub.actions.ReserveAction">
+		<property name="userPrePageChangeService">
+			<ref bean="userPrePageChangeService" />
+		</property>
+		<property name="adminPrePageChangeService">
+			<ref bean="adminPrePageChangeService" />
+		</property>
+	</bean>
+	
+	<bean id="activityAction" class="edu.nju.healthClub.actions.ActivityAction">
 		<property name="service">
 			<ref bean="activityService" />
 		</property>
@@ -48,6 +63,12 @@
 	</bean>
 	
 	<bean id="fileUploadPathService" class="edu.nju.healthClub.services.FileUploadPathService">
+	</bean>
+	
+	<bean id="userPrePageChangeService" class="edu.nju.healthClub.services.UserPrePageChangeService">
+	</bean>
+	
+	<bean id="adminPrePageChangeService" class="edu.nju.healthClub.services.AdminPrePageChangeService">
 	</bean>
 
 	<bean id="activityDAO" class="edu.nju.healthClub.dao.ActivityDAO">
