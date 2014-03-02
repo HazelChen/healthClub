@@ -47,7 +47,7 @@ public class UserPageAction extends BaseAction{
 	@Override
 	public String execute() {
 		String id = (String)session.get("id");		
-		user = new User(id, "images/mm.jpg", "海维", "123@123.com", "person", 0, true);
+		user = new User(id, "images/mm.jpg", "海维", "123@123.com", "person", 0, 3);
 		
 		activityReserveShows = new ArrayList<>();
 		Calendar calendar = Calendar.getInstance();
@@ -86,7 +86,7 @@ public class UserPageAction extends BaseAction{
 	
 	public String getUserInfo() {
 		String id = request.getParameter("id");		
-		user = new User(id, "images/mm.jpg", "海维", "123@123.com", "person", 0, true);
+		user = new User(id, "images/mm.jpg", "海维", "123@123.com", "person", 0, 3);
 		
 		activityReserveShows = new ArrayList<>();
 		Calendar calendar = Calendar.getInstance();

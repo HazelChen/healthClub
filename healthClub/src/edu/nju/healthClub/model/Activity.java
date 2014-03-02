@@ -28,15 +28,6 @@ public class Activity {
 	
 	private Set<User> users = new HashSet<>();
 	
-	public Activity(){}
-
-	public Activity(String id, Date date, String imageUrl, String paragraph) {
-		this.id = id;
-		this.date = date;
-		this.imageUrl = imageUrl;
-		this.paragraph = paragraph;
-	}
-	
 	@Id
 	public String getId() {
 		return id;

@@ -7,29 +7,17 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import edu.nju.healthClub.model.Bank;
+import edu.nju.healthClub.model.PaymentRecords;
 
-public class BankDAO {
-	
-	public Bank find(String id) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
-		Session session = sessionFactory.openSession();
-		
-		Bank bank = (Bank)session.get(Bank.class, id);
-		return bank;
-	}
-	
-	public void update (Bank bank) {
+public class PaymentDAO {
+	public void add(PaymentRecords records) {
 		Configuration config = new Configuration().configure();
 		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
 				config.getProperties()).buildServiceRegistry();
 		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(bank);
+		session.save(records);
 		transaction.commit();
 		session.close();
 		sessionFactory.close();

@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.transaction.Transaction;
@@ -25,19 +26,20 @@ public class User {
 	private String type;
 	private int childCount;
 	private Bank bank;
-	private boolean isActive;
+	private int suspendCount;
 	
+	private Set<PaymentRecords> paymentRecords = new HashSet<>();
 	private Set<Activity> activities = new HashSet<>();
 	
 	public User(){}
-	public User(String id, String headerUrl, String username, String email, String type, int childCount, boolean isActive) {
+	public User(String id, String headerUrl, String username, String email, String type, int childCount, int suspendCount) {
 		this.id = id;
 		this.headerUrl = headerUrl;
 		this.username = username;
 		this.email = email;
 		this.type = type;
 		this.childCount = childCount;
-		this.isActive = isActive;
+		this.suspendCount = suspendCount;
 	}
 	
 	@Id
@@ -95,12 +97,12 @@ public class User {
 		this.childCount = childCount;
 	}
 
-	public boolean getIsActive() {
-		return isActive;
+	
+	public int getSuspendCount() {
+		return suspendCount;
 	}
-
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setSuspendCount(int suspendCount) {
+		this.suspendCount = suspendCount;
 	}
 	
 	@ManyToMany(mappedBy="users")
@@ -119,6 +121,14 @@ public class User {
 	}
 	public void setBank(Bank bank) {
 		this.bank = bank;
+	}
+	
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	public Set<PaymentRecords> getPaymentRecords() {
+		return paymentRecords;
+	}
+	public void setPaymentRecords(Set<PaymentRecords> paymentRecords) {
+		this.paymentRecords = paymentRecords;
 	}
 	
 	

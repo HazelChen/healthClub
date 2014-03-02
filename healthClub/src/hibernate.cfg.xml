@@ -17,5 +17,6 @@
 		<mapping class="edu.nju.healthClub.model.ActivityReserve"/>   
 		<mapping class="edu.nju.healthClub.model.User"/>   
 		<mapping class="edu.nju.healthClub.model.Bank"/>   
+		<mapping class="edu.nju.healthClub.model.PaymentRecords"/>   
 	</session-factory>
 </hibernate-configuration>

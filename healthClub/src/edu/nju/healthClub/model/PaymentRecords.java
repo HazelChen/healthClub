@@ -1,29 +1,42 @@
 package edu.nju.healthClub.model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="payment")
 public class PaymentRecords {
-	private String userId;
+	private User user;
 	private String reason;
 	private int count;
 	private Date date;
+	
+	public PaymentRecords(){}
 	
 	public PaymentRecords (String reason, int count, Date date) {
 		this.reason = reason;
 		this.count = count;
 		this.date = date;
 	}
-
-	public String getUserId() {
-		return userId;
+	
+	@EmbeddedId
+	@ManyToOne(cascade=CascadeType.ALL,optional=false)
+	@JoinColumn(name="userId")
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
+	@EmbeddedId
 	public String getReason() {
 		return reason;
 	}
@@ -40,10 +53,9 @@ public class PaymentRecords {
 		this.count = count;
 	}
 
-	public String getDate() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String dateShort = dateFormat.format(date);
-		return dateShort;
+	@EmbeddedId
+	public Date getDate() {
+		return date;
 	}
 
 	public void setDate(Date date) {
