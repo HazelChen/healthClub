@@ -14,7 +14,7 @@
 			<result name="notLogon">/user/notLoginBar.jsp</result>
 		</action>
 		
-		<action name="loginlogin" class="edu.nju.healthClub.actions.LoginAction" method="login">
+		<action name="loginlogin" class="loginAction" method="login">
 			<result name="success" type="redirect">/user/${prePage}</result>
 			<result name="input" type="redirect">/user/login.jsp</result>
 		</action>
@@ -27,7 +27,7 @@
 			<result name="success">/user/showId.jsp</result>
 		</action>
 
-		<action name="submitCardId" class="edu.nju.healthClub.actions.RegisterAction" method="submitCardId">
+		<action name="submitCardId" class="registerAction" method="submitCardId">
 			<result name="success" type="redirect">/user/${prePage}</result>
 		</action>
 		
@@ -39,12 +39,12 @@
 			<result name="success">/user/activityInner.jsp</result>
 		</action>
 		
-		<action name="reserve" class="edu.nju.healthClub.actions.ReserveAction">
+		<action name="reserve" class="reserveAction">
 			<result name="success" type="redirect">/user/${prePage}</result>
 			<result name="input" type="redirect">/user/login.jsp</result>
 		</action>
 		
-		<action name="cancelReserve" class="edu.nju.healthClub.actions.ReserveAction" method="userCancel">
+		<action name="cancelReserve" class="reserveAction" method="userCancel">
 			<result name="success" type="redirect">/user/${prePage}</result>
 		</action>
 		 
@@ -52,11 +52,11 @@
 			<result name="success">/user/userPage.jsp</result>
 		</action>
 		
-		<action name="change" class="edu.nju.healthClub.actions.RegisterAction" method="change">
+		<action name="change" class="registerAction" method="change">
 			<result name="success" type="chain">userPage</result>
 		</action>
 		
-		<action name="cancel" class="edu.nju.healthClub.actions.RegisterAction" method="cancel">
+		<action name="cancel" class="registerAction" method="cancel">
 			<result name="success" type="chain">userPage</result>
 		</action>
 	</package>

@@ -11,6 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import edu.nju.healthClub.model.Activity;
+import edu.nju.healthClub.model.User;
 
 public class ActivityDAO {
 	public List<Activity> findActivityByDate (String dateString) {
@@ -48,11 +49,8 @@ public class ActivityDAO {
 		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
 		Session session = sessionFactory.openSession();
 		
-		String hql = "from edu.nju.healthClub.model.Activity where id = '" + id + "'";
-		Query query = session.createQuery(hql);
-		@SuppressWarnings("unchecked")
-		List<Activity> list = query.list();
-		Activity activity = list.get(0);
+		Activity activity = (Activity)session.get(Activity.class, id);
+		
 		return activity;
 	}
 	

@@ -8,6 +8,9 @@
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
     
     <bean id="userBarAction" class="edu.nju.healthClub.actions.UserBarAction">
+    	<property name="userService">
+			<ref bean="userService" />
+		</property>
 	</bean>   
 	
 	<bean id="recommandAction" class="edu.nju.healthClub.actions.RecommandAction">
@@ -22,6 +25,9 @@
 		</property>
 		<property name="adminPrePageChangeService">
 			<ref bean="adminPrePageChangeService" />
+		</property>
+		<property name="reserveService">
+			<ref bean="reserveService" />
 		</property>
 	</bean>
 	
@@ -46,6 +52,9 @@
 	<bean id="loginAction" class="edu.nju.healthClub.actions.LoginAction">
 		<property name="userPrePageChangeService">
 			<ref bean="userPrePageChangeService" />
+		</property>
+		<property name="userService">
+			<ref bean="userService" />
 		</property>
 	</bean>
 
@@ -91,6 +100,18 @@
 			<ref bean="bankDAO" />
 		</property>
 	</bean>
+	
+	<bean id="reserveService" class="edu.nju.healthClub.services.ReserveService">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="activityService">
+			<ref bean="activityService" />
+		</property>
+		<property name="reserveDAO">
+			<ref bean="reserveDAO" />
+		</property>
+	</bean>
 
 	<bean id="dateChangeService" class="edu.nju.healthClub.services.DateChangeService">
 	</bean>
@@ -111,5 +132,8 @@
 	</bean>
 	
 	<bean id="bankDAO" class="edu.nju.healthClub.dao.BankDAO">
+	</bean>
+	
+	<bean id="reserveDAO" class="edu.nju.healthClub.dao.ReserveDAO">
 	</bean>
 </beans>

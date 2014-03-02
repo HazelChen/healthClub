@@ -1,6 +1,7 @@
 package edu.nju.healthClub.actions;
 
 import edu.nju.healthClub.services.AdminPrePageChangeService;
+import edu.nju.healthClub.services.ReserveService;
 import edu.nju.healthClub.services.UserPrePageChangeService;
 
 public class ReserveAction extends BaseAction{
@@ -10,13 +11,17 @@ public class ReserveAction extends BaseAction{
 	
 	private UserPrePageChangeService userPrePageChangeService;
 	private AdminPrePageChangeService adminPrePageChangeService;
+	private ReserveService reserveService;
 	
 	@Override
 	public String execute() {
 		String url = (String) session.get("prePage");
 		String queryUrl = (String) session.get("queryUrl");
 		prePage = userPrePageChangeService.change(url, queryUrl);
-		if (session.containsKey("userId")) {
+		if (session.containsKey("userid")) {
+			String userId = (String) session.get("userid");
+			String activityId = request.getParameter("activityId");
+			reserveService.reserve(userId, activityId);
 			return SUCCESS;
 		} else {
 			return INPUT;
@@ -27,7 +32,7 @@ public class ReserveAction extends BaseAction{
 		String url = (String) session.get("prePage");
 		String queryUrl = (String) session.get("queryUrl");
 		prePage = adminPrePageChangeService.change(url, queryUrl);
-		String userId = request.getParameter("userId");
+		String userId = request.getParameter("userid");
 		String activityId = request.getParameter("activityId");
 		System.out.println(userId + " " + activityId);
 		return SUCCESS;
@@ -66,10 +71,14 @@ public class ReserveAction extends BaseAction{
 		this.adminPrePageChangeService = adminPrePageChangeService;
 	}
 	
+	public void setReserveService(ReserveService reserveService) {
+		this.reserveService = reserveService;
+	}
+
 	private String cancel() {
 		String userId = request.getParameter("userId");
 		String activityId = request.getParameter("activityId");
-		System.out.println(userId + " " + activityId);
+		reserveService.cancel (userId, activityId);
 		return SUCCESS;
 	}
 }

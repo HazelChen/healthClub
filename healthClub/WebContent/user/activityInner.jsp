@@ -1,3 +1,5 @@
+<%@page import="java.util.Set"%>
+<%@page import="edu.nju.healthClub.model.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
@@ -36,14 +38,24 @@
 			session.setAttribute("prePage", url);
 			session.setAttribute("queryUrl", queryUrl);%>
 			
-			<s:if test="%{session.id in users.id}">
-				<a href="cancelReserve?userId=<s:property value="session.id"/>&activityId=<s:property value="activityId"/>" class="right_button">取消预订</a>
-			</s:if>
-			<s:else>
-				<a href='<s:url action="reserve"/>' class="right_button">立即预定</a>
-			</s:else>
+			<%boolean isReserved = false; %>
+			<s:iterator value="users" status="status" id="inner">
+				<%if (!isReserved) {%>
+					<s:if test='#session.userid==#inner.id'>
+						<%isReserved = true;%>
+					</s:if>
+				<%} %>
+			</s:iterator>
+			
+			<%if (isReserved) {%>
+				<a href="cancelReserve?userId=<s:property value="session.userid"/>&activityId=<s:property value="id"/>" class="right_button">取消预订</a>
+			<%} else { %>
+				<a href='reserve?activityId=<s:property value="id"/>' class="right_button">立即预定</a>
+			<%} %>
 		</div>
 		</div>
 		</s:iterator>
+		
+		
 </body>
 </html>

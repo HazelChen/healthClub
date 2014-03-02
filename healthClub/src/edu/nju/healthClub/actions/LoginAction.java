@@ -1,25 +1,29 @@
 package edu.nju.healthClub.actions;
 
+import edu.nju.healthClub.model.User;
 import edu.nju.healthClub.services.UserPrePageChangeService;
+import edu.nju.healthClub.services.UserService;
 
 public class LoginAction extends BaseAction{
 	private static final long serialVersionUID = 897954802106607865L;
 	
 	private UserPrePageChangeService userPrePageChangeService;
+	private UserService userService;
 	
-	private String prePage;
+	private String prePage = "homepage.jsp";
 	
 	public String login() {
 		putPrePage();
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
-		if (id.equals("123") && password.equals("123")) {
-			session.put("id", id);
-			return SUCCESS;
-		} else {
+		User user = userService.find(id);
+		if (user == null || !password.equals(user.getPassword())) {
 			session.put("fail", "用户名或密码错误");
 			return INPUT;
+		} else {
+			session.put("userid", id);
+			return SUCCESS;
 		}
 	}
 	
@@ -51,6 +55,11 @@ public class LoginAction extends BaseAction{
 			UserPrePageChangeService userPrePageChangeService) {
 		this.userPrePageChangeService = userPrePageChangeService;
 	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	
 	
 	
 }

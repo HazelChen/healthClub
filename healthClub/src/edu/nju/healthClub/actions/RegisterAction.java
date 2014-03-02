@@ -32,10 +32,6 @@ public class RegisterAction extends BaseAction{
 			id = "P" + System.currentTimeMillis();
 		}
 		user.setId(id);
-		Bank bank = new Bank();
-		bank.setId("004");
-		bank.setBalance(500);
-		user.setBank(bank);
 		userService.save(user);
 		
 		session.put("userid", id);
