@@ -35,6 +35,7 @@ public class UserService {
 	public void pay() {
 		ArrayList<User> users = userDAO.findAll();
 		for (User user : users) {
+			System.out.println("user:" + user.getId());
 			Bank bank = user.getBank();
 			if (bank != null) {
 				int payCount = judgePayCount(user);

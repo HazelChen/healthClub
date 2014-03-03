@@ -41,10 +41,13 @@
 			</div>
 			<div class="username">
 				<%User user = (User)request.getAttribute("user");
-				boolean isActive = user.getIsActive();
-				if(isActive){%>
+				boolean isActive = user.getBank() == null ? false:true;
+				boolean isSuspend = user.getSuspendCount() > 0 ? true:false;
+				if(isActive && !isSuspend){%>
 				<h4>会员资格：已激活</h4>
-				<% }else{  %>
+				<% }else if (isActive){  %>
+				<h4>会员资格：暂停</h4>
+				<%} else {%>
 				<h4>会员资格：未激活</h4>
 				<%} %>
 			</div>

@@ -61,6 +61,8 @@ public class UserDAO {
 		@SuppressWarnings("unchecked")
 		List<User> userList = session.createCriteria(User.class).list();
 		ArrayList<User> users = new ArrayList<>(userList);
+		session.close();
+		sessionFactory.close();
 		return users;
 	}
 }

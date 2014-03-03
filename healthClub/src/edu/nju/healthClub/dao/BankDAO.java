@@ -29,7 +29,7 @@ public class BankDAO {
 		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(bank);
+		session.merge(bank);
 		transaction.commit();
 		session.close();
 		sessionFactory.close();

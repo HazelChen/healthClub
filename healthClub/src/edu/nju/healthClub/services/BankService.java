@@ -16,6 +16,7 @@ public class BankService {
 		boolean result = false;
 		int balance = bank.getBalance();
 		int over = balance - amount;
+		System.out.println("剩余款:" + over);
 		if (over < 0) {
 			bank.setBalance(0);
 			records.setCount(balance);

@@ -31,17 +31,6 @@ public class User {
 	private Set<PaymentRecords> paymentRecords = new HashSet<>();
 	private Set<Activity> activities = new HashSet<>();
 	
-	public User(){}
-	public User(String id, String headerUrl, String username, String email, String type, int childCount, int suspendCount) {
-		this.id = id;
-		this.headerUrl = headerUrl;
-		this.username = username;
-		this.email = email;
-		this.type = type;
-		this.childCount = childCount;
-		this.suspendCount = suspendCount;
-	}
-	
 	@Id
 	public String getId() {
 		return id;
@@ -114,7 +103,7 @@ public class User {
 		this.activities = activities;
 	}
 	
-	@OneToOne(optional = true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToOne(optional = true, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name = "bank")
 	public Bank getBank() {
 		return bank;

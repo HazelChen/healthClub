@@ -8,11 +8,11 @@ public class PaymentService {
 	
 	public void add(PaymentRecords records) {
 		paymentDAO.add(records);
+		System.out.println("添加付款记录");
 	}
 
 	public void setPaymentDAO(PaymentDAO paymentDAO) {
 		this.paymentDAO = paymentDAO;
 	}
-	
 	
 }

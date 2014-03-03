@@ -1,5 +1,6 @@
 package edu.nju.healthClub.services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.nju.healthClub.dao.ReserveDAO;
@@ -36,6 +37,11 @@ public class ReserveService {
 		reserve.setUser(user);
 		reserve.setActivity(activity);
 		reserveDAO.remove(reserve);
+	}
+	
+	public ArrayList<ActivityReserve> findByUser (User user) {
+		ArrayList<ActivityReserve> reserves = reserveDAO.find(user);
+		return reserves;
 	}
 
 	public void setUserService(UserService userService) {

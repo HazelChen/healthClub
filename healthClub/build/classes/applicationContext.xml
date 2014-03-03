@@ -13,7 +13,7 @@
            http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
     
     <task:scheduled-tasks>
-		<task:scheduled ref="paymentJob" method="pay" cron="0 39-42 16 * * ?" />
+		<task:scheduled ref="paymentJob" method="pay" cron="0 0 0 1 * ?" />
 	</task:scheduled-tasks>
     
     <bean id="userBarAction" class="edu.nju.healthClub.actions.UserBarAction">
@@ -66,6 +66,15 @@
 			<ref bean="userService" />
 		</property>
 	</bean>
+	
+	<bean id="userPageAction" class="edu.nju.healthClub.actions.UserPageAction">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="reserveService">
+			<ref bean="reserveService" />
+		</property>
+	</bean>
 
 	<bean id="adminLoginAction" class="edu.nju.healthClub.actions.AdminLoginAction">
 		<property name="service">
@@ -86,7 +95,7 @@
 	</bean>
 	
 	<bean id="paymentJob" class="edu.nju.healthClub.jobs.PaymentJob">
-		<property name="userService">
+		<property name="service">
 			<ref bean="userService" />
 		</property>
 	</bean>
@@ -162,5 +171,8 @@
 	</bean>
 	
 	<bean id="reserveDAO" class="edu.nju.healthClub.dao.ReserveDAO">
+	</bean>
+	
+	<bean id="paymentDAO" class="edu.nju.healthClub.dao.PaymentDAO">
 	</bean>
 </beans>

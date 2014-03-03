@@ -48,7 +48,7 @@
 			<result name="success" type="redirect">/user/${prePage}</result>
 		</action>
 		 
-		<action name="userPage" class="edu.nju.healthClub.actions.UserPageAction">
+		<action name="userPage" class="userPageAction">
 			<result name="success">/user/userPage.jsp</result>
 		</action>
 		
