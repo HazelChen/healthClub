@@ -40,6 +40,19 @@ public class UserDAO {
 		sessionFactory.close();
 	}
 	
+	public void merge(User user) {
+		Configuration config = new Configuration().configure();
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
+				config.getProperties()).buildServiceRegistry();
+		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.merge(user);
+		transaction.commit();
+		session.close();
+		sessionFactory.close();
+	}
+	
 	public User find(String userId) {
 		Configuration config = new Configuration().configure();
 		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(

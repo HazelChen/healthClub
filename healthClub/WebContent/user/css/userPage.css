@@ -7,8 +7,7 @@ body {
 	font-family: "Trebuchet MS", "Myriad Pro", Arial, sans-serif;
 	font-size: 14px;
 	background: url(../images/bg.jpg) repeat top left;
-	color: #014d67;
-	text-shadow: 1px 1px 1px #edde8b;
+	color: #000;
 	overflow-y: scroll;
 	text-align: center;
 }
@@ -28,9 +27,11 @@ h2 {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-	border-color: gray;
+	border-color: #000;
 	display: block;
-	margin-top: 10px
+	margin-top: 10px;
+	border:1px;
+	cellspacing:0px;
 }
 
 thread {
@@ -88,13 +89,13 @@ input[type="submit"] {
 
 .main {
 	position: relative;
-	height: 100px;
 	z-index: 1;
 	width: 980px;
 	margin: 0 auto;
 	box-shadow: 0 -3px 3px 2px rgba(0, 0, 0, .2);
 	-moz-box-shadow: 0 -3px 3px 2px rgba(0, 0, 0, .2);
 	-webkit-box-shadow: 0 -3px 3px 2px rgba(0, 0, 0, .2);
+	background:#fff
 }
 
 .info-left {
@@ -209,4 +210,8 @@ input[type="submit"] {
 .tabs-content a {
 	color: #014d67;
 	text-decoration: underline;
+}
+
+.hide {
+	display:none;
 }

@@ -26,10 +26,13 @@
 		<s:action name="userBar" executeResult="true"></s:action>
 	</div>
 	
+	<%String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/images/user\\";
+	%>
 	<div class="main">
 		<div class="info-left">
 			<div class="portrait">
-				<image class="portrait-img" src="<s:property value="user.headerUrl"/>"></image>
+				<image class="portrait-img" src="<%=basePath %><s:property value="user.headerUrl"/>"></image>
 			</div>
 		</div>
 		<div class="info-right">
@@ -95,11 +98,11 @@
     					</tr>
     				</thread>
     				<tbody>
-    					<s:iterator value="activityReserveShows" status="st">
+    					<s:iterator value="activityReserves" status="st">
     					<tr class="bl">
-    						<td class="activity-title"><a href="activity.jsp?id=<s:property value="activityId"/>"><s:property value="name"/></a></td>
-    						<td class="activity-reserve-date"><s:property value="reserveDate"/></td>
-    						<td class="activity-date"><s:property value="date"/></td>
+    						<td class="activity-title"><a href="activity.jsp?id=<s:property value="activity.id"/>"><s:property value="activity.title"/></a></td>
+    						<td class="activity-reserve-date"><s:date name="date" format="yyyy-MM-dd" /></td>
+    						<td class="activity-date"><s:date name="activity.date" format="yyyy-MM-dd" /></td>
     					</tr>
     					</s:iterator>
     				</tbody>
@@ -120,21 +123,21 @@
     					<tr class="bl">
     						<td class="activity-title"><s:property value="reason"/></td>
     						<td class="activity-reserve-date"><s:property value="count"/></td>
-    						<td class="activity-date"><s:property value="date"/></td>
+    						<td class="activity-date"><s:date name="date" format="yyyy-MM-dd" /></td>
     					</tr>
     					</s:iterator>
     				</tbody>
     			</table>
     		</div>
     		<div class="tabs-content">
-    			<form onsubmit="return register_checkForm()"  action="change" method="post">
+    			<form onsubmit="return register_checkForm()"  action="change" method="post" enctype="multipart/form-data">
     				<div class="column">
     					<div class="formColumn">
-    						<label>id:<s:property value="user.id"/></label>
+    						<label>识别码:<s:property value="user.id"/></label>
     					</div>
     					<div class="formColumn">
     						<label>头像：</label>
-    						<input name="imgfile" type="file" id="imgfile" /> 
+    						<input name="headerImgFile" type="file" /> 
     					</div>  
     					<div class="formColumn">
 							<label>用户名:</label> 
@@ -150,30 +153,27 @@
 					<div class="column">
 						<div  class="formColumn">
 							<label>密码:</label> 
-							<input type="password" id="rg_password" name="password"/>
+							<input type="password" id="rg_password" name="password" value="<s:property value="user.password"/>"/>
 							<span class="error"></span>
 						</div>
 						<div  class="formColumn">
 							<label>确认密码:</label> 
-							<input type="password" id="confirmPassword"/>
+							<input type="password" id="confirmPassword" value="<s:property value="user.password"/>"/>
 							<span class="error"></span>
 						</div>
-						<div id="typeDiv" class="formColumn">
-							<label>类型:</label>
-							<br />
-							<div id="radioDiv">
-							&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-							<input type="radio" name="type" id="personal" value="person" <%String type = user.getType();if(type.equals("person")){%>checked="checked"<%} %>/>个人
-							&nbsp;&nbsp;&nbsp;&nbsp; 
-							<input id="family" type="radio" name="type" value="family" <%if(type.equals("family")){%> checked="checked"<%} %>/>家庭
-							<span class="error"></span>
-							</div>
+						
+						<div class="hide">
+							<input type="text" name="type" value="<s:property value="user.type"/>" />
+							<input type="text" name="headerUrl" value="<s:property value="user.headerUrl"/>" />
+							<input type="text" name="bank" value="<s:property value="user.bank.id"/>" />
 						</div>
+						<%String type = user.getType();
+						if(type.equals("family")){%>
 						<div id="childCountDiv" class="formColumn">
 							<label>孩子（10~18岁）数量:</label> 
 							<input type="text" id="childCount" name="childCount" value="<s:property value="user.childCount"/>"/>
 							<span class="error"></span>
-						</div>
+						</div><%} %>
 						<div class="formColumn">
 							<input type="submit" value="提交修改" />
 						</div>

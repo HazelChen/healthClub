@@ -7,7 +7,6 @@ public class PaymentJob {
 	
 	public void pay() {
 		service.pay();
-		System.out.println("开始工作");
 	}
 
 	public void setService(UserService service) {

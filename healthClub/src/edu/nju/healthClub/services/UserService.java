@@ -9,10 +9,13 @@ import edu.nju.healthClub.model.PaymentRecords;
 import edu.nju.healthClub.model.User;
 
 public class UserService {
+	private static final int PERSONAL_ACTIVE_PAYMENT = 75;
+	private static final int FAMILY_ACTIVE_PAYMENT = 100;
 	private static final int PERSONAL_MONTH_PAYMENT = 40;
 	private static final int FAMILY_MONTH_PAYMENT = 55;
 	private static final int CHILD_MONTH_PAYMENT = 10;
-	private static final String PAYMENT_REASON = "账户月缴费";
+	private static final String MONTH_PAYMENT_REASON = "账户月缴费";
+	private static final String ACTIVE_PAYMENT_REASON = "账户月缴费";
 	
 	private BankService bankService;
 	private PaymentService paymentService;
@@ -27,6 +30,10 @@ public class UserService {
 		userDAO.update(user);
 	}
 	
+	public void merge(User user) {
+		userDAO.merge(user);
+	}
+	
 	public User find(String id) {
 		User user = userDAO.find(id);
 		return user;
@@ -35,20 +42,34 @@ public class UserService {
 	public void pay() {
 		ArrayList<User> users = userDAO.findAll();
 		for (User user : users) {
-			System.out.println("user:" + user.getId());
 			Bank bank = user.getBank();
 			if (bank != null) {
-				int payCount = judgePayCount(user);
+				int payCount = judgeMonthPayCount(user);
 				PaymentRecords records = new PaymentRecords();
 				records.setUser(user);
 				records.setDate(Calendar.getInstance().getTime());
-				records.setReason(PAYMENT_REASON);
+				records.setReason(MONTH_PAYMENT_REASON);
 				boolean success = bankService.pay(bank, records,payCount);
 				paymentService.add(records);
 				
 				paymentResultHandle(user, success);
+				userDAO.update(user);
 			}
 		}
+	}
+	
+	public void activate (User user, String bankId) {
+		Bank bank = bankService.find(bankId);
+		user.setBank(bank);
+		
+		PaymentRecords records = new PaymentRecords();
+		records.setUser(user);
+		records.setDate(Calendar.getInstance().getTime());
+		records.setReason(ACTIVE_PAYMENT_REASON);
+		int payCount = judgeActivePayCount(user);
+		boolean success = bankService.pay(bank, records, payCount);
+		paymentResultHandle(user, success);
+		userDAO.merge(user);
 	}
 	
 	public void setUserDAO(UserDAO userDAO) {
@@ -63,13 +84,22 @@ public class UserService {
 		this.paymentService = paymentService;
 	}
 
-	private int judgePayCount (User user) {
+	private int judgeMonthPayCount (User user) {
 		String type = user.getType();
 		if (type.equals("personal")) {
 			return PERSONAL_MONTH_PAYMENT;
 		} else {
 			int childCount = user.getChildCount();
 			return FAMILY_MONTH_PAYMENT + childCount * CHILD_MONTH_PAYMENT;
+		}
+	}
+	
+	private int judgeActivePayCount (User user) {
+		String type = user.getType();
+		if (type.equals("personal")) {
+			return PERSONAL_ACTIVE_PAYMENT;
+		} else {
+			return FAMILY_ACTIVE_PAYMENT;
 		}
 	}
 	
@@ -88,7 +118,6 @@ public class UserService {
 			} else {
 				user.setSuspendCount(suspendCount);
 			}
-			userDAO.update(user);
 		}
 	}
 	

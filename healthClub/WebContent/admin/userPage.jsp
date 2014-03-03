@@ -28,7 +28,9 @@
 			<input type="text" name="id" class="top-input" placeholder="请输入用户ID" />
 		</form>
 	</div></div>
-	
+<%String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/images/user\\";
+	%>
 	<div class="main">
 		<div class="info-left">
 			<div class="portrait">

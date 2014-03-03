@@ -93,7 +93,7 @@ public class Activity {
 		this.coach = coach;
 	}
 
-	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(
 			name="activityreserve",
 			joinColumns=@JoinColumn(name="activityId", referencedColumnName="id"),

@@ -76,7 +76,7 @@
 			<result name="success">/admin/activityInner.jsp</result>
 		</action>
 		
-		<action name="activity" class="adminActivityAction" method="getActivity">
+		<action name="activity" class="activityAction" method="getActivity">
 			<result name="success">/admin/activityInner.jsp</result>
 		</action>
 		

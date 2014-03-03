@@ -53,8 +53,8 @@
 		<property name="userService">
 			<ref bean="userService" />
 		</property>
-		<property name="bankService">
-			<ref bean="bankService" />
+		<property name="fileUploadPathService">
+			<ref bean="fileUploadPathService" />
 		</property>
 	</bean>
 	

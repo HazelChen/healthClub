@@ -12,9 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.transaction.Transaction;
-
-import org.hibernate.annotations.DynamicUpdate;
 @Entity()
 @Table(name="user")
 public class User {
@@ -112,7 +109,7 @@ public class User {
 		this.bank = bank;
 	}
 	
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	public Set<PaymentRecords> getPaymentRecords() {
 		return paymentRecords;
 	}

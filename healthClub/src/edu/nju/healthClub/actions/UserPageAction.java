@@ -1,11 +1,9 @@
 package edu.nju.healthClub.actions;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Set;
 
 import edu.nju.healthClub.model.ActivityReserve;
-import edu.nju.healthClub.model.ActivityReserveShow;
 import edu.nju.healthClub.model.PaymentRecords;
 import edu.nju.healthClub.model.User;
 import edu.nju.healthClub.services.ReserveService;
@@ -34,7 +32,7 @@ public class UserPageAction extends BaseAction{
 	
 	public String getUserInfo() {
 		String id = request.getParameter("id");		
-user = userService.find(id);
+		user = userService.find(id);
 		
 		activityReserves = reserveService.findByUser(user);
 		

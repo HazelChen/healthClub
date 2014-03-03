@@ -11,34 +11,21 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import edu.nju.healthClub.model.Activity;
-import edu.nju.healthClub.model.User;
 
 public class ActivityDAO {
+	private DAOHelper helper;
+	
 	public List<Activity> findActivityByDate (String dateString) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
-		Session session = sessionFactory.openSession();
-		
 		String hql = "from edu.nju.healthClub.model.Activity where date = '" + dateString + "'";
-		Query query = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
-		List<Activity> list = query.list();
+		List<Activity> list = helper.findByHql(hql);
 		return list;
 	}
 	
 	public List<Activity> findActivityAfterDate (String dateString) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
-		Session session = sessionFactory.openSession();
-		
 		String hql = "from edu.nju.healthClub.model.Activity where date >= '" + dateString + "'";
-		Query query = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
-		List<Activity> list = query.list();
+		List<Activity> list = helper.findByHql(hql);
 		return list;
 	}
 	
@@ -50,7 +37,7 @@ public class ActivityDAO {
 		Session session = sessionFactory.openSession();
 		
 		Activity activity = (Activity)session.get(Activity.class, id);
-		
+		session.get
 		return activity;
 	}
 	
@@ -78,5 +65,9 @@ public class ActivityDAO {
 		transaction.commit();
 		session.close();
 		sessionFactory.close();
+	}
+
+	public void setHelper(DAOHelper helper) {
+		this.helper = helper;
 	}
 }
