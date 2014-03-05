@@ -27,12 +27,14 @@ public class ActivityService {
 		ArrayList<Activity> result = new ArrayList<>();
 		
 		Calendar calendar = Calendar.getInstance();
-		while (result.size() < 5) {
-			Date date = calendar.getTime();
-			String dateString = dateChangeService.dateToString(date);
-			List<Activity> activities = activityDAO.findActivityByDate(dateString);
-			result.addAll(activities);
-			calendar.add(Calendar.DATE, 1);
+		Date date = calendar.getTime();
+		String dateString = dateChangeService.dateToString(date);
+		List<Activity> activities = activityDAO.findActivityAfterDate(dateString);
+		
+		int index = 0;
+		while (result.size() < 5 && index < activities.size()) {
+			result.add(activities.get(index));
+			index++;
 		}
 		return result;
 	}

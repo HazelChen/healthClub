@@ -31,7 +31,7 @@
 					</div>
 					<div class="bottom">
 						<input type="submit" value="现在激活"></input> 
-						<a href='<s:property value="#session.prePage"/>' class="linkform">→暂时不激活→</a>
+						<a href='notActive' class="linkform">→暂时不激活→</a>
 						<div class="clear"></div>
 					</div>
 				</form>

@@ -15,7 +15,7 @@ public class UserService {
 	private static final int FAMILY_MONTH_PAYMENT = 55;
 	private static final int CHILD_MONTH_PAYMENT = 10;
 	private static final String MONTH_PAYMENT_REASON = "账户月缴费";
-	private static final String ACTIVE_PAYMENT_REASON = "账户月缴费";
+	private static final String ACTIVE_PAYMENT_REASON = "会员激活缴费";
 	
 	private BankService bankService;
 	private PaymentService paymentService;
@@ -28,10 +28,6 @@ public class UserService {
 	
 	public void update(User user) {
 		userDAO.update(user);
-	}
-	
-	public void merge(User user) {
-		userDAO.merge(user);
 	}
 	
 	public User find(String id) {
@@ -68,8 +64,10 @@ public class UserService {
 		records.setReason(ACTIVE_PAYMENT_REASON);
 		int payCount = judgeActivePayCount(user);
 		boolean success = bankService.pay(bank, records, payCount);
+		paymentService.add(records);
+		
 		paymentResultHandle(user, success);
-		userDAO.merge(user);
+		userDAO.update(user);
 	}
 	
 	public void setUserDAO(UserDAO userDAO) {
@@ -96,7 +94,7 @@ public class UserService {
 	
 	private int judgeActivePayCount (User user) {
 		String type = user.getType();
-		if (type.equals("personal")) {
+		if (type.equals("person")) {
 			return PERSONAL_ACTIVE_PAYMENT;
 		} else {
 			return FAMILY_ACTIVE_PAYMENT;
@@ -108,7 +106,6 @@ public class UserService {
 		if (success) {
 			if (suspendCount != 0) {
 				user.setSuspendCount(0);
-				userDAO.update(user);
 			}
 		} else {
 			suspendCount++;

@@ -1,5 +1,6 @@
 package edu.nju.healthClub.actions;
 
+import edu.nju.healthClub.model.ActivityReserve;
 import edu.nju.healthClub.services.AdminPrePageChangeService;
 import edu.nju.healthClub.services.ReserveService;
 import edu.nju.healthClub.services.UserPrePageChangeService;
@@ -78,7 +79,8 @@ public class ReserveAction extends BaseAction{
 	private String cancel() {
 		String userId = request.getParameter("userId");
 		String activityId = request.getParameter("activityId");
-		reserveService.cancel (userId, activityId);
+		ActivityReserve activityReserve = reserveService.find(userId, activityId);
+		reserveService.cancel (activityReserve);
 		return SUCCESS;
 	}
 }

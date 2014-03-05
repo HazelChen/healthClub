@@ -7,8 +7,8 @@ import org.apache.commons.io.FileUtils;
 
 import edu.nju.healthClub.model.Bank;
 import edu.nju.healthClub.model.User;
-import edu.nju.healthClub.services.BankService;
 import edu.nju.healthClub.services.FileUploadPathService;
+import edu.nju.healthClub.services.UserNumberGenerateService;
 import edu.nju.healthClub.services.UserPrePageChangeService;
 import edu.nju.healthClub.services.UserService;
 
@@ -18,6 +18,7 @@ public class RegisterAction extends BaseAction{
 	
 	private UserPrePageChangeService userPrePageChangeService;
 	private FileUploadPathService fileUploadPathService;
+	private UserNumberGenerateService userNumberGenerateService;
 	private UserService userService;
 	
 	private String prePage;
@@ -33,11 +34,11 @@ public class RegisterAction extends BaseAction{
 		String type = request.getParameter("type");
 		user.setType(type);
 		if (type.equals("family")) {
-			id = "F" + System.currentTimeMillis();
+			id = "F" + userNumberGenerateService.generate();
 			int childCount = Integer.parseInt(request.getParameter("childCount"));
 			user.setChildCount(childCount);
 		} else {
-			id = "P" + System.currentTimeMillis();
+			id = "P" + userNumberGenerateService.generate();
 		}
 		user.setId(id);
 		userService.save(user);
@@ -55,6 +56,10 @@ public class RegisterAction extends BaseAction{
 		return SUCCESS;
 	}
 	
+	public String notActive () {
+		return SUCCESS;
+	}
+	
 	public String change() {
 		User user = new User();
 		String userId = (String)session.get("userid");
@@ -62,11 +67,17 @@ public class RegisterAction extends BaseAction{
 		user.setEmail(request.getParameter("email"));
 		user.setUsername(request.getParameter("username"));
 		user.setPassword(request.getParameter("password"));
-		user.setChildCount(Integer.parseInt(request.getParameter("childCount")));
+		String childCountString = request.getParameter("childCount");
+		if (childCountString!= null && !childCountString.equals("")) {
+			user.setChildCount(Integer.parseInt(request.getParameter("childCount")));
+		}
 		user.setType(request.getParameter("type"));
-		Bank bank = new Bank();
-		bank.setId(request.getParameter("bank"));
-		user.setBank(bank);
+		String bankIdSaved = request.getParameter("bank");
+		if (!bankIdSaved.equals("")) {
+			Bank bank = new Bank();
+			bank.setId(request.getParameter("bank"));
+			user.setBank(bank);
+		}
 		
 		if(headerImgFile !=null ){  
 			int extensionPos = headerImgFileFileName.lastIndexOf(".");
@@ -87,6 +98,10 @@ public class RegisterAction extends BaseAction{
 	}
 	
 	public String cancel() {
+		String userId = (String) session.get("userid");
+		User user = userService.find(userId);
+		user.setBank(null);
+		userService.update(user);
 		return SUCCESS;
 	}
 	
@@ -132,4 +147,11 @@ public class RegisterAction extends BaseAction{
 	public void setHeaderImgFileFileName(String headerImgFileFileName) {
 		this.headerImgFileFileName = headerImgFileFileName;
 	}
+
+	public void setUserNumberGenerateService(
+			UserNumberGenerateService userNumberGenerateService) {
+		this.userNumberGenerateService = userNumberGenerateService;
+	}
+	
+	
 }

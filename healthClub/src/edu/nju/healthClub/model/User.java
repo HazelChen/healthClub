@@ -28,6 +28,10 @@ public class User {
 	private Set<PaymentRecords> paymentRecords = new HashSet<>();
 	private Set<Activity> activities = new HashSet<>();
 	
+	public void cancelReverse(Activity activity) {
+		activities.remove(activity);
+	}
+	
 	@Id
 	public String getId() {
 		return id;
@@ -91,7 +95,7 @@ public class User {
 		this.suspendCount = suspendCount;
 	}
 	
-	@ManyToMany(mappedBy="users")
+	@ManyToMany(mappedBy="users", fetch=FetchType.EAGER)
 	public Set<Activity> getActivities() {
 		return activities;
 	}
@@ -116,8 +120,4 @@ public class User {
 	public void setPaymentRecords(Set<PaymentRecords> paymentRecords) {
 		this.paymentRecords = paymentRecords;
 	}
-	
-	
-	
-	
 }

@@ -44,7 +44,7 @@
 			</div>
 			<div class="username">
 				<%User user = (User)request.getAttribute("user");
-				boolean isActive = user.getBank() == null ? false:true;
+				boolean isActive = (user.getBank() != null);
 				boolean isSuspend = user.getSuspendCount() > 0 ? true:false;
 				if(isActive && !isSuspend){%>
 				<h4>会员资格：已激活</h4>
@@ -181,7 +181,12 @@
     			</form>
     		</div>
     		<div class="tabs-content align-center">
-    			<%if(isActive){ %>
+    			<%String url = request.getRequestURL().toString();
+    			url = url.substring(0, url.length() - 4);
+				String queryUrl = request.getQueryString();
+				session.setAttribute("prePage", url);
+				session.setAttribute("queryUrl", queryUrl);
+    			if(isActive){ %>
     			<h1>恭喜，您已成功激活！</h1>
     			<h2><a id="cancel" href="<s:url action="cancel"/>">---取消激活---</a></h2>
     			<%} else { %>

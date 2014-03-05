@@ -3,58 +3,51 @@ package edu.nju.healthClub.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
+import org.hibernate.criterion.SimpleExpression;
 
 import edu.nju.healthClub.model.ActivityReserve;
 import edu.nju.healthClub.model.User;
 
 public class ReserveDAO {
+	private DAOHelper helper;
 	
 	public void add(ActivityReserve reserve) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
-		Session session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
-		session.save(reserve);
-		transaction.commit();
-		session.close();
-		sessionFactory.close();
+		helper.save(reserve);
 	}
 	
 	public void remove (ActivityReserve reserve) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
-		Session session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
-		session.delete(reserve);
-		transaction.commit();
-		session.close();
-		sessionFactory.close();
+		helper.remove(reserve);
 	}
 	
 	public ArrayList<ActivityReserve> find (User user) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
-		Session session = sessionFactory.openSession();
-		
-		Criteria criteria = session.createCriteria(ActivityReserve.class);
-		criteria.add(Restrictions.eq("user", user));
+		ArrayList<SimpleExpression> expressions = new ArrayList<>();
+		expressions.add(Restrictions.eq("user", user));
 		@SuppressWarnings("unchecked")
-		List<ActivityReserve> reserveList = criteria.list();
+		List<ActivityReserve> reserveList = helper.find(ActivityReserve.class, expressions);
 		ArrayList<ActivityReserve> activityReserves = new ArrayList<>(reserveList);
 		return activityReserves;
 	}
+	
+	public ActivityReserve find (String userId, String activityId) {
+		String hql = "from edu.nju.healthClub.model.ActivityReserve where userId = '" + userId + "' and activityId='" + activityId + "'";
+		@SuppressWarnings("unchecked")
+		List<ActivityReserve> activityReserves = helper.find(hql);
+		ActivityReserve activityReserve = null;
+		if (activityReserves.size() > 0) {
+			activityReserve = activityReserves.get(0);
+		}
+		return activityReserve;
+	}
+	
+	public ActivityReserve find (int id) {
+		ActivityReserve reserve = (ActivityReserve)helper.findById(ActivityReserve.class, id);
+		return reserve;
+	}
+
+	public void setHelper(DAOHelper helper) {
+		this.helper = helper;
+	}
+	
+	
 }

@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,13 +17,23 @@ import javax.persistence.Table;
 public class ActivityReserve implements Serializable{
 	private static final long serialVersionUID = 282753946532440965L;
 	
+	private int id;
 	private User user;
 	private Activity activity;
 	private Date date;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	@ManyToOne(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) 
 	@JoinColumn(name="userId")
-	@EmbeddedId
 	public User getUser() {
 		return user;
 	}
@@ -29,9 +41,8 @@ public class ActivityReserve implements Serializable{
 		this.user = user;
 	}
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name="activityId")
-	@EmbeddedId
 	public Activity getActivity() {
 		return activity;
 	}

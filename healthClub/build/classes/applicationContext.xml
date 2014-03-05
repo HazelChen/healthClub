@@ -56,6 +56,9 @@
 		<property name="fileUploadPathService">
 			<ref bean="fileUploadPathService" />
 		</property>
+		<property name="userNumberGenerateService">
+			<ref bean="userNumberGenerateService" />
+		</property>
 	</bean>
 	
 	<bean id="loginAction" class="edu.nju.healthClub.actions.LoginAction">
@@ -160,19 +163,45 @@
 	
 	<bean id="adminPrePageChangeService" class="edu.nju.healthClub.services.AdminPrePageChangeService">
 	</bean>
+	
+	<bean id="userNumberGenerateService" class="edu.nju.healthClub.services.UserNumberGenerateService">
+	</bean>
 
 	<bean id="activityDAO" class="edu.nju.healthClub.dao.ActivityDAO">
+		<property name="helper">
+			<ref bean="DAOhelper" />
+		</property>
 	</bean>
 	
 	<bean id="userDAO" class="edu.nju.healthClub.dao.UserDAO">
+		<property name="helper">
+			<ref bean="DAOhelper" />
+		</property>
 	</bean>
 	
 	<bean id="bankDAO" class="edu.nju.healthClub.dao.BankDAO">
+		<property name="helper">
+			<ref bean="DAOhelper" />
+		</property>
 	</bean>
 	
 	<bean id="reserveDAO" class="edu.nju.healthClub.dao.ReserveDAO">
+		<property name="helper">
+			<ref bean="DAOhelper" />
+		</property>
+	</bean>
+	<bean id="paymentDAO" class="edu.nju.healthClub.dao.PaymentDAO">
+		<property name="helper">
+			<ref bean="DAOhelper" />
+		</property>
 	</bean>
 	
-	<bean id="paymentDAO" class="edu.nju.healthClub.dao.PaymentDAO">
+	<bean id="DAOhelper" class="edu.nju.healthClub.dao.DAOHelper">
 	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <!-- 注入Hibernate 配置文件路径,前面要加上  classpath:-->
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+    </bean>
+	
 </beans>

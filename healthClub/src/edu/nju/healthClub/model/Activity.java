@@ -28,6 +28,10 @@ public class Activity {
 	
 	private Set<User> users = new HashSet<>();
 	
+	public void cancelReserve (User user) {
+		users.remove(user);
+	}
+	
 	@Id
 	public String getId() {
 		return id;
@@ -93,7 +97,7 @@ public class Activity {
 		this.coach = coach;
 	}
 
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	@JoinTable(
 			name="activityreserve",
 			joinColumns=@JoinColumn(name="activityId", referencedColumnName="id"),

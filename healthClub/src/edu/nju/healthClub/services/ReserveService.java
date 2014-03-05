@@ -27,21 +27,22 @@ public class ReserveService {
 		reserveDAO.add(reserve);
 	}
 	
-	public void cancel (String userId, String activityId) {
-		User user = new User();
-		user.setId(userId);
-		Activity activity = new Activity();
-		activity.setId(activityId);
-		
-		ActivityReserve reserve = new ActivityReserve();
-		reserve.setUser(user);
-		reserve.setActivity(activity);
+	public void cancel (ActivityReserve reserve) {
 		reserveDAO.remove(reserve);
 	}
 	
 	public ArrayList<ActivityReserve> findByUser (User user) {
 		ArrayList<ActivityReserve> reserves = reserveDAO.find(user);
 		return reserves;
+	}
+	
+	public ActivityReserve find(int reserveId) {
+		return reserveDAO.find(reserveId);
+	}
+	
+	public ActivityReserve find (String userId, String activityId) {
+		ActivityReserve reserve = reserveDAO.find(userId, activityId);
+		return reserve;
 	}
 
 	public void setUserService(UserService userService) {

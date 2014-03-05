@@ -59,6 +59,10 @@
 		<action name="cancel" class="registerAction" method="cancel">
 			<result name="success" type="chain">userPage</result>
 		</action>
+		
+		<action name="notActive" class="registerAction" method="notActive">
+			<result name="success" type="redirect">/user/${prePage}</result>
+		</action>
 	</package>
 	
 	<package name="struts2-admin" extends="struts-default" namespace="/admin">
