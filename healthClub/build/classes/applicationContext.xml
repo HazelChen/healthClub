@@ -97,6 +97,12 @@
 		</property>
 	</bean>
 	
+	<bean id="placeAction" class="edu.nju.healthClub.actions.PlaceAction">
+		<property name="activityService">
+			<ref bean="activityService" />
+		</property>
+	</bean>
+	
 	<bean id="paymentJob" class="edu.nju.healthClub.jobs.PaymentJob">
 		<property name="service">
 			<ref bean="userService" />

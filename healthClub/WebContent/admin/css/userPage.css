@@ -209,3 +209,7 @@ label{
 	color:#014d67;
 	text-decoration:underline;
 }
+
+.hide {
+	display:none;
+}

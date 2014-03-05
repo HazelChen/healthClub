@@ -68,16 +68,16 @@ border-color: inherit;
 	height:50px;
 }
 
-.activity-title {
-	width: 220px
+.activity-place {
+	width: 150px
 }
 
-.activity-reserve-date {
+.activity-title {
 	width: 600px;
 }
 
 .activity-date {
-	width: 120px;
+	width: 200px;
 }
 
 .tabs-content {

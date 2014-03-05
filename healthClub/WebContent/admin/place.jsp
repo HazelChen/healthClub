@@ -29,17 +29,17 @@
     		<table>
     			<thread>
     				<tr class="bl">
-    					<td class="activity-title">场地</td>
-    					<td class="activity-reserve-date">活动</td>
+    					<td class="activity-place">场地</td>
+    					<td class="activity-title">活动</td>
     					<td class="activity-date">活动时间</td>
     				</tr>
     			</thread>
     			<tbody>
-    				<s:iterator value="placeUseShows" status="st">
+    				<s:iterator value="activities" status="st">
     					<tr class="bl">
-    						<td class="activity-title"><s:property value="place"/></td>
-    						<td class="activity-reserve-date"><a href="activity.jsp?id=<s:property value="activityId"/>"><s:property value="activityName"/></a></td>
-    						<td class="activity-date"><s:property value="activityDate"/></td>
+    						<td class="activity-place"><s:property value="place"/></td>
+    						<td class="activity-title"><a href="activity.jsp?id=<s:property value="id"/>"><s:property value="title"/></a></td>
+    						<td class="activity-date"><s:date name="date" format="yyyy-MM-dd" /></td>
     					</tr>
     				</s:iterator>
     			</tbody>

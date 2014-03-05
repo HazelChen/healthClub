@@ -33,9 +33,9 @@ public class ReserveAction extends BaseAction{
 		String url = (String) session.get("prePage");
 		String queryUrl = (String) session.get("queryUrl");
 		prePage = adminPrePageChangeService.change(url, queryUrl);
-		String userId = request.getParameter("userid");
+		String userId = request.getParameter("userId");
 		String activityId = request.getParameter("activityId");
-		System.out.println(userId + " " + activityId);
+		reserveService.reserve(userId, activityId);
 		return SUCCESS;
 	}
 	

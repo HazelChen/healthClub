@@ -48,11 +48,11 @@
 			<result name="success" type="redirect">/user/${prePage}</result>
 		</action>
 		 
-		<action name="userPage" class="userPageAction">
+		<action name="userPage" class="userPageAction" >
 			<result name="success">/user/userPage.jsp</result>
 		</action>
 		
-		<action name="change" class="registerAction" method="change">
+		<action name="change" class="registerAction" method="userChange">
 			<result name="success" type="chain">userPage</result>
 		</action>
 		
@@ -66,9 +66,9 @@
 	</package>
 	
 	<package name="struts2-admin" extends="struts-default" namespace="/admin">
-	
+		
 		<action name="adminLogin" class="adminLoginAction">
-			<result name="success">/admin/activity.jsp</result>
+			<result name="success" type="redirect">/admin/activity.jsp</result>
 			<result name="input" type="redirect">/admin/login.jsp</result>
 		</action>
 		
@@ -96,20 +96,24 @@
 			<result name="success">/admin/activity.jsp</result>
 		</action>
 		
-		<action name="place" class="edu.nju.healthClub.actions.PlaceAction">
+		<action name="place" class="placeAction">
 			<result name="success">/admin/place.jsp</result>
 		</action>
 		
-		<action name="userPage" class="edu.nju.healthClub.actions.UserPageAction" method="getUserInfo">
+		<action name="userPage" class="userPageAction" method="getUserInfoForAdmin">
 			<result name="success">/admin/userPage.jsp</result>
 		</action>
 		
-		<action name="cancelReserve" class="edu.nju.healthClub.actions.ReserveAction" method="adminCancel">
+		<action name="cancelReserve" class="reserveAction" method="adminCancel">
 			<result name="success" type="redirect">/admin/${prePage}</result>
 		</action>
 		
-		<action name="adminReserve" class="edu.nju.healthClub.actions.ReserveAction" method="adminReserve">
+		<action name="adminReserve" class="reserveAction" method="adminReserve">
 			<result name="success" type="redirect">/admin/${prePage}</result>
+		</action>
+		
+		<action name="change" class="registerAction" method="adminChange">
+			<result name="success" type="chain">userPage</result>
 		</action>
 	</package>
 	

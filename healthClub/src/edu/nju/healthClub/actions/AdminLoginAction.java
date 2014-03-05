@@ -14,6 +14,7 @@ public class AdminLoginAction extends BaseAction{
 		
 		boolean ok = service.verificate(id, password);
 		if (ok) {
+			session.put("adminid", id);
 			return SUCCESS;
 		} else {
 			session.put("fail", "用户名或密码错误！");

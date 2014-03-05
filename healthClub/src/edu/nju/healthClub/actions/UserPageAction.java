@@ -22,22 +22,12 @@ public class UserPageAction extends BaseAction{
 	@Override
 	public String execute() {
 		String id = (String)session.get("userid");
-		user = userService.find(id);
-		
-		activityReserves = reserveService.findByUser(user);
-		
-		paymentRecords = user.getPaymentRecords();
-		return SUCCESS;
+		return getUserInfo(id);
 	}
 	
-	public String getUserInfo() {
+	public String getUserInfoForAdmin () {
 		String id = request.getParameter("id");		
-		user = userService.find(id);
-		
-		activityReserves = reserveService.findByUser(user);
-		
-		paymentRecords = user.getPaymentRecords();
-		return SUCCESS;
+		return getUserInfo(id);
 	}
 	
 	public User getUser() {
@@ -58,5 +48,14 @@ public class UserPageAction extends BaseAction{
 
 	public void setReserveService(ReserveService reserveService) {
 		this.reserveService = reserveService;
+	}
+	
+	private String getUserInfo(String id) {
+		user = userService.find(id);
+		
+		activityReserves = reserveService.findByUser(user);
+		
+		paymentRecords = user.getPaymentRecords();
+		return SUCCESS;
 	}
 }

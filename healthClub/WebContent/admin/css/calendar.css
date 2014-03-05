@@ -7,7 +7,7 @@ ul{
 .clear{
 	clear:both;
 }
-a {
+.main-left a {
 	color: #edde8b;
 	text-decoration: none;
 	-webkit-transition: 0.5s;

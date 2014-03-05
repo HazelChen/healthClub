@@ -60,41 +60,14 @@ public class RegisterAction extends BaseAction{
 		return SUCCESS;
 	}
 	
-	public String change() {
-		User user = new User();
+	public String userChange() {
 		String userId = (String)session.get("userid");
-		user.setId(userId);
-		user.setEmail(request.getParameter("email"));
-		user.setUsername(request.getParameter("username"));
-		user.setPassword(request.getParameter("password"));
-		String childCountString = request.getParameter("childCount");
-		if (childCountString!= null && !childCountString.equals("")) {
-			user.setChildCount(Integer.parseInt(request.getParameter("childCount")));
-		}
-		user.setType(request.getParameter("type"));
-		String bankIdSaved = request.getParameter("bank");
-		if (!bankIdSaved.equals("")) {
-			Bank bank = new Bank();
-			bank.setId(request.getParameter("bank"));
-			user.setBank(bank);
-		}
-		
-		if(headerImgFile !=null ){  
-			int extensionPos = headerImgFileFileName.lastIndexOf(".");
-			String fileName = userId + headerImgFileFileName.substring(extensionPos);
-			String realPath = fileUploadPathService.getUserPath() + fileName;
-            File destFile = new File(realPath);//根据 parent 抽象路径名和 child 路径名字符串创建一个新 File 实例。  
-            try {
-				FileUtils.copyFile(headerImgFile, destFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-            user.setHeaderUrl(fileName);
-        } else {
-        	user.setHeaderUrl(request.getParameter("headerUrl"));
-        }
-		userService.update(user);
-		return SUCCESS;
+		return change(userId);
+	}
+	
+	public String adminChange() {
+		String userId = request.getParameter("id");
+		return change(userId);
 	}
 	
 	public String cancel() {
@@ -153,5 +126,40 @@ public class RegisterAction extends BaseAction{
 		this.userNumberGenerateService = userNumberGenerateService;
 	}
 	
+	private String change(String userId) {
+		User user = new User();
+		user.setId(userId);
+		user.setEmail(request.getParameter("email"));
+		user.setUsername(request.getParameter("username"));
+		user.setPassword(request.getParameter("password"));
+		String childCountString = request.getParameter("childCount");
+		if (childCountString!= null && !childCountString.equals("")) {
+			user.setChildCount(Integer.parseInt(request.getParameter("childCount")));
+		}
+		user.setType(request.getParameter("type"));
+		String bankIdSaved = request.getParameter("bank");
+		if (!bankIdSaved.equals("")) {
+			Bank bank = new Bank();
+			bank.setId(request.getParameter("bank"));
+			user.setBank(bank);
+		}
+		
+		if(headerImgFile !=null ){  
+			int extensionPos = headerImgFileFileName.lastIndexOf(".");
+			String fileName = userId + headerImgFileFileName.substring(extensionPos);
+			String realPath = fileUploadPathService.getUserPath() + fileName;
+            File destFile = new File(realPath);//根据 parent 抽象路径名和 child 路径名字符串创建一个新 File 实例。  
+            try {
+				FileUtils.copyFile(headerImgFile, destFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+            user.setHeaderUrl(fileName);
+        } else {
+        	user.setHeaderUrl(request.getParameter("headerUrl"));
+        }
+		userService.update(user);
+		return SUCCESS;
+	}
 	
 }

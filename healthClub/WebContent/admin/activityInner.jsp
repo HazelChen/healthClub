@@ -10,10 +10,9 @@
 <body>
 	<s:iterator value="activities" status="st">
 	<div>
-		<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+		<%String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+		%>
 		<img src='<%=basePath %>images/activity\<s:property value="imageUrl"/>'/>
 		<div class="info">
 			<h4><a href="../user/activity.jsp?id=<s:property value="id"/>"><s:property value="title"/></a></h4>
@@ -34,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<label class="t">预定会员</label>
 					<div class="ri-t">
 						<s:iterator value="users" status="st">
-						<s:property value="id"/>&nbsp;
+						<a href="userPage?id=<s:property value="id"/>"><s:property value="id"/></a>&nbsp;
 						</s:iterator>
 					</div>
 				</li>

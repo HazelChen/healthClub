@@ -29,6 +29,10 @@ public class BaseAction extends ActionSupport implements SessionAware, ServletRe
 		this.request = request;
 	}
 
+	public Map<String, Object> getSession() {
+		return session;
+	}
+	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
