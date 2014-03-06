@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class AdminLoginFilter extends HttpServlet implements Filter{
+public class LoginFilter extends HttpServlet implements Filter{
 	private static final long serialVersionUID = 7569192982584071331L;
 	
 	@Override
@@ -32,8 +32,12 @@ public class AdminLoginFilter extends HttpServlet implements Filter{
 		String url=request.getServletPath();
 		
 		String adminUserString = (String) session.getAttribute("adminid");
-        if (adminUserString == null && !url.contains("ogin")) {
-        	response.sendRedirect(contextPath+"/admin/login.jsp"); 
+        if (!url.contains("user//") && adminUserString == null && !url.contains("ogin") && url.contains("jsp")) {
+        	if (url.contains("admin")) {
+        		response.sendRedirect(contextPath+"/admin/login.jsp"); 
+			} else if (url.contains("manager")) {
+				response.sendRedirect(contextPath+"/manager/login.jsp"); 
+			}
         	return;
 		}
         chain.doFilter(sRequest, sResponse); 
