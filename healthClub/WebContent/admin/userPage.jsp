@@ -25,7 +25,7 @@
 	<a href='<s:url action="place" />' class="navigation">场次信息</a>
 	<div id="top"><div id="top_profile">
 		<form action="userPage" method="get">
-			<input type="text" name="id" class="top-input" placeholder="请输入用户ID" />
+			<input type="text" name="userId" class="top-input" placeholder="请输入用户ID" />
 		</form>
 	</div></div>
 	<%String path = request.getContextPath();
@@ -102,6 +102,7 @@
     				</thread>
     				<tbody>
     				<%String url = request.getRequestURL().toString();
+    				url = url.substring(0, url.length() - 4);
 					String queryUrl = request.getQueryString();
 					session.setAttribute("prePage", url);
 					session.setAttribute("queryUrl", queryUrl);%>
@@ -191,7 +192,7 @@
     		<div class="tabs-content align-center">
     			<%if(isActive){ %>
     			<h1>该用户已成功激活！</h1>
-    			<h2><a id="cancel" href="<s:url action="cancel"/>">---取消激活---</a></h2>
+    			<h2><a id="cancel" href="cancel?userId=<s:property value="user.id"/>">---取消激活---</a></h2>
     			<%} else { %>
     			<div id="activationDiv">
     			<form onsubmit="return cardIdFormCheck()"  action="submitCardId" method="post">
@@ -199,6 +200,9 @@
 						<label>银行卡号:</label> 
 						<input type="text" id="cardId" name="cardId"/> 
 						<span class="error"></span>
+					</div>
+					<div class="hide">
+						<input type="text" name="userId" value="<s:property value="user.id"/>"/>
 					</div>
 					<div class="formColumn">
 						<input type="submit" value="激活" />

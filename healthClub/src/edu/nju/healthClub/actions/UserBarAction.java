@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import edu.nju.healthClub.model.User;
-import edu.nju.healthClub.services.UserService;
+import edu.nju.healthClub.services.impl.UserService;
 
 public class UserBarAction extends BaseAction{
 	private static final long serialVersionUID = 5144563963912658234L;

@@ -27,7 +27,7 @@
 			<result name="success">/user/showId.jsp</result>
 		</action>
 
-		<action name="submitCardId" class="registerAction" method="submitCardId">
+		<action name="submitCardId" class="registerAction" method="userSubmitCardId">
 			<result name="success" type="redirect">/user/${prePage}</result>
 		</action>
 		
@@ -48,7 +48,7 @@
 			<result name="success" type="redirect">/user/${prePage}</result>
 		</action>
 		 
-		<action name="userPage" class="userPageAction" >
+		<action name="userPage" class="userPageAction">
 			<result name="success">/user/userPage.jsp</result>
 		</action>
 		
@@ -56,7 +56,7 @@
 			<result name="success" type="chain">userPage</result>
 		</action>
 		
-		<action name="cancel" class="registerAction" method="cancel">
+		<action name="cancel" class="registerAction" method="userCancel">
 			<result name="success" type="chain">userPage</result>
 		</action>
 		
@@ -113,6 +113,14 @@
 		</action>
 		
 		<action name="change" class="registerAction" method="adminChange">
+			<result name="success" type="chain">userPage</result>
+		</action>
+		
+		<action name="submitCardId" class="registerAction" method="adminSubmitCardId">
+			<result name="success" type="redirect">/admin/${prePage}</result>
+		</action>
+		
+		<action name="cancel" class="registerAction" method="adminCancel">
 			<result name="success" type="chain">userPage</result>
 		</action>
 	</package>

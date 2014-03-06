@@ -7,16 +7,18 @@ import org.apache.commons.io.FileUtils;
 
 import edu.nju.healthClub.model.Bank;
 import edu.nju.healthClub.model.User;
-import edu.nju.healthClub.services.FileUploadPathService;
-import edu.nju.healthClub.services.UserNumberGenerateService;
-import edu.nju.healthClub.services.UserPrePageChangeService;
-import edu.nju.healthClub.services.UserService;
+import edu.nju.healthClub.services.PrePageService;
+import edu.nju.healthClub.services.impl.AdminPrePageChangeService;
+import edu.nju.healthClub.services.impl.FileUploadPathService;
+import edu.nju.healthClub.services.impl.UserNumberGenerateService;
+import edu.nju.healthClub.services.impl.UserPrePageChangeService;
+import edu.nju.healthClub.services.impl.UserService;
 
 
 public class RegisterAction extends BaseAction{
 	private static final long serialVersionUID = 8034555455451599580L;
 	
-	private UserPrePageChangeService userPrePageChangeService;
+	private PrePageService prePageService;
 	private FileUploadPathService fileUploadPathService;
 	private UserNumberGenerateService userNumberGenerateService;
 	private UserService userService;
@@ -28,6 +30,7 @@ public class RegisterAction extends BaseAction{
 	
 	@Override
 	public String execute() {
+		prePageService = UserPrePageChangeService.instance();
 		User user = new User();
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password"));
@@ -48,12 +51,16 @@ public class RegisterAction extends BaseAction{
 		return SUCCESS;
 	}
 	
-	public String submitCardId () {
+	public String userSubmitCardId() {
+		prePageService = UserPrePageChangeService.instance();
 		String id = (String) session.get("userid");
-		User user = userService.find(id);
-		String cardId = request.getParameter("cardId");
-		userService.activate(user, cardId);
-		return SUCCESS;
+		return submitCardId(id);
+	}
+	
+	public String adminSubmitCardId() {
+		prePageService = AdminPrePageChangeService.instance();
+		String id = request.getParameter("userId");
+		return submitCardId(id);
 	}
 	
 	public String notActive () {
@@ -61,40 +68,43 @@ public class RegisterAction extends BaseAction{
 	}
 	
 	public String userChange() {
+		prePageService = UserPrePageChangeService.instance();
 		String userId = (String)session.get("userid");
 		return change(userId);
 	}
 	
 	public String adminChange() {
+		prePageService = AdminPrePageChangeService.instance();
 		String userId = request.getParameter("id");
 		return change(userId);
 	}
 	
-	public String cancel() {
+	public String userCancel () {
+		prePageService = UserPrePageChangeService.instance();
 		String userId = (String) session.get("userid");
-		User user = userService.find(userId);
-		user.setBank(null);
-		userService.update(user);
-		return SUCCESS;
+		return cancel(userId);
+	}
+	
+	public String adminCancel () {
+		prePageService = AdminPrePageChangeService.instance();
+		String userId = request.getParameter("userId");
+		return cancel(userId);
 	}
 	
 	public String getId() {
 		return id;
 	}
+	
+	
 	public String getPrePage() {
 		String url = (String) session.get("prePage");
 		String queryUrl = (String) session.get("queryUrl");
-		prePage = userPrePageChangeService.change(url, queryUrl);
+		prePage = prePageService.change(url, queryUrl);
 		return prePage;
 	}
 	
 	public void setPrePage(String prePage) {
 		this.prePage = prePage;
-	}
-
-	public void setUserPrePageChangeService(
-			UserPrePageChangeService userPrePageChangeService) {
-		this.userPrePageChangeService = userPrePageChangeService;
 	}
 
 	public void setUserService(UserService userService) {
@@ -162,4 +172,17 @@ public class RegisterAction extends BaseAction{
 		return SUCCESS;
 	}
 	
+	private String submitCardId (String userId) {
+		User user = userService.find(userId);
+		String cardId = request.getParameter("cardId");
+		userService.activate(user, cardId);
+		return SUCCESS;
+	}
+	
+	private String cancel(String userId) {
+		User user = userService.find(userId);
+		user.setBank(null);
+		userService.update(user);
+		return SUCCESS;
+	}
 }

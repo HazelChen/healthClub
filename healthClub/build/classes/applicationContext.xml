@@ -47,9 +47,6 @@
 	</bean>
 	
 	<bean id="registerAction" class="edu.nju.healthClub.actions.RegisterAction">
-		<property name="userPrePageChangeService">
-			<ref bean="userPrePageChangeService" />
-		</property>
 		<property name="userService">
 			<ref bean="userService" />
 		</property>
@@ -109,10 +106,10 @@
 		</property>
 	</bean>
 
-	<bean id="adminVerificationService" class="edu.nju.healthClub.services.AdminVerificationService">
+	<bean id="adminVerificationService" class="edu.nju.healthClub.services.impl.AdminVerificationService">
 	</bean>
 	
-	<bean id="activityService" class="edu.nju.healthClub.services.ActivityService">
+	<bean id="activityService" class="edu.nju.healthClub.services.impl.ActivityService">
 		<property name="activityDAO">
 			<ref bean="activityDAO" />
 		</property>
@@ -122,7 +119,7 @@
 		</property>
 	</bean>
 	
-	<bean id="userService" class="edu.nju.healthClub.services.UserService">
+	<bean id="userService" class="edu.nju.healthClub.services.impl.UserService">
 		<property name="userDAO">
 			<ref bean="userDAO" />
 		</property>
@@ -134,13 +131,13 @@
 		</property>
 	</bean>
 	
-	<bean id="bankService" class="edu.nju.healthClub.services.BankService">
+	<bean id="bankService" class="edu.nju.healthClub.services.impl.BankService">
 		<property name="bankDAO">
 			<ref bean="bankDAO" />
 		</property>
 	</bean>
 	
-	<bean id="reserveService" class="edu.nju.healthClub.services.ReserveService">
+	<bean id="reserveService" class="edu.nju.healthClub.services.impl.ReserveService">
 		<property name="userService">
 			<ref bean="userService" />
 		</property>
@@ -152,25 +149,25 @@
 		</property>
 	</bean>
 	
-	<bean id="paymentService" class="edu.nju.healthClub.services.PaymentService">
+	<bean id="paymentService" class="edu.nju.healthClub.services.impl.PaymentService">
 		<property name="paymentDAO">
 			<ref bean="paymentDAO" />
 		</property>
 	</bean>
 
-	<bean id="dateChangeService" class="edu.nju.healthClub.services.DateChangeService">
+	<bean id="dateChangeService" class="edu.nju.healthClub.services.impl.DateChangeService">
 	</bean>
 	
-	<bean id="fileUploadPathService" class="edu.nju.healthClub.services.FileUploadPathService">
+	<bean id="fileUploadPathService" class="edu.nju.healthClub.services.impl.FileUploadPathService">
 	</bean>
 	
-	<bean id="userPrePageChangeService" class="edu.nju.healthClub.services.UserPrePageChangeService">
+	<bean id="userPrePageChangeService" class="edu.nju.healthClub.services.impl.UserPrePageChangeService">
 	</bean>
 	
-	<bean id="adminPrePageChangeService" class="edu.nju.healthClub.services.AdminPrePageChangeService">
+	<bean id="adminPrePageChangeService" class="edu.nju.healthClub.services.impl.AdminPrePageChangeService">
 	</bean>
 	
-	<bean id="userNumberGenerateService" class="edu.nju.healthClub.services.UserNumberGenerateService">
+	<bean id="userNumberGenerateService" class="edu.nju.healthClub.services.impl.UserNumberGenerateService">
 	</bean>
 
 	<bean id="activityDAO" class="edu.nju.healthClub.dao.ActivityDAO">

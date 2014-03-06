@@ -1,4 +1,4 @@
-package edu.nju.healthClub.services;
+package edu.nju.healthClub.services.impl;
 
 public class UserNumberGenerateService {
 

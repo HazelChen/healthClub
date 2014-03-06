@@ -1,9 +1,9 @@
 package edu.nju.healthClub.actions;
 
 import edu.nju.healthClub.model.ActivityReserve;
-import edu.nju.healthClub.services.AdminPrePageChangeService;
-import edu.nju.healthClub.services.ReserveService;
-import edu.nju.healthClub.services.UserPrePageChangeService;
+import edu.nju.healthClub.services.impl.AdminPrePageChangeService;
+import edu.nju.healthClub.services.impl.ReserveService;
+import edu.nju.healthClub.services.impl.UserPrePageChangeService;
 
 public class ReserveAction extends BaseAction{
 	private static final long serialVersionUID = 6822203867640557812L;

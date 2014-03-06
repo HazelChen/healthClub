@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 
 import edu.nju.healthClub.model.Activity;
-import edu.nju.healthClub.services.ActivityService;
+import edu.nju.healthClub.services.impl.ActivityService;
 
 public class RecommandAction extends BaseAction{
 	private static final long serialVersionUID = 1574319825950215251L;

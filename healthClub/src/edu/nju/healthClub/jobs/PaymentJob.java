@@ -1,6 +1,6 @@
 package edu.nju.healthClub.jobs;
 
-import edu.nju.healthClub.services.UserService;
+import edu.nju.healthClub.services.impl.UserService;
 
 public class PaymentJob {
 	private UserService service;

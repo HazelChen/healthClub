@@ -15,7 +15,7 @@
 		%>
 		<img src='<%=basePath %>images/activity\<s:property value="imageUrl"/>'/>
 		<div class="info">
-			<h4><a href="../user/activity.jsp?id=<s:property value="id"/>"><s:property value="title"/></a></h4>
+			<h4><a href="../admin/activity.jsp?id=<s:property value="id"/>"><s:property value="title"/></a></h4>
 			<ul>
 				<li>
 					<label class="t">时间</label>
@@ -33,7 +33,7 @@
 					<label class="t">预定会员</label>
 					<div class="ri-t">
 						<s:iterator value="users" status="st">
-						<a href="userPage?id=<s:property value="id"/>"><s:property value="id"/></a>&nbsp;
+						<a href="userPage?userId=<s:property value="id"/>"><s:property value="id"/></a>&nbsp;
 						</s:iterator>
 					</div>
 				</li>

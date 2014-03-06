@@ -1,6 +1,6 @@
 package edu.nju.healthClub.actions;
 
-import edu.nju.healthClub.services.AdminVerificationService;
+import edu.nju.healthClub.services.impl.AdminVerificationService;
 
 public class AdminLoginAction extends BaseAction{
 	private static final long serialVersionUID = 1545426746338603362L;

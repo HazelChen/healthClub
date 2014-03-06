@@ -26,7 +26,7 @@
 	<a href='<s:url action="place" />' class="navigation">场次信息</a>
 	<div id="top"><div id="top_profile">
 		<form action="userPage" method="get">
-			<input type="text" name="id" class="top-input" placeholder="请输入用户ID" />
+			<input type="text" name="userId" class="top-input" placeholder="请输入用户ID" />
 		</form>
 	</div>
 		<div class="content">

@@ -1,8 +1,8 @@
 package edu.nju.healthClub.actions;
 
 import edu.nju.healthClub.model.User;
-import edu.nju.healthClub.services.UserPrePageChangeService;
-import edu.nju.healthClub.services.UserService;
+import edu.nju.healthClub.services.impl.UserPrePageChangeService;
+import edu.nju.healthClub.services.impl.UserService;
 
 public class LoginAction extends BaseAction{
 	private static final long serialVersionUID = 897954802106607865L;

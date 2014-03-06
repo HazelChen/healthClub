@@ -3,7 +3,7 @@ package edu.nju.healthClub.actions;
 import java.util.ArrayList;
 
 import edu.nju.healthClub.model.Activity;
-import edu.nju.healthClub.services.ActivityService;
+import edu.nju.healthClub.services.impl.ActivityService;
 
 public class ActivityAction extends BaseAction{
 	private static final long serialVersionUID = -8934726765255655806L;

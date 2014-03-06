@@ -6,8 +6,8 @@ import java.util.Set;
 import edu.nju.healthClub.model.ActivityReserve;
 import edu.nju.healthClub.model.PaymentRecords;
 import edu.nju.healthClub.model.User;
-import edu.nju.healthClub.services.ReserveService;
-import edu.nju.healthClub.services.UserService;
+import edu.nju.healthClub.services.impl.ReserveService;
+import edu.nju.healthClub.services.impl.UserService;
 
 public class UserPageAction extends BaseAction{
 	private static final long serialVersionUID = 5917450856728620395L;
@@ -26,7 +26,7 @@ public class UserPageAction extends BaseAction{
 	}
 	
 	public String getUserInfoForAdmin () {
-		String id = request.getParameter("id");		
+		String id = request.getParameter("userId");
 		return getUserInfo(id);
 	}
 	

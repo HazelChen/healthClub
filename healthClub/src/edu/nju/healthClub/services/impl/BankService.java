@@ -1,4 +1,4 @@
-package edu.nju.healthClub.services;
+package edu.nju.healthClub.services.impl;
 
 import edu.nju.healthClub.dao.BankDAO;
 import edu.nju.healthClub.model.Bank;
