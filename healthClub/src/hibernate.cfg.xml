@@ -12,6 +12,8 @@
 		<property name="show_sql">true</property>
 		<!-- 自动把实体类与属性映射成数据库中的表与列 -->
 		<property name="hbm2ddl.auto">update</property>
+		<property name="Connection.useUnicode">true </property>
+		<property name="connection.characterEncoding">utf-8</property>
 		
 		<mapping class="edu.nju.healthClub.model.Activity"/>   
 		<mapping class="edu.nju.healthClub.model.ActivityReserve"/>   

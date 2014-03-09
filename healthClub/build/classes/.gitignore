@@ -1,2 +1,4 @@
+/applicationContext.xml
 /edu
 /hibernate.cfg.xml
+/struts.xml

@@ -48,7 +48,7 @@ public class MemberPlaceStatistics {
 		for (int i = 0; i < memberPlaceColumns.size(); i++) {
 			MemberPlaceColumn column = memberPlaceColumns.get(i);
 			int count = column.getCount();
-			column.setPercent((double)count / total);
+			column.setPercent((double)count / total * 100);
 		}
 		
 	}

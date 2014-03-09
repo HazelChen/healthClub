@@ -19,9 +19,9 @@ public class MembershipStatistics {
 	
 	private void calculatePercent() {
 		double total = newCount + suspendCount + stopCount;
-		newPercent = newCount / total;
-		suspendPercent = suspendCount / total;
-		stopPercent = stopCount / total;
+		newPercent = newCount / total * 100;
+		suspendPercent = suspendCount / total * 100;
+		stopPercent = stopCount / total * 100;
 	}
 	
 	public int getNewCount() {
