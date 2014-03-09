@@ -2,6 +2,8 @@ package edu.nju.healthClub.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 
@@ -9,6 +11,7 @@ import edu.nju.healthClub.model.Bank;
 import edu.nju.healthClub.model.User;
 import edu.nju.healthClub.services.PrePageService;
 import edu.nju.healthClub.services.impl.AdminPrePageChangeService;
+import edu.nju.healthClub.services.impl.DateChangeService;
 import edu.nju.healthClub.services.impl.FileUploadPathService;
 import edu.nju.healthClub.services.impl.UserNumberGenerateService;
 import edu.nju.healthClub.services.impl.UserPrePageChangeService;
@@ -21,6 +24,7 @@ public class RegisterAction extends BaseAction{
 	private PrePageService prePageService;
 	private FileUploadPathService fileUploadPathService;
 	private UserNumberGenerateService userNumberGenerateService;
+	private DateChangeService dateChangeService;
 	private UserService userService;
 	
 	private String prePage;
@@ -44,6 +48,9 @@ public class RegisterAction extends BaseAction{
 			id = "P" + userNumberGenerateService.generate();
 		}
 		user.setId(id);
+		Calendar calendar = Calendar.getInstance();
+		Date date = calendar.getTime();
+		user.setNewDate(date);
 		userService.save(user);
 		
 		session.put("userid", id);
@@ -136,6 +143,10 @@ public class RegisterAction extends BaseAction{
 		this.userNumberGenerateService = userNumberGenerateService;
 	}
 	
+	public void setDateChangeService(DateChangeService dateChangeService) {
+		this.dateChangeService = dateChangeService;
+	}
+
 	private String change(String userId) {
 		User user = new User();
 		user.setId(userId);
@@ -153,6 +164,12 @@ public class RegisterAction extends BaseAction{
 			bank.setId(request.getParameter("bank"));
 			user.setBank(bank);
 		}
+		Date newDate = dateChangeService.StringToDate(request.getParameter("newDate"));
+		user.setNewDate(newDate);
+		Date suspendDate = dateChangeService.StringToDate(request.getParameter("suspendDate"));
+		user.setNewDate(suspendDate);
+		Date stopDate = dateChangeService.StringToDate(request.getParameter("stopDate"));
+		user.setNewDate(stopDate);
 		
 		if(headerImgFile !=null ){  
 			int extensionPos = headerImgFileFileName.lastIndexOf(".");

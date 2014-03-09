@@ -44,7 +44,17 @@ public class ReserveDAO {
 		ActivityReserve reserve = (ActivityReserve)helper.findById(ActivityReserve.class, id);
 		return reserve;
 	}
-
+	
+	public long getMemberCount (String dateString) {
+		String hql = "select count(*) from edu.nju.healthClub.model.ActivityReserve where date = '" + dateString + "'";
+		@SuppressWarnings("unchecked")
+		List<Long> counts = helper.find(hql);
+		if (counts.size() == 0) {
+			return 0;
+		}
+		return counts.get(0);
+	}
+	
 	public void setHelper(DAOHelper helper) {
 		this.helper = helper;
 	}

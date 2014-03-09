@@ -3,25 +3,19 @@ package edu.nju.healthClub.actions;
 import java.util.ArrayList;
 
 import edu.nju.healthClub.model.MonthSelection;
+import edu.nju.healthClub.services.impl.UserService;
 
 public class ManagerMonthAction extends BaseAction{
-
 	private static final long serialVersionUID = 2605451054715313856L;
+	
 	private ArrayList<MonthSelection> monthSelections;
+	
+	private UserService userService;
 	
 	@Override
 	public String execute () {
 		String selectMonth = request.getParameter("month");
-		if (selectMonth == null) {
-			selectMonth = "2014.1";
-		}
-		
-		monthSelections = new ArrayList<>();
-		monthSelections.add(new MonthSelection("2013.12", false));
-		monthSelections.add(new MonthSelection(selectMonth, true));
-		monthSelections.add(new MonthSelection("2013.11", false));
-		monthSelections.add(new MonthSelection("2013.10", false));
-		monthSelections.add(new MonthSelection("2013.9", false));
+		monthSelections = userService.getDuration(selectMonth);
 		return SUCCESS;
 	}
 	
@@ -29,7 +23,9 @@ public class ManagerMonthAction extends BaseAction{
 		return monthSelections;
 	}
 
-	public void setMonthSelections(ArrayList<MonthSelection> monthSelections) {
-		this.monthSelections = monthSelections;
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
+	
+	
 }

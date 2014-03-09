@@ -1,5 +1,6 @@
 package edu.nju.healthClub.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,12 @@ public class User {
 	private int childCount;
 	private Bank bank;
 	private int suspendCount;
+	private Date newDate;
+	private Date suspendDate;
+	private Date stopDate;
+	private String residence;
+	private String sex;
+	private int birth;
 	
 	private Set<PaymentRecords> paymentRecords = new HashSet<>();
 	private Set<Activity> activities = new HashSet<>();
@@ -120,4 +127,56 @@ public class User {
 	public void setPaymentRecords(Set<PaymentRecords> paymentRecords) {
 		this.paymentRecords = paymentRecords;
 	}
+
+	public Date getNewDate() {
+		return newDate;
+	}
+
+	public void setNewDate(Date newDate) {
+		this.newDate = newDate;
+	}
+
+	public Date getSuspendDate() {
+		return suspendDate;
+	}
+
+	public void setSuspendDate(Date suspendDate) {
+		this.suspendDate = suspendDate;
+	}
+
+	public Date getStopDate() {
+		return stopDate;
+	}
+
+	public void setStopDate(Date stopDate) {
+		this.stopDate = stopDate;
+	}
+
+	public String getResidence() {
+		return residence;
+	}
+
+	public void setResidence(String residence) {
+		this.residence = residence;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public int getBirth() {
+		return birth;
+	}
+
+	public void setBirth(int birth) {
+		this.birth = birth;
+	}
+	
+	
+	
+	
 }

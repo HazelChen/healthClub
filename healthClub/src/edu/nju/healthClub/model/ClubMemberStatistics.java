@@ -25,6 +25,4 @@ public class ClubMemberStatistics {
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
 	}
-	
-	
 }

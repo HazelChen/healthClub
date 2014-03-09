@@ -175,6 +175,9 @@
 							<input type="text" name="type" value="<s:property value="user.type"/>" />
 							<input type="text" name="headerUrl" value="<s:property value="user.headerUrl"/>" />
 							<input type="text" name="bank" value="<s:property value="user.bank.id"/>" />
+							<input type="text" name="newDate" value="<s:date name="user.newDate" format="yyyy-MM-dd"/>" />
+							<input type="text" name="suspendDate" value="<s:date name="user.suspendDate" format="yyyy-MM-dd"/>" />
+							<input type="text" name="stopDate" value="<s:date name="user.stopDate" format="yyyy-MM-dd"/>" />
 						</div>
 						<%String type = user.getType();
 						if(type.equals("family")){%>

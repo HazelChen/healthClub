@@ -7,6 +7,8 @@ import java.util.List;
 
 import edu.nju.healthClub.dao.ActivityDAO;
 import edu.nju.healthClub.model.Activity;
+import edu.nju.healthClub.model.ClubCoachColumn;
+import edu.nju.healthClub.model.ClubPlaceColumn;
 
 public class ActivityService {
 	private ActivityDAO activityDAO;
@@ -49,6 +51,24 @@ public class ActivityService {
 		return activities;
 	}
 	
+	public ArrayList<ClubPlaceColumn> getPlaceColumns (String dateString) {
+		Calendar calendar = managerDateStringtoDate(dateString);
+		String firstDayString = dateChangeService.dateToString(calendar.getTime());
+		calendar.add(Calendar.MONTH, 1);
+		String lastDayString = dateChangeService.dateToString(calendar.getTime());
+		ArrayList<ClubPlaceColumn> columns = activityDAO.getPlaceColumns(firstDayString, lastDayString);
+		return columns;
+	}
+	
+	public ArrayList<ClubCoachColumn> getCoachColumns (String dateString) {
+		Calendar calendar = managerDateStringtoDate(dateString);
+		String firstDayString = dateChangeService.dateToString(calendar.getTime());
+		calendar.add(Calendar.MONTH, 1);
+		String lastDayString = dateChangeService.dateToString(calendar.getTime());
+		ArrayList<ClubCoachColumn> columns = activityDAO.getCoachColumns(firstDayString, lastDayString);
+		return columns;
+	}
+	
 	public Activity findById(String id) {
 		Activity activity = activityDAO.findActivityById(id);
 		return activity;
@@ -70,6 +90,21 @@ public class ActivityService {
 		this.dateChangeService = dateChangeService;
 	}
 	
-	
-	
+	private Calendar managerDateStringtoDate (String dateString) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DATE, 1);
+		if (dateString == null) {
+			return calendar;
+		}
+		int year = Integer.parseInt(dateString.substring(0,4));
+		int month = 0;
+		if (dateString.length() > 6) {
+			month = Integer.parseInt(dateString.substring(5,7));
+		} else {
+			month = Integer.parseInt(dateString.substring(5,6));
+		}
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month - 1);
+		return calendar;
+	}
 }

@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Highcharts Example</title>
+		<title>club</title>
 	
 		<link type="text/css" href="css/user.css" rel="stylesheet" />
 		<link type="text/css" href="css/logo_small.css" rel="stylesheet" />

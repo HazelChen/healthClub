@@ -5,10 +5,9 @@ public class MemberPlaceColumn {
 	private int count;
 	private double percent;
 	
-	public  MemberPlaceColumn (String place, int count, double percent) {
+	public  MemberPlaceColumn (String place, int count) {
 		this.place = place;
 		this.count = count;
-		this.percent = percent;
 	}
 
 	public String getPlace() {

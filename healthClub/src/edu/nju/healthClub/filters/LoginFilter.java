@@ -31,14 +31,18 @@ public class LoginFilter extends HttpServlet implements Filter{
 		String contextPath=request.getContextPath();
 		String url=request.getServletPath();
 		
-		String adminUserString = (String) session.getAttribute("adminid");
-        if (!url.contains("user//") && adminUserString == null && !url.contains("ogin") && url.contains("jsp")) {
-        	if (url.contains("admin")) {
-        		response.sendRedirect(contextPath+"/admin/login.jsp"); 
-			} else if (url.contains("manager")) {
-				response.sendRedirect(contextPath+"/manager/login.jsp"); 
+		if (url.contains("jsp") && !url.contains("ogin") && url.contains("admin")) {
+			String adminUserString = (String) session.getAttribute("adminid");
+			if (adminUserString == null) {
+				response.sendRedirect(contextPath+"/admin/login.jsp"); 
+				return;
 			}
-        	return;
+		} else if (url.contains("jsp") && !url.contains("ogin") && url.contains("manager")){
+			String managerUserString = (String) session.getAttribute("managerid");
+			if (managerUserString == null) {
+				response.sendRedirect(contextPath+"/manager/login.jsp"); 
+				return;
+			}
 		}
         chain.doFilter(sRequest, sResponse); 
 	}

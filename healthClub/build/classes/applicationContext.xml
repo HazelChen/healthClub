@@ -56,6 +56,9 @@
 		<property name="userNumberGenerateService">
 			<ref bean="userNumberGenerateService" />
 		</property>
+		<property name="dateChangeService">
+			<ref bean="dateChangeService" />
+		</property>
 	</bean>
 	
 	<bean id="loginAction" class="edu.nju.healthClub.actions.LoginAction">
@@ -100,6 +103,33 @@
 		</property>
 	</bean>
 	
+	<bean id="managerLoginAction" class="edu.nju.healthClub.actions.ManagerLoginAction">
+		<property name="service">
+			<ref bean="managerVerificationService" />
+		</property>
+	</bean>
+	
+	<bean id="managerMonthAction" class="edu.nju.healthClub.actions.ManagerMonthAction">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>
+	
+	<bean id="managerUserAction" class="edu.nju.healthClub.actions.ManagerUserAction">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>
+	
+	<bean id="managerClubAction" class="edu.nju.healthClub.actions.ManagerClubAction">
+		<property name="reserveService">
+			<ref bean="reserveService" />
+		</property>
+		<property name="activityService">
+			<ref bean="activityService" />
+		</property>
+	</bean>
+	
 	<bean id="paymentJob" class="edu.nju.healthClub.jobs.PaymentJob">
 		<property name="service">
 			<ref bean="userService" />
@@ -107,6 +137,9 @@
 	</bean>
 
 	<bean id="adminVerificationService" class="edu.nju.healthClub.services.impl.AdminVerificationService">
+	</bean>
+	
+	<bean id="managerVerificationService" class="edu.nju.healthClub.services.impl.ManagerVerificationService">
 	</bean>
 	
 	<bean id="activityService" class="edu.nju.healthClub.services.impl.ActivityService">
@@ -129,6 +162,12 @@
 		<property name="paymentService">
 			<ref bean="paymentService" />
 		</property>
+		<property name="dateChangeService">
+			<ref bean="dateChangeService" />
+		</property>
+		<property name="passportChangeService">
+			<ref bean="passportChangeService" />
+		</property>
 	</bean>
 	
 	<bean id="bankService" class="edu.nju.healthClub.services.impl.BankService">
@@ -143,6 +182,9 @@
 		</property>
 		<property name="activityService">
 			<ref bean="activityService" />
+		</property>
+		<property name="dateChangeService">
+			<ref bean="dateChangeService" />
 		</property>
 		<property name="reserveDAO">
 			<ref bean="reserveDAO" />
@@ -168,6 +210,9 @@
 	</bean>
 	
 	<bean id="userNumberGenerateService" class="edu.nju.healthClub.services.impl.UserNumberGenerateService">
+	</bean>
+	
+	<bean id="passportChangeService" class="edu.nju.healthClub.services.impl.PassportChangeService">
 	</bean>
 
 	<bean id="activityDAO" class="edu.nju.healthClub.dao.ActivityDAO">
@@ -201,10 +246,4 @@
 	
 	<bean id="DAOhelper" class="edu.nju.healthClub.dao.DAOHelper">
 	</bean>
-	
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <!-- 注入Hibernate 配置文件路径,前面要加上  classpath:-->
-        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
-    </bean>
-	
 </beans>

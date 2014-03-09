@@ -7,9 +7,9 @@ public class MemberPlaceStatistics {
 	private ArrayList<MemberPlaceColumn> memberPlaceColumns;
 	private String bestPlace;
 	
-	public MemberPlaceStatistics (String bestPlace) {
-		memberPlaceColumns = new ArrayList<>();
-		this.bestPlace = bestPlace;
+	public MemberPlaceStatistics (ArrayList<MemberPlaceColumn> columns) {
+		memberPlaceColumns = columns;
+		percentsAndBestHandle();
 	}
 	
 	public void add (MemberPlaceColumn column) {
@@ -33,5 +33,24 @@ public class MemberPlaceStatistics {
 		this.bestPlace = bestPlace;
 	}
 	
+	private void percentsAndBestHandle() {
+		int total = 0;
+		int maxCount = 0;
+		for (int i = 0; i < memberPlaceColumns.size(); i++) {
+			MemberPlaceColumn column = memberPlaceColumns.get(i);
+			total += column.getCount();
+			if (column.getCount() > maxCount) {
+				maxCount = column.getCount();
+				bestPlace = column.getPlace();
+			}
+		}
+		
+		for (int i = 0; i < memberPlaceColumns.size(); i++) {
+			MemberPlaceColumn column = memberPlaceColumns.get(i);
+			int count = column.getCount();
+			column.setPercent((double)count / total);
+		}
+		
+	}
 	
 }

@@ -5,10 +5,10 @@ public class MemberSexStatistics {
 	private double femaleCount;
 	private String bestSex;
 	
-	public MemberSexStatistics (double maleCount, double femaleCount, String bestSex) {
+	public MemberSexStatistics (double maleCount, double femaleCount) {
 		this.maleCount = maleCount;
 		this.femaleCount = femaleCount;
-		this.bestSex = bestSex;
+		judgeBestSex();
 	}
 
 	public double getMaleCount() {
@@ -35,7 +35,13 @@ public class MemberSexStatistics {
 		this.bestSex = bestSex;
 	}
 	
-	
+	private void judgeBestSex() {
+		if (maleCount > femaleCount) {
+			bestSex = "男";
+		} else {
+			bestSex = "女";
+		}
+	}
 	
 	
 }	

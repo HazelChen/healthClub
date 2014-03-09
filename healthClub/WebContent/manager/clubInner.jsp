@@ -15,7 +15,7 @@
 			<form action="clubWithMonth" method="get">
 				<s:action name="month" executeResult="true"></s:action>
 			</form>
-			<p>本月俱乐部会员人数为为<s:property value="clubMemberStatistics.totalCount"/>人。</p>
+			<p>本月俱乐部参与活动会员人数为<s:property value="clubMemberStatistics.totalCount"/>人。</p>
 			<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 		</div>
 	</div>	

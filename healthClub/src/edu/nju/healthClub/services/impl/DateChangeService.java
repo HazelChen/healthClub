@@ -15,6 +15,9 @@ public class DateChangeService {
 	}
 	
 	public Date StringToDate (String dateString) {
+		if (dateString == null) {
+			return null;
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
 		Date date = Calendar.getInstance().getTime();
 		try {
