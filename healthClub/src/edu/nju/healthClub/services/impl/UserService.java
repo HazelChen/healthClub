@@ -109,9 +109,9 @@ public class UserService {
 	
 	public MembershipStatistics getMembershipStatistics (String dateString) {
 		Calendar calendar = managerDateStringtoDate(dateString);
-		String firstDayString = dateChangeService.dateToString(calendar.getTime());
+		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
-		String lastDayString = dateChangeService.dateToString(calendar.getTime());
+		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
 		int newCount = (int)userDAO.getNewCount(firstDayString, lastDayString);
 		int suspendCount = (int)userDAO.getSuspendCount(firstDayString, lastDayString);
 		int stopCount = (int)userDAO.getStopCount(firstDayString, lastDayString);
@@ -121,18 +121,18 @@ public class UserService {
 	
 	public MemberPlaceStatistics getMemberPlaceStatistics (String dateString) {
 		Calendar calendar = managerDateStringtoDate(dateString);
-		String firstDayString = dateChangeService.dateToString(calendar.getTime());
+		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
-		String lastDayString = dateChangeService.dateToString(calendar.getTime());
+		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
 		MemberPlaceStatistics memberPlaceStatistics = userDAO.getMemberPlaceStatics(firstDayString, lastDayString);
 		return memberPlaceStatistics;
 	}
 	
 	public MemberAgeStatistics getMemberAgeStatistics (String dateString) {
 		Calendar calendar = managerDateStringtoDate(dateString);
-		String firstDayString = dateChangeService.dateToString(calendar.getTime());
+		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
-		String lastDayString = dateChangeService.dateToString(calendar.getTime());
+		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
 		
 		Calendar nowCalendar = Calendar.getInstance();
 		int[] ageCount = new int[5];
@@ -155,9 +155,9 @@ public class UserService {
 	
 	public MemberSexStatistics getMemberSexStatistics(String dateString) {
 		Calendar calendar = managerDateStringtoDate(dateString);
-		String firstDayString = dateChangeService.dateToString(calendar.getTime());
+		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
-		String lastDayString = dateChangeService.dateToString(calendar.getTime());
+		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
 		
 		int maleCount = (int) userDAO.getMaleCount(firstDayString,lastDayString);
 		int femaleCount = (int) userDAO.getFemaleCount (firstDayString, lastDayString);

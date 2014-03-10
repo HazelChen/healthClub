@@ -1,18 +1,15 @@
 package edu.nju.healthClub.actions;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.apache.commons.io.FileUtils;
 
 import edu.nju.healthClub.model.Bank;
 import edu.nju.healthClub.model.User;
 import edu.nju.healthClub.services.PrePageService;
 import edu.nju.healthClub.services.impl.AdminPrePageChangeService;
 import edu.nju.healthClub.services.impl.DateChangeService;
-import edu.nju.healthClub.services.impl.FileUploadPathService;
+import edu.nju.healthClub.services.impl.FileUploadService;
 import edu.nju.healthClub.services.impl.UserNumberGenerateService;
 import edu.nju.healthClub.services.impl.UserPrePageChangeService;
 import edu.nju.healthClub.services.impl.UserService;
@@ -22,7 +19,7 @@ public class RegisterAction extends BaseAction{
 	private static final long serialVersionUID = 8034555455451599580L;
 	
 	private PrePageService prePageService;
-	private FileUploadPathService fileUploadPathService;
+	private FileUploadService fileUploadService;
 	private UserNumberGenerateService userNumberGenerateService;
 	private DateChangeService dateChangeService;
 	private UserService userService;
@@ -32,22 +29,22 @@ public class RegisterAction extends BaseAction{
 	private File headerImgFile;
 	private String headerImgFileFileName;
 	
+	/** (non-Javadoc)
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 * 得到表单里的用户数据并保存
+	 */
 	@Override
 	public String execute() {
 		prePageService = UserPrePageChangeService.instance();
-		User user = new User();
-		user.setEmail(request.getParameter("email"));
-		user.setPassword(request.getParameter("password"));
+		
 		String type = request.getParameter("type");
-		user.setType(type);
 		if (type.equals("family")) {
 			id = "F" + userNumberGenerateService.generate();
-			int childCount = Integer.parseInt(request.getParameter("childCount"));
-			user.setChildCount(childCount);
 		} else {
 			id = "P" + userNumberGenerateService.generate();
 		}
-		user.setId(id);
+		User user = getSimpleUserFromForm(id);
+		
 		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();
 		user.setNewDate(date);
@@ -70,7 +67,11 @@ public class RegisterAction extends BaseAction{
 		return submitCardId(id);
 	}
 	
+	/**
+	 * @return 当用户选择暂时不激活，可以返回前一个页面
+	 */
 	public String notActive () {
+		prePageService = UserPrePageChangeService.instance();
 		return SUCCESS;
 	}
 	
@@ -118,8 +119,8 @@ public class RegisterAction extends BaseAction{
 		this.userService = userService;
 	}
 
-	public void setFileUploadPathService(FileUploadPathService fileUploadPathService) {
-		this.fileUploadPathService = fileUploadPathService;
+	public void setFileUploadService(FileUploadService fileUploadService) {
+		this.fileUploadService = fileUploadService;
 	}
 
 	public File getHeaderImgFile() {
@@ -148,39 +149,11 @@ public class RegisterAction extends BaseAction{
 	}
 
 	private String change(String userId) {
-		User user = new User();
-		user.setId(userId);
-		user.setEmail(request.getParameter("email"));
-		user.setUsername(request.getParameter("username"));
-		user.setPassword(request.getParameter("password"));
-		String childCountString = request.getParameter("childCount");
-		if (childCountString!= null && !childCountString.equals("")) {
-			user.setChildCount(Integer.parseInt(request.getParameter("childCount")));
-		}
-		user.setType(request.getParameter("type"));
-		String bankIdSaved = request.getParameter("bank");
-		if (!bankIdSaved.equals("")) {
-			Bank bank = new Bank();
-			bank.setId(request.getParameter("bank"));
-			user.setBank(bank);
-		}
-		Date newDate = dateChangeService.StringToDate(request.getParameter("newDate"));
-		user.setNewDate(newDate);
-		Date suspendDate = dateChangeService.StringToDate(request.getParameter("suspendDate"));
-		user.setNewDate(suspendDate);
-		Date stopDate = dateChangeService.StringToDate(request.getParameter("stopDate"));
-		user.setNewDate(stopDate);
+		User user = getSimpleUserFromForm(userId);
+		userComplementFormForm(user);
 		
 		if(headerImgFile !=null ){  
-			int extensionPos = headerImgFileFileName.lastIndexOf(".");
-			String fileName = userId + headerImgFileFileName.substring(extensionPos);
-			String realPath = fileUploadPathService.getUserPath() + fileName;
-            File destFile = new File(realPath);//根据 parent 抽象路径名和 child 路径名字符串创建一个新 File 实例。  
-            try {
-				FileUtils.copyFile(headerImgFile, destFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			String fileName = fileUploadService.userImgUpload(headerImgFile, headerImgFileFileName, userId);
             user.setHeaderUrl(fileName);
         } else {
         	user.setHeaderUrl(request.getParameter("headerUrl"));
@@ -201,5 +174,34 @@ public class RegisterAction extends BaseAction{
 		user.setBank(null);
 		userService.update(user);
 		return SUCCESS;
+	}
+	
+	private User getSimpleUserFromForm(String userId) {
+		User user = new User();
+		user.setId(userId);
+		user.setEmail(request.getParameter("email"));
+		user.setPassword(request.getParameter("password"));
+		user.setType(request.getParameter("type"));
+		String childCountString = request.getParameter("childCount");
+		if (childCountString!= null && !childCountString.equals("")) {
+			user.setChildCount(Integer.parseInt(request.getParameter("childCount")));
+		}
+		return user;
+	}
+	
+	private void userComplementFormForm(User user) {
+		user.setUsername(request.getParameter("username"));
+		String bankIdSaved = request.getParameter("bank");
+		if (!bankIdSaved.equals("")) {
+			Bank bank = new Bank();
+			bank.setId(request.getParameter("bank"));
+			user.setBank(bank);
+		}
+		Date newDate = dateChangeService.StringToNormalDate(request.getParameter("newDate"));
+		user.setNewDate(newDate);
+		Date suspendDate = dateChangeService.StringToNormalDate(request.getParameter("suspendDate"));
+		user.setSuspendDate(suspendDate);
+		Date stopDate = dateChangeService.StringToNormalDate(request.getParameter("stopDate"));
+		user.setStopDate(stopDate);
 	}
 }

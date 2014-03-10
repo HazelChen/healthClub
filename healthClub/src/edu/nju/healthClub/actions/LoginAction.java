@@ -1,19 +1,29 @@
 package edu.nju.healthClub.actions;
 
 import edu.nju.healthClub.model.User;
+import edu.nju.healthClub.services.PrePageService;
 import edu.nju.healthClub.services.impl.UserPrePageChangeService;
 import edu.nju.healthClub.services.impl.UserService;
 
 public class LoginAction extends BaseAction{
 	private static final long serialVersionUID = 897954802106607865L;
 	
-	private UserPrePageChangeService userPrePageChangeService;
+	private PrePageService prePageChangeService;
 	private UserService userService;
 	
+	/**
+	 * 如果用户在查看用户界面注销，必须返回主页，不论prepage是什么
+	 */
+	private boolean isMustHomepage;
+	
+	/**
+	 * 默认返回主页
+	 */
 	private String prePage = "homepage.jsp";
 	
 	public String login() {
-		putPrePage();
+		prePageChangeService = UserPrePageChangeService.instance();
+		
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
@@ -26,40 +36,34 @@ public class LoginAction extends BaseAction{
 			return SUCCESS;
 		}
 	}
-	
-	public String getPrePage() {
-		return prePage;
-	}
-
-	public void setPrePage(String prePage) {
-		this.prePage = prePage;
-	}
 
 	public String logout() {
-		putPrePage();
+		prePageChangeService = UserPrePageChangeService.instance();
 		if (prePage.contains("userPage")) {
-			prePage = "homepage.jsp";
+			isMustHomepage = true;
 		}
 		session.remove("userid");
 		session.remove("fail");
 		return SUCCESS;
 	}
 	
-	public void putPrePage() {
-		String url = (String) session.get("prePage");
-		String queryUrl = (String) session.get("queryUrl");
-		prePage = userPrePageChangeService.change(url, queryUrl);
-	}
-
-	public void setUserPrePageChangeService(
-			UserPrePageChangeService userPrePageChangeService) {
-		this.userPrePageChangeService = userPrePageChangeService;
-	}
-
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 	
+	public String getPrePage() {
+		String url = (String) session.get("prePage");
+		String queryUrl = (String) session.get("queryUrl");
+		prePage = prePageChangeService.change(url, queryUrl);
+		if (isMustHomepage) {
+			prePage = "homepage.jsp";
+		}
+		return prePage;
+	}
+
+	public void setPrePage(String prePage) {
+		this.prePage = prePage;
+	}
 	
 	
 }

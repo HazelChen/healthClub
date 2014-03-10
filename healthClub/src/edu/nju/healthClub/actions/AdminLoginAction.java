@@ -26,5 +26,4 @@ public class AdminLoginAction extends BaseAction{
 		this.service = service;
 	}
 	
-	
 }

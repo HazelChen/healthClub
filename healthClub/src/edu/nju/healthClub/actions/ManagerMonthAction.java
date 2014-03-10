@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import edu.nju.healthClub.model.MonthSelection;
 import edu.nju.healthClub.services.impl.UserService;
 
+/**
+ * @author hazel
+ * 得到应该显示的月份，并且设置上一次选择的月份
+ */
 public class ManagerMonthAction extends BaseAction{
 	private static final long serialVersionUID = 2605451054715313856L;
 	

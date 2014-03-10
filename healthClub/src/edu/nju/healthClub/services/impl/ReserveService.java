@@ -55,7 +55,7 @@ public class ReserveService {
 		int totalCount = 0;
 		int[] dayMemberCount = new int[searchedCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)];
 		for (int i = 0; i < dayMemberCount.length; i++) {
-			String searchedDateString = dateChangeService.dateToString(searchedCalendar.getTime());
+			String searchedDateString = dateChangeService.normalDateToString(searchedCalendar.getTime());
 			int dayCount = (int)reserveDAO.getMemberCount (searchedDateString);
 			dayMemberCount[i] = dayCount;
 			searchedCalendar.add(Calendar.DATE, 1);

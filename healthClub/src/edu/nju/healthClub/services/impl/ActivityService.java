@@ -12,6 +12,7 @@ import edu.nju.healthClub.model.ClubPlaceColumn;
 
 public class ActivityService {
 	private ActivityDAO activityDAO;
+	
 	private DateChangeService dateChangeService;
 	
 	public ArrayList<Activity> getActivitiesAfterToday() {
@@ -19,7 +20,7 @@ public class ActivityService {
 		
 		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();
-		String dateString = dateChangeService.dateToString(date);
+		String dateString = dateChangeService.normalDateToString(date);
 		List<Activity> activities = activityDAO.findActivityAfterDate(dateString);
 		result.addAll(activities);
 		return result;
@@ -30,7 +31,7 @@ public class ActivityService {
 		
 		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();
-		String dateString = dateChangeService.dateToString(date);
+		String dateString = dateChangeService.normalDateToString(date);
 		List<Activity> activities = activityDAO.findActivityAfterDate(dateString);
 		
 		int index = 0;
@@ -42,9 +43,11 @@ public class ActivityService {
 	}
 	
 	public ArrayList<Activity> findByDate(int year, int month, int date) {
+		int calendarMonth = month - 1;
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(year, month, date);
-		String dateString = dateChangeService.dateToString(calendar.getTime());
+		calendar.set(year, calendarMonth, date);
+		
+		String dateString = dateChangeService.normalDateToString(calendar.getTime());
 		List<Activity> list = activityDAO.findActivityByDate(dateString);
 		ArrayList<Activity> activities = new ArrayList<>();
 		activities.addAll(list);
@@ -53,18 +56,18 @@ public class ActivityService {
 	
 	public ArrayList<ClubPlaceColumn> getPlaceColumns (String dateString) {
 		Calendar calendar = managerDateStringtoDate(dateString);
-		String firstDayString = dateChangeService.dateToString(calendar.getTime());
+		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
-		String lastDayString = dateChangeService.dateToString(calendar.getTime());
+		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
 		ArrayList<ClubPlaceColumn> columns = activityDAO.getPlaceColumns(firstDayString, lastDayString);
 		return columns;
 	}
 	
 	public ArrayList<ClubCoachColumn> getCoachColumns (String dateString) {
 		Calendar calendar = managerDateStringtoDate(dateString);
-		String firstDayString = dateChangeService.dateToString(calendar.getTime());
+		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
-		String lastDayString = dateChangeService.dateToString(calendar.getTime());
+		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
 		ArrayList<ClubCoachColumn> columns = activityDAO.getCoachColumns(firstDayString, lastDayString);
 		return columns;
 	}
@@ -80,6 +83,10 @@ public class ActivityService {
 	
 	public void update(Activity activity) {
 		activityDAO.update(activity);
+	}
+	
+	public String generateId () {
+		return "A" + System.currentTimeMillis();
 	}
 
 	public void setActivityDAO(ActivityDAO activityDAO) {

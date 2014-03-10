@@ -1,15 +1,12 @@
 package edu.nju.healthClub.actions;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
-
-import org.apache.commons.io.FileUtils;
 
 import edu.nju.healthClub.model.Activity;
 import edu.nju.healthClub.services.impl.ActivityService;
 import edu.nju.healthClub.services.impl.DateChangeService;
-import edu.nju.healthClub.services.impl.FileUploadPathService;
+import edu.nju.healthClub.services.impl.FileUploadService;
 
 public class CreateActivityAction extends BaseAction{
 	
@@ -22,19 +19,21 @@ public class CreateActivityAction extends BaseAction{
 	
 	private ActivityService service;
 	private DateChangeService dateChangeService;
-	private FileUploadPathService fileUploadPathService;
+	private FileUploadService fileUploadService;
 	
 	public String create() {
-		String id = "A" + System.currentTimeMillis();
+		String id = service.generateId();
 		Activity activity = getFormActivityAndSaveImg(id);
 		service.save(activity);
 		return SUCCESS;
 	}
 	
+	/**
+	 * 浏览器发出修改请求，得到activity用以显示
+	 */
 	public String change() {
 		String id = request.getParameter("id");
 		activity = service.findById(id);
-		
 		return SUCCESS;
 	}
 	
@@ -69,8 +68,8 @@ public class CreateActivityAction extends BaseAction{
 		this.service = service;
 	}
 	
-	public void setFileUploadPathService(FileUploadPathService fileUploadPathService) {
-		this.fileUploadPathService = fileUploadPathService;
+	public void setFileUploadService(FileUploadService fileUploadService) {
+		this.fileUploadService = fileUploadService;
 	}
 
 	private Activity getFormActivityAndSaveImg (String id) {
@@ -81,20 +80,12 @@ public class CreateActivityAction extends BaseAction{
 		activity.setCoach(request.getParameter("coach"));
 		
 		String dateString = request.getParameter("date");
-		Date date = dateChangeService.StringToDate(dateString);
+		Date date = dateChangeService.StringToNormalDate(dateString);
 		activity.setDate(date);
 		activity.setParagraph(request.getParameter("paragraph"));
 		
 		if(imgFile !=null ){  
-			int extensionPos = imgFileFileName.lastIndexOf(".");
-			String fileName = id + imgFileFileName.substring(extensionPos);
-			String realPath = fileUploadPathService.getActivityPath() + fileName;
-            File destFile = new File(realPath);//根据 parent 抽象路径名和 child 路径名字符串创建一个新 File 实例。  
-            try {
-				FileUtils.copyFile(imgFile, destFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			String fileName = fileUploadService.activityImgUpload(imgFile, imgFileFileName, id);
             activity.setImageUrl(fileName);
         } else {
         	activity.setImageUrl(request.getParameter("imageUrl"));

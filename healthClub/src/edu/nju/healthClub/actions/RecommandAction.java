@@ -1,7 +1,6 @@
 package edu.nju.healthClub.actions;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,10 @@ import javax.servlet.ServletException;
 import edu.nju.healthClub.model.Activity;
 import edu.nju.healthClub.services.impl.ActivityService;
 
+/**
+ * @author hazel
+ * 首页推荐的活动
+ */
 public class RecommandAction extends BaseAction{
 	private static final long serialVersionUID = 1574319825950215251L;
 	

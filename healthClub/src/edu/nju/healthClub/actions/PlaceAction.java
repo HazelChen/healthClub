@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import edu.nju.healthClub.model.Activity;
 import edu.nju.healthClub.services.impl.ActivityService;
 
+/**
+ * @author hazel
+ * 得到场地使用记录
+ */
 public class PlaceAction extends BaseAction{
 	private static final long serialVersionUID = -7452893292012390954L;
 	

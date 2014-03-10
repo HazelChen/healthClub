@@ -29,12 +29,6 @@
 	</bean>
 	
 	<bean id="reserveAction" class="edu.nju.healthClub.actions.ReserveAction">
-		<property name="userPrePageChangeService">
-			<ref bean="userPrePageChangeService" />
-		</property>
-		<property name="adminPrePageChangeService">
-			<ref bean="adminPrePageChangeService" />
-		</property>
 		<property name="reserveService">
 			<ref bean="reserveService" />
 		</property>
@@ -50,9 +44,6 @@
 		<property name="userService">
 			<ref bean="userService" />
 		</property>
-		<property name="fileUploadPathService">
-			<ref bean="fileUploadPathService" />
-		</property>
 		<property name="userNumberGenerateService">
 			<ref bean="userNumberGenerateService" />
 		</property>
@@ -62,9 +53,6 @@
 	</bean>
 	
 	<bean id="loginAction" class="edu.nju.healthClub.actions.LoginAction">
-		<property name="userPrePageChangeService">
-			<ref bean="userPrePageChangeService" />
-		</property>
 		<property name="userService">
 			<ref bean="userService" />
 		</property>
@@ -91,9 +79,6 @@
 		</property>
 		<property name="dateChangeService">
 			<ref bean="dateChangeService" />
-		</property>
-		<property name="fileUploadPathService">
-			<ref bean="fileUploadPathService" />
 		</property>
 	</bean>
 	
@@ -198,9 +183,6 @@
 	</bean>
 
 	<bean id="dateChangeService" class="edu.nju.healthClub.services.impl.DateChangeService">
-	</bean>
-	
-	<bean id="fileUploadPathService" class="edu.nju.healthClub.services.impl.FileUploadPathService">
 	</bean>
 	
 	<bean id="userPrePageChangeService" class="edu.nju.healthClub.services.impl.UserPrePageChangeService">

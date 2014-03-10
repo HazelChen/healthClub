@@ -15,6 +15,10 @@ public class UserBarAction extends BaseAction{
 	
 	private UserService userService;
 
+	/** (non-Javadoc)
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 * 判断用户是否登录，如果登录，就给界面用户的信息
+	 */
 	@Override
 	public String execute () throws ServletException, IOException {
 		String id = (String) session.get("userid");
@@ -39,6 +43,4 @@ public class UserBarAction extends BaseAction{
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-	
-	
 }

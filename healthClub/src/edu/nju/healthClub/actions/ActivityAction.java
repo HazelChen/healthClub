@@ -12,15 +12,21 @@ public class ActivityAction extends BaseAction{
 	
 	private ActivityService service;
 	
+	/**
+	 * 根据请求的日期获取活动数据
+	 */
 	public String getActivityByDate () {
 		int year = Integer.parseInt(request.getParameter("year"));
-		int month = Integer.parseInt(request.getParameter("month")) - 1;
+		int month = Integer.parseInt(request.getParameter("month"));
 		int date = Integer.parseInt(request.getParameter("date"));
 		
 		this.activities = service.findByDate(year, month, date);
 		return SUCCESS;
 	}
 	
+	/**
+	 * 获取管理员需要看到的活动们
+	 */
 	public String getActivity () {
 		activities = service.getActivitiesAfterToday();
 		return SUCCESS;
@@ -42,6 +48,4 @@ public class ActivityAction extends BaseAction{
 	public void setService(ActivityService service) {
 		this.service = service;
 	}
-	
-	
 }
