@@ -5,22 +5,26 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-public class FileUploadService {
+import edu.nju.healthClub.services.FileUploadServiceInterface;
+
+public class FileUploadService implements FileUploadServiceInterface {
 	public static final String ACTIVITY_IMG_PATH = "D:\\healthClubImg\\activity\\";
 	public static final String USER_IMG_PATH = "D:\\healthClubImg\\user\\";
 	
-	/**
-	 * @return 文件名
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.FileUploadServiceInterface#activityImgUpload(java.io.File, java.lang.String, java.lang.String)
 	 */
+	@Override
 	public String activityImgUpload(File imgFile, String imgFileName, String activityId) {
 		String imgPath = ACTIVITY_IMG_PATH;
 		String fileName = imgUpload(imgFile, imgFileName, activityId, imgPath);
 		return fileName;
 	}
 	
-	/**
-	 * @return 文件名
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.FileUploadServiceInterface#userImgUpload(java.io.File, java.lang.String, java.lang.String)
 	 */
+	@Override
 	public String userImgUpload(File imgFile, String imgFileName, String userId) {
 		String imgPath = USER_IMG_PATH;
 		String fileName = imgUpload(imgFile, imgFileName, userId, imgPath);

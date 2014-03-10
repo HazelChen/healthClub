@@ -1,15 +1,21 @@
-package edu.nju.healthClub.dao;
+package edu.nju.healthClub.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.nju.healthClub.dao.ActivityDAOInterface;
+import edu.nju.healthClub.dao.DAPHelperInterface;
 import edu.nju.healthClub.model.Activity;
 import edu.nju.healthClub.model.ClubCoachColumn;
 import edu.nju.healthClub.model.ClubPlaceColumn;
 
-public class ActivityDAO {
-	private DAOHelper helper;
+public class ActivityDAO implements ActivityDAOInterface {
+	private DAPHelperInterface helper;
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ActivityDAOInterface#findActivityByDate(java.lang.String)
+	 */
+	@Override
 	public List<Activity> findActivityByDate (String dateString) {
 		String hql = "from edu.nju.healthClub.model.Activity where date = '" + dateString + "'";
 		@SuppressWarnings("unchecked")
@@ -17,6 +23,10 @@ public class ActivityDAO {
 		return list;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ActivityDAOInterface#findActivityAfterDate(java.lang.String)
+	 */
+	@Override
 	public List<Activity> findActivityAfterDate (String dateString) {
 		String hql = "from edu.nju.healthClub.model.Activity where date >= '" + dateString + "'";
 		@SuppressWarnings("unchecked")
@@ -24,11 +34,19 @@ public class ActivityDAO {
 		return list;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ActivityDAOInterface#findActivityById(java.lang.String)
+	 */
+	@Override
 	public Activity findActivityById (String id) {
 		Activity activity = (Activity)helper.findById(Activity.class, id);
 		return activity;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ActivityDAOInterface#getPlaceColumns(java.lang.String, java.lang.String)
+	 */
+	@Override
 	public ArrayList<ClubPlaceColumn> getPlaceColumns (String firstDayString, String lastDayString) {
 		String hql = "select place, count(*) " + 
 				"from edu.nju.healthClub.model.Activity " + 
@@ -46,6 +64,10 @@ public class ActivityDAO {
 		return clubPlaceColumns;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ActivityDAOInterface#getCoachColumns(java.lang.String, java.lang.String)
+	 */
+	@Override
 	public ArrayList<ClubCoachColumn> getCoachColumns (String firstDayString, String lastDayString) {
 		String hql = "select coach, count(*) " + 
 				"from edu.nju.healthClub.model.Activity " + 
@@ -63,15 +85,27 @@ public class ActivityDAO {
 		return clubCoachColumns;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ActivityDAOInterface#save(edu.nju.healthClub.model.Activity)
+	 */
+	@Override
 	public void save(Activity activity) {
 		helper.save(activity);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ActivityDAOInterface#update(edu.nju.healthClub.model.Activity)
+	 */
+	@Override
 	public void update(Activity activity) {
 		helper.update(activity);
 	}
 
-	public void setHelper(DAOHelper helper) {
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ActivityDAOInterface#setHelper(edu.nju.healthClub.dao.DAOHelper)
+	 */
+	@Override
+	public void setHelper(DAPHelperInterface helper) {
 		this.helper = helper;
 	}
 }

@@ -3,7 +3,7 @@ package edu.nju.healthClub.actions;
 import java.util.ArrayList;
 
 import edu.nju.healthClub.model.Activity;
-import edu.nju.healthClub.services.impl.ActivityService;
+import edu.nju.healthClub.services.ActivityServiceInterface;
 
 /**
  * @author hazel
@@ -14,7 +14,7 @@ public class PlaceAction extends BaseAction{
 	
 	private ArrayList<Activity> activities;
 	
-	private ActivityService activityService;
+	private ActivityServiceInterface activityService;
 	
 	@Override
 	public String execute() {
@@ -26,7 +26,7 @@ public class PlaceAction extends BaseAction{
 		return activities;
 	}
 
-	public void setActivityService(ActivityService activityService) {
+	public void setActivityService(ActivityServiceInterface activityService) {
 		this.activityService = activityService;
 	}
 	

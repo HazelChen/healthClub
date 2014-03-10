@@ -3,7 +3,7 @@ package edu.nju.healthClub.actions;
 import java.util.ArrayList;
 
 import edu.nju.healthClub.model.MonthSelection;
-import edu.nju.healthClub.services.impl.UserService;
+import edu.nju.healthClub.services.UserServiceInterface;
 
 /**
  * @author hazel
@@ -14,7 +14,7 @@ public class ManagerMonthAction extends BaseAction{
 	
 	private ArrayList<MonthSelection> monthSelections;
 	
-	private UserService userService;
+	private UserServiceInterface userService;
 	
 	@Override
 	public String execute () {
@@ -27,7 +27,7 @@ public class ManagerMonthAction extends BaseAction{
 		return monthSelections;
 	}
 
-	public void setUserService(UserService userService) {
+	public void setUserService(UserServiceInterface userService) {
 		this.userService = userService;
 	}
 	

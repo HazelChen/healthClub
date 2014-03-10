@@ -2,8 +2,8 @@ package edu.nju.healthClub.actions;
 
 import edu.nju.healthClub.model.ActivityReserve;
 import edu.nju.healthClub.services.PrePageService;
+import edu.nju.healthClub.services.ReserveServiceInterface;
 import edu.nju.healthClub.services.impl.AdminPrePageChangeService;
-import edu.nju.healthClub.services.impl.ReserveService;
 import edu.nju.healthClub.services.impl.UserPrePageChangeService;
 
 public class ReserveAction extends BaseAction{
@@ -16,7 +16,7 @@ public class ReserveAction extends BaseAction{
 	private boolean isAction;
 	
 	private PrePageService prePageChangeService;
-	private ReserveService reserveService;
+	private ReserveServiceInterface reserveService;
 	
 	/** (non-Javadoc)
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
@@ -68,7 +68,7 @@ public class ReserveAction extends BaseAction{
 		this.prePage = prePage;
 	}
 	
-	public void setReserveService(ReserveService reserveService) {
+	public void setReserveService(ReserveServiceInterface reserveService) {
 		this.reserveService = reserveService;
 	}
 

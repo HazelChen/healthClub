@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import edu.nju.healthClub.dao.UserDAO;
+import edu.nju.healthClub.dao.UserDAOInterface;
 import edu.nju.healthClub.model.Bank;
 import edu.nju.healthClub.model.MemberAgeStatistics;
 import edu.nju.healthClub.model.MemberPlaceStatistics;
@@ -13,8 +13,13 @@ import edu.nju.healthClub.model.MembershipStatistics;
 import edu.nju.healthClub.model.MonthSelection;
 import edu.nju.healthClub.model.PaymentRecords;
 import edu.nju.healthClub.model.User;
+import edu.nju.healthClub.services.BankServiceInterface;
+import edu.nju.healthClub.services.DateChangeServiceInterface;
+import edu.nju.healthClub.services.PassportChangeServiceInterface;
+import edu.nju.healthClub.services.PaymentServiceInterface;
+import edu.nju.healthClub.services.UserServiceInterface;
 
-public class UserService {
+public class UserService implements UserServiceInterface {
 	private static final int PERSONAL_ACTIVE_PAYMENT = 75;
 	private static final int FAMILY_ACTIVE_PAYMENT = 100;
 	private static final int PERSONAL_MONTH_PAYMENT = 40;
@@ -23,14 +28,18 @@ public class UserService {
 	private static final String MONTH_PAYMENT_REASON = "账户月缴费";
 	private static final String ACTIVE_PAYMENT_REASON = "会员激活缴费";
 	
-	private UserDAO userDAO;
+	private UserDAOInterface userDAO;
 	
-	private BankService bankService;
-	private PaymentService paymentService;
-	private DateChangeService dateChangeService;
-	private PassportChangeService passportChangeService;
+	private BankServiceInterface bankService;
+	private PaymentServiceInterface paymentService;
+	private DateChangeServiceInterface dateChangeService;
+	private PassportChangeServiceInterface passportChangeService;
 	
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#save(edu.nju.healthClub.model.User)
+	 */
+	@Override
 	public void save(User user) {
 		String passport = user.getEmail();
 		user.setResidence(passportChangeService.getResidence(passport));
@@ -39,6 +48,10 @@ public class UserService {
 		userDAO.save(user);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#update(edu.nju.healthClub.model.User)
+	 */
+	@Override
 	public void update(User user) {
 		String passport = user.getEmail();
 		user.setResidence(passportChangeService.getResidence(passport));
@@ -47,11 +60,19 @@ public class UserService {
 		userDAO.update(user);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#find(java.lang.String)
+	 */
+	@Override
 	public User find(String id) {
 		User user = userDAO.find(id);
 		return user;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#pay()
+	 */
+	@Override
 	public void pay() {
 		ArrayList<User> users = userDAO.findAll();
 		for (User user : users) {
@@ -71,6 +92,10 @@ public class UserService {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#activate(edu.nju.healthClub.model.User, java.lang.String)
+	 */
+	@Override
 	public void activate (User user, String bankId) {
 		Bank bank = bankService.find(bankId);
 		user.setBank(bank);
@@ -87,6 +112,10 @@ public class UserService {
 		userDAO.update(user);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#getDuration(java.lang.String)
+	 */
+	@Override
 	public ArrayList<MonthSelection> getDuration (String selectedMonth) {
 		ArrayList<MonthSelection> monthSelections = new ArrayList<>();
 		
@@ -107,6 +136,10 @@ public class UserService {
 		return monthSelections;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#getMembershipStatistics(java.lang.String)
+	 */
+	@Override
 	public MembershipStatistics getMembershipStatistics (String dateString) {
 		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
@@ -120,6 +153,10 @@ public class UserService {
 		return membershipStatistics;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#getMemberPlaceStatistics(java.lang.String)
+	 */
+	@Override
 	public MemberPlaceStatistics getMemberPlaceStatistics (String dateString) {
 		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
@@ -130,6 +167,10 @@ public class UserService {
 		return memberPlaceStatistics;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#getMemberAgeStatistics(java.lang.String)
+	 */
+	@Override
 	public MemberAgeStatistics getMemberAgeStatistics (String dateString) {
 		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
@@ -155,6 +196,10 @@ public class UserService {
 		return memberAgeStatistics;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#getMemberSexStatistics(java.lang.String)
+	 */
+	@Override
 	public MemberSexStatistics getMemberSexStatistics(String dateString) {
 		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
@@ -167,23 +212,43 @@ public class UserService {
 		return memberSexStatistics;
 	}
 	
-	public void setUserDAO(UserDAO userDAO) {
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#setUserDAO(edu.nju.healthClub.dao.UserDAO)
+	 */
+	@Override
+	public void setUserDAO(UserDAOInterface userDAO) {
 		this.userDAO = userDAO;
 	}
 
-	public void setBankService(BankService bankService) {
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#setBankService(edu.nju.healthClub.services.impl.BankServiceInterface)
+	 */
+	@Override
+	public void setBankService(BankServiceInterface bankService) {
 		this.bankService = bankService;
 	}
 	
-	public void setPaymentService(PaymentService paymentService) {
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#setPaymentService(edu.nju.healthClub.services.impl.PaymentServiceInterface)
+	 */
+	@Override
+	public void setPaymentService(PaymentServiceInterface paymentService) {
 		this.paymentService = paymentService;
 	}
 	
-	public void setDateChangeService(DateChangeService dateChangeService) {
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#setDateChangeService(edu.nju.healthClub.services.impl.DateChangeServiceInterface)
+	 */
+	@Override
+	public void setDateChangeService(DateChangeServiceInterface dateChangeService) {
 		this.dateChangeService = dateChangeService;
 	}
 	
-	public void setPassportChangeService(PassportChangeService passportChangeService) {
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.UserServiceInterface#setPassportChangeService(edu.nju.healthClub.services.impl.PassportChangeServiceInterface)
+	 */
+	@Override
+	public void setPassportChangeService(PassportChangeServiceInterface passportChangeService) {
 		this.passportChangeService = passportChangeService;
 	}
 

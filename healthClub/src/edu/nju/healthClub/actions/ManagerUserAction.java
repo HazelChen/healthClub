@@ -4,7 +4,7 @@ import edu.nju.healthClub.model.MemberAgeStatistics;
 import edu.nju.healthClub.model.MemberPlaceStatistics;
 import edu.nju.healthClub.model.MemberSexStatistics;
 import edu.nju.healthClub.model.MembershipStatistics;
-import edu.nju.healthClub.services.impl.UserService;
+import edu.nju.healthClub.services.UserServiceInterface;
 
 public class ManagerUserAction extends BaseAction{
 	private static final long serialVersionUID = -7290297593628014043L;
@@ -14,7 +14,7 @@ public class ManagerUserAction extends BaseAction{
 	private MemberAgeStatistics memberAgeStatistics;
 	private MemberSexStatistics memberSexStatistics;
 	
-	private UserService userService;
+	private UserServiceInterface userService;
 	
 	@Override
 	public String execute () {
@@ -42,7 +42,7 @@ public class ManagerUserAction extends BaseAction{
 		return memberSexStatistics;
 	}
 
-	public void setUserService(UserService userService) {
+	public void setUserService(UserServiceInterface userService) {
 		this.userService = userService;
 	}
 	

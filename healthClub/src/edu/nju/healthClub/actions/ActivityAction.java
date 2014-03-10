@@ -3,14 +3,14 @@ package edu.nju.healthClub.actions;
 import java.util.ArrayList;
 
 import edu.nju.healthClub.model.Activity;
-import edu.nju.healthClub.services.impl.ActivityService;
+import edu.nju.healthClub.services.ActivityServiceInterface;
 
 public class ActivityAction extends BaseAction{
 	private static final long serialVersionUID = -8934726765255655806L;
 	
 	private ArrayList<Activity> activities;
 	
-	private ActivityService service;
+	private ActivityServiceInterface service;
 	
 	/**
 	 * 根据请求的日期获取活动数据
@@ -45,7 +45,7 @@ public class ActivityAction extends BaseAction{
 		return activities;
 	}
 	
-	public void setService(ActivityService service) {
+	public void setService(ActivityServiceInterface service) {
 		this.service = service;
 	}
 }

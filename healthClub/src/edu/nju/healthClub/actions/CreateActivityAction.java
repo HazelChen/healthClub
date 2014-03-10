@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.Date;
 
 import edu.nju.healthClub.model.Activity;
-import edu.nju.healthClub.services.impl.ActivityService;
-import edu.nju.healthClub.services.impl.DateChangeService;
-import edu.nju.healthClub.services.impl.FileUploadService;
+import edu.nju.healthClub.services.ActivityServiceInterface;
+import edu.nju.healthClub.services.DateChangeServiceInterface;
+import edu.nju.healthClub.services.FileUploadServiceInterface;
 
 public class CreateActivityAction extends BaseAction{
 	
@@ -17,9 +17,9 @@ public class CreateActivityAction extends BaseAction{
 	private File imgFile;
 	private String imgFileFileName;
 	
-	private ActivityService service;
-	private DateChangeService dateChangeService;
-	private FileUploadService fileUploadService;
+	private ActivityServiceInterface service;
+	private DateChangeServiceInterface dateChangeService;
+	private FileUploadServiceInterface fileUploadService;
 	
 	public String create() {
 		String id = service.generateId();
@@ -60,15 +60,15 @@ public class CreateActivityAction extends BaseAction{
 		this.imgFileFileName = imgFileFileName;
 	}
 
-	public void setDateChangeService(DateChangeService dateChangeService) {
+	public void setDateChangeService(DateChangeServiceInterface dateChangeService) {
 		this.dateChangeService = dateChangeService;
 	}
 
-	public void setService(ActivityService service) {
+	public void setService(ActivityServiceInterface service) {
 		this.service = service;
 	}
 	
-	public void setFileUploadService(FileUploadService fileUploadService) {
+	public void setFileUploadService(FileUploadServiceInterface fileUploadService) {
 		this.fileUploadService = fileUploadService;
 	}
 

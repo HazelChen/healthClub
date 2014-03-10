@@ -5,16 +5,22 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import edu.nju.healthClub.dao.ActivityDAO;
+import edu.nju.healthClub.dao.ActivityDAOInterface;
 import edu.nju.healthClub.model.Activity;
 import edu.nju.healthClub.model.ClubCoachColumn;
 import edu.nju.healthClub.model.ClubPlaceColumn;
+import edu.nju.healthClub.services.ActivityServiceInterface;
+import edu.nju.healthClub.services.DateChangeServiceInterface;
 
-public class ActivityService {
-	private ActivityDAO activityDAO;
+public class ActivityService implements ActivityServiceInterface {
+	private ActivityDAOInterface activityDAO;
 	
-	private DateChangeService dateChangeService;
+	private DateChangeServiceInterface dateChangeService;
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#getActivitiesAfterToday()
+	 */
+	@Override
 	public ArrayList<Activity> getActivitiesAfterToday() {
 		ArrayList<Activity> result = new ArrayList<>();
 		
@@ -27,6 +33,10 @@ public class ActivityService {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#recommand()
+	 */
+	@Override
 	public ArrayList<Activity> recommand () {
 		ArrayList<Activity> result = new ArrayList<>();
 		
@@ -43,6 +53,10 @@ public class ActivityService {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#findByDate(int, int, int)
+	 */
+	@Override
 	public ArrayList<Activity> findByDate(int year, int month, int date) {
 		int calendarMonth = month - 1;
 		Calendar calendar = Calendar.getInstance();
@@ -55,6 +69,10 @@ public class ActivityService {
 		return activities;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#getPlaceColumns(java.lang.String)
+	 */
+	@Override
 	public ArrayList<ClubPlaceColumn> getPlaceColumns (String dateString) {
 		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
@@ -65,6 +83,10 @@ public class ActivityService {
 		return columns;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#getCoachColumns(java.lang.String)
+	 */
+	@Override
 	public ArrayList<ClubCoachColumn> getCoachColumns (String dateString) {
 		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
@@ -75,28 +97,52 @@ public class ActivityService {
 		return columns;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#findById(java.lang.String)
+	 */
+	@Override
 	public Activity findById(String id) {
 		Activity activity = activityDAO.findActivityById(id);
 		return activity;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#save(edu.nju.healthClub.model.Activity)
+	 */
+	@Override
 	public void save(Activity activity) {
 		activityDAO.save(activity);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#update(edu.nju.healthClub.model.Activity)
+	 */
+	@Override
 	public void update(Activity activity) {
 		activityDAO.update(activity);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#generateId()
+	 */
+	@Override
 	public String generateId () {
 		return "A" + System.currentTimeMillis();
 	}
 
-	public void setActivityDAO(ActivityDAO activityDAO) {
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#setActivityDAO(edu.nju.healthClub.dao.ActivityDAO)
+	 */
+	@Override
+	public void setActivityDAO(ActivityDAOInterface activityDAO) {
 		this.activityDAO = activityDAO;
 	}
 
-	public void setDateChangeService(DateChangeService dateChangeService) {
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.ActivityServiceInterface#setDateChangeService(edu.nju.healthClub.services.impl.DateChangeService)
+	 */
+	@Override
+	public void setDateChangeService(DateChangeServiceInterface dateChangeService) {
 		this.dateChangeService = dateChangeService;
 	}
 }

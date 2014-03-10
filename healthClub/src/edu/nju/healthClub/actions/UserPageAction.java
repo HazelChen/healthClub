@@ -6,8 +6,8 @@ import java.util.Set;
 import edu.nju.healthClub.model.ActivityReserve;
 import edu.nju.healthClub.model.PaymentRecords;
 import edu.nju.healthClub.model.User;
-import edu.nju.healthClub.services.impl.ReserveService;
-import edu.nju.healthClub.services.impl.UserService;
+import edu.nju.healthClub.services.ReserveServiceInterface;
+import edu.nju.healthClub.services.UserServiceInterface;
 
 public class UserPageAction extends BaseAction{
 	private static final long serialVersionUID = 5917450856728620395L;
@@ -16,8 +16,8 @@ public class UserPageAction extends BaseAction{
 	private ArrayList<ActivityReserve> activityReserves;
 	private Set<PaymentRecords> paymentRecords;
 	
-	private UserService userService;
-	private ReserveService reserveService;
+	private UserServiceInterface userService;
+	private ReserveServiceInterface reserveService;
 	
 	@Override
 	public String execute() {
@@ -42,11 +42,11 @@ public class UserPageAction extends BaseAction{
 		return activityReserves;
 	}
 
-	public void setUserService(UserService userService) {
+	public void setUserService(UserServiceInterface userService) {
 		this.userService = userService;
 	}
 
-	public void setReserveService(ReserveService reserveService) {
+	public void setReserveService(ReserveServiceInterface reserveService) {
 		this.reserveService = reserveService;
 	}
 	

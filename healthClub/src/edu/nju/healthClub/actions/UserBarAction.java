@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import edu.nju.healthClub.model.User;
-import edu.nju.healthClub.services.impl.UserService;
+import edu.nju.healthClub.services.UserServiceInterface;
 
 public class UserBarAction extends BaseAction{
 	private static final long serialVersionUID = 5144563963912658234L;
@@ -13,7 +13,7 @@ public class UserBarAction extends BaseAction{
 	private String id;
 	private User user;
 	
-	private UserService userService;
+	private UserServiceInterface userService;
 
 	/** (non-Javadoc)
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
@@ -40,7 +40,7 @@ public class UserBarAction extends BaseAction{
 		return user;
 	}
 
-	public void setUserService(UserService userService) {
+	public void setUserService(UserServiceInterface userService) {
 		this.userService = userService;
 	}
 }

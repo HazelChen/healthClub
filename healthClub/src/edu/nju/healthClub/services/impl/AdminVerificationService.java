@@ -1,12 +1,14 @@
 package edu.nju.healthClub.services.impl;
 
 import edu.nju.healthClub.model.AdminInfomation;
+import edu.nju.healthClub.services.AdminVerificationServiceInterface;
 
-public class AdminVerificationService {
+public class AdminVerificationService implements AdminVerificationServiceInterface {
 	
-	/**
-	 * @return true 验证成功
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.AdminVerificationServiceInterface#verificate(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public boolean verificate(String id, String password) {
 		AdminInfomation infomation = new AdminInfomation();
 		if (id.equals(infomation.getId()) && password.equals(infomation.getPassword())) {

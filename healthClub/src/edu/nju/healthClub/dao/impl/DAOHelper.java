@@ -1,4 +1,4 @@
-package edu.nju.healthClub.dao;
+package edu.nju.healthClub.dao.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,15 +16,17 @@ import org.hibernate.criterion.SimpleExpression;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import edu.nju.healthClub.dao.DAPHelperInterface;
 import edu.nju.healthClub.model.ActivityReserve;
 
-public class DAOHelper {
+public class DAOHelper implements DAPHelperInterface {
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.DAPHelperInterface#find(java.lang.String)
+	 */
+	@Override
 	public List find (String hql) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		SessionFactory sessionFactory = buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		Query query = session.createQuery(hql);
@@ -35,11 +37,12 @@ public class DAOHelper {
 		return list;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.DAPHelperInterface#findById(java.lang.Class, java.io.Serializable)
+	 */
+	@Override
 	public Object findById (Class className, Serializable id) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		SessionFactory sessionFactory = buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Object object = session.get(className, id);
 		session.close();
@@ -47,11 +50,12 @@ public class DAOHelper {
 		return object;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.DAPHelperInterface#find(java.lang.Class, java.util.ArrayList)
+	 */
+	@Override
 	public List find (Class className, ArrayList<SimpleExpression> expressions) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		SessionFactory sessionFactory = buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		Criteria criteria = session.createCriteria(className);
@@ -66,11 +70,12 @@ public class DAOHelper {
 		return list;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.DAPHelperInterface#findAll(java.lang.Class)
+	 */
+	@Override
 	public List findAll (Class className) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		SessionFactory sessionFactory = buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		Criteria criteria = session.createCriteria(className);
@@ -81,11 +86,12 @@ public class DAOHelper {
 		return list;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.DAPHelperInterface#save(java.lang.Object)
+	 */
+	@Override
 	public void save(Object object) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		SessionFactory sessionFactory = buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(object);
@@ -94,11 +100,12 @@ public class DAOHelper {
 		sessionFactory.close();
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.DAPHelperInterface#update(java.lang.Object)
+	 */
+	@Override
 	public void update(Object object) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		SessionFactory sessionFactory = buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		session.merge(object);
@@ -107,16 +114,25 @@ public class DAOHelper {
 		sessionFactory.close();
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.DAPHelperInterface#remove(java.lang.Object)
+	 */
+	@Override
 	public void remove (Object object) {
-		Configuration config = new Configuration().configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				config.getProperties()).buildServiceRegistry();
-		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		SessionFactory sessionFactory = buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		session.delete(object);
 		transaction.commit();
 		session.close();
 		sessionFactory.close();
+	}
+	
+	private SessionFactory buildSessionFactory() {
+		Configuration config = new Configuration().configure();
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
+				config.getProperties()).buildServiceRegistry();
+		SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
+		return sessionFactory;
 	}
 }

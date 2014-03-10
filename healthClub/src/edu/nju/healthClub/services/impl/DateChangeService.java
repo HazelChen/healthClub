@@ -5,22 +5,25 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateChangeService {
+import edu.nju.healthClub.services.DateChangeServiceInterface;
+
+public class DateChangeService implements DateChangeServiceInterface {
 	private static final String DATE_PATTERN = "yyyy-MM-dd";
 	
-	/** 将日期转为yyyy-MM-dd格式的string
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.DateChangeServiceInterface#normalDateToString(java.util.Date)
 	 */
+	@Override
 	public String normalDateToString (Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
 		String dateString = sdf.format(date);
 		return dateString;
 	}
 	
-	/**
-	 * 将yyyy-MM-dd的String转为date
-	 * @param dateString
-	 * @return 
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.DateChangeServiceInterface#StringToNormalDate(java.lang.String)
 	 */
+	@Override
 	public Date StringToNormalDate (String dateString) {
 		if (dateString == null) {
 			return null;
@@ -35,9 +38,10 @@ public class DateChangeService {
 		return date;
 	}
 	
-	/**
-	 * 输入日期格式为yyyy.MM,得到这个月的第一天
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.DateChangeServiceInterface#getFirstDayCalendar(java.lang.String)
 	 */
+	@Override
 	public Calendar getFirstDayCalendar(String managerDateString) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DATE, 1);

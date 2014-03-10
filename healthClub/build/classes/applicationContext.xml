@@ -197,35 +197,35 @@
 	<bean id="passportChangeService" class="edu.nju.healthClub.services.impl.PassportChangeService">
 	</bean>
 
-	<bean id="activityDAO" class="edu.nju.healthClub.dao.ActivityDAO">
+	<bean id="activityDAO" class="edu.nju.healthClub.dao.impl.ActivityDAO">
 		<property name="helper">
 			<ref bean="DAOhelper" />
 		</property>
 	</bean>
 	
-	<bean id="userDAO" class="edu.nju.healthClub.dao.UserDAO">
+	<bean id="userDAO" class="edu.nju.healthClub.dao.impl.UserDAO">
 		<property name="helper">
 			<ref bean="DAOhelper" />
 		</property>
 	</bean>
 	
-	<bean id="bankDAO" class="edu.nju.healthClub.dao.BankDAO">
+	<bean id="bankDAO" class="edu.nju.healthClub.dao.impl.BankDAO">
 		<property name="helper">
 			<ref bean="DAOhelper" />
 		</property>
 	</bean>
 	
-	<bean id="reserveDAO" class="edu.nju.healthClub.dao.ReserveDAO">
+	<bean id="reserveDAO" class="edu.nju.healthClub.dao.impl.ReserveDAO">
 		<property name="helper">
 			<ref bean="DAOhelper" />
 		</property>
 	</bean>
-	<bean id="paymentDAO" class="edu.nju.healthClub.dao.PaymentDAO">
+	<bean id="paymentDAO" class="edu.nju.healthClub.dao.impl.PaymentDAO">
 		<property name="helper">
 			<ref bean="DAOhelper" />
 		</property>
 	</bean>
 	
-	<bean id="DAOhelper" class="edu.nju.healthClub.dao.DAOHelper">
+	<bean id="DAOhelper" class="edu.nju.healthClub.dao.impl.DAOHelper">
 	</bean>
 </beans>

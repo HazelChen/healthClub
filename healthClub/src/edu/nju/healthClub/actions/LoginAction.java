@@ -2,14 +2,14 @@ package edu.nju.healthClub.actions;
 
 import edu.nju.healthClub.model.User;
 import edu.nju.healthClub.services.PrePageService;
+import edu.nju.healthClub.services.UserServiceInterface;
 import edu.nju.healthClub.services.impl.UserPrePageChangeService;
-import edu.nju.healthClub.services.impl.UserService;
 
 public class LoginAction extends BaseAction{
 	private static final long serialVersionUID = 897954802106607865L;
 	
 	private PrePageService prePageChangeService;
-	private UserService userService;
+	private UserServiceInterface userService;
 	
 	/**
 	 * 如果用户在查看用户界面注销，必须返回主页，不论prepage是什么
@@ -47,7 +47,7 @@ public class LoginAction extends BaseAction{
 		return SUCCESS;
 	}
 	
-	public void setUserService(UserService userService) {
+	public void setUserService(UserServiceInterface userService) {
 		this.userService = userService;
 	}
 	

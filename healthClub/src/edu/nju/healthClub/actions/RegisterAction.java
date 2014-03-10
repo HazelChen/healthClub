@@ -6,23 +6,23 @@ import java.util.Date;
 
 import edu.nju.healthClub.model.Bank;
 import edu.nju.healthClub.model.User;
+import edu.nju.healthClub.services.DateChangeServiceInterface;
+import edu.nju.healthClub.services.FileUploadServiceInterface;
 import edu.nju.healthClub.services.PrePageService;
+import edu.nju.healthClub.services.UserNumberGenerateServiceInterface;
+import edu.nju.healthClub.services.UserServiceInterface;
 import edu.nju.healthClub.services.impl.AdminPrePageChangeService;
-import edu.nju.healthClub.services.impl.DateChangeService;
-import edu.nju.healthClub.services.impl.FileUploadService;
-import edu.nju.healthClub.services.impl.UserNumberGenerateService;
 import edu.nju.healthClub.services.impl.UserPrePageChangeService;
-import edu.nju.healthClub.services.impl.UserService;
 
 
 public class RegisterAction extends BaseAction{
 	private static final long serialVersionUID = 8034555455451599580L;
 	
 	private PrePageService prePageService;
-	private FileUploadService fileUploadService;
-	private UserNumberGenerateService userNumberGenerateService;
-	private DateChangeService dateChangeService;
-	private UserService userService;
+	private FileUploadServiceInterface fileUploadService;
+	private UserNumberGenerateServiceInterface userNumberGenerateService;
+	private DateChangeServiceInterface dateChangeService;
+	private UserServiceInterface userService;
 	
 	private String prePage;
 	private String id;
@@ -115,11 +115,11 @@ public class RegisterAction extends BaseAction{
 		this.prePage = prePage;
 	}
 
-	public void setUserService(UserService userService) {
+	public void setUserService(UserServiceInterface userService) {
 		this.userService = userService;
 	}
 
-	public void setFileUploadService(FileUploadService fileUploadService) {
+	public void setFileUploadService(FileUploadServiceInterface fileUploadService) {
 		this.fileUploadService = fileUploadService;
 	}
 
@@ -140,11 +140,11 @@ public class RegisterAction extends BaseAction{
 	}
 
 	public void setUserNumberGenerateService(
-			UserNumberGenerateService userNumberGenerateService) {
+			UserNumberGenerateServiceInterface userNumberGenerateService) {
 		this.userNumberGenerateService = userNumberGenerateService;
 	}
 	
-	public void setDateChangeService(DateChangeService dateChangeService) {
+	public void setDateChangeService(DateChangeServiceInterface dateChangeService) {
 		this.dateChangeService = dateChangeService;
 	}
 

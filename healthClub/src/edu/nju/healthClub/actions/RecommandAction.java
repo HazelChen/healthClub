@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 
 import edu.nju.healthClub.model.Activity;
-import edu.nju.healthClub.services.impl.ActivityService;
+import edu.nju.healthClub.services.ActivityServiceInterface;
 
 /**
  * @author hazel
@@ -17,7 +17,7 @@ public class RecommandAction extends BaseAction{
 	
 	private ArrayList<Activity> recommandActivities;
 	
-	private ActivityService activityService;
+	private ActivityServiceInterface activityService;
 	
 	@Override
 	public String execute () throws ServletException, IOException{
@@ -29,7 +29,7 @@ public class RecommandAction extends BaseAction{
 		return recommandActivities;
 	}
 
-	public void setActivityService(ActivityService activityService) {
+	public void setActivityService(ActivityServiceInterface activityService) {
 		this.activityService = activityService;
 	}
 	

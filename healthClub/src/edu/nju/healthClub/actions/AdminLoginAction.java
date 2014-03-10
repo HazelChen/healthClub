@@ -1,11 +1,11 @@
 package edu.nju.healthClub.actions;
 
-import edu.nju.healthClub.services.impl.AdminVerificationService;
+import edu.nju.healthClub.services.AdminVerificationServiceInterface;
 
 public class AdminLoginAction extends BaseAction{
 	private static final long serialVersionUID = 1545426746338603362L;
 	
-	private AdminVerificationService service;
+	private AdminVerificationServiceInterface service;
 	
 	@Override
 	public String execute () {
@@ -22,7 +22,7 @@ public class AdminLoginAction extends BaseAction{
 		}
 	}
 
-	public void setService(AdminVerificationService service) {
+	public void setService(AdminVerificationServiceInterface service) {
 		this.service = service;
 	}
 	

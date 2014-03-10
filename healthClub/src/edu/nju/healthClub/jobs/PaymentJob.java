@@ -1,15 +1,15 @@
 package edu.nju.healthClub.jobs;
 
-import edu.nju.healthClub.services.impl.UserService;
+import edu.nju.healthClub.services.UserServiceInterface;
 
 public class PaymentJob {
-	private UserService service;
+	private UserServiceInterface service;
 	
 	public void pay() {
 		service.pay();
 	}
 
-	public void setService(UserService service) {
+	public void setService(UserServiceInterface service) {
 		this.service = service;
 	}
 	

@@ -3,19 +3,29 @@ package edu.nju.healthClub.services.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PassportChangeService {
+import edu.nju.healthClub.services.PassportChangeServiceInterface;
+
+public class PassportChangeService implements PassportChangeServiceInterface {
 	private Map<Integer, String> passportAndResidence;
 	
 	public PassportChangeService() {
 		initPassportMap();
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.PassportChangeServiceInterface#getResidence(java.lang.String)
+	 */
+	@Override
 	public String getResidence(String passcode) {
 		int residenceCode = Integer.parseInt(passcode.substring(0,2));
 		String residence = passportAndResidence.get(residenceCode);
 		return residence;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.PassportChangeServiceInterface#getSex(java.lang.String)
+	 */
+	@Override
 	public String getSex(String passcode) {
 		int sexCode = Integer.parseInt(String.valueOf(passcode.charAt(16)));
 		if (sexCode % 2 == 0) {
@@ -25,6 +35,10 @@ public class PassportChangeService {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.services.impl.PassportChangeServiceInterface#getBirth(java.lang.String)
+	 */
+	@Override
 	public int getBirth (String passcode) {
 		String yearString = passcode.substring(5,10);
 		int year = Integer.parseInt(yearString);

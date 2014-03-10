@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import edu.nju.healthClub.model.ClubCoachColumn;
 import edu.nju.healthClub.model.ClubMemberStatistics;
 import edu.nju.healthClub.model.ClubPlaceColumn;
-import edu.nju.healthClub.services.impl.ActivityService;
-import edu.nju.healthClub.services.impl.ReserveService;
+import edu.nju.healthClub.services.ActivityServiceInterface;
+import edu.nju.healthClub.services.ReserveServiceInterface;
 
 public class ManagerClubAction extends BaseAction{
 	private static final long serialVersionUID = 1146621566194268753L;
@@ -15,8 +15,8 @@ public class ManagerClubAction extends BaseAction{
 	private ArrayList<ClubPlaceColumn> placeColumns;
 	private ArrayList<ClubCoachColumn> coachColumns;
 	
-	private ReserveService reserveService;
-	private ActivityService activityService;
+	private ReserveServiceInterface reserveService;
+	private ActivityServiceInterface activityService;
 	
 	@Override
 	public String execute () {
@@ -51,11 +51,11 @@ public class ManagerClubAction extends BaseAction{
 		this.coachColumns = coachColumns;
 	}
 
-	public void setReserveService(ReserveService reserveService) {
+	public void setReserveService(ReserveServiceInterface reserveService) {
 		this.reserveService = reserveService;
 	}
 
-	public void setActivityService(ActivityService activityService) {
+	public void setActivityService(ActivityServiceInterface activityService) {
 		this.activityService = activityService;
 	}
 }

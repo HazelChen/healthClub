@@ -1,4 +1,4 @@
-package edu.nju.healthClub.dao;
+package edu.nju.healthClub.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,20 +6,34 @@ import java.util.List;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
+import edu.nju.healthClub.dao.DAPHelperInterface;
+import edu.nju.healthClub.dao.ReserveDAOInterface;
 import edu.nju.healthClub.model.ActivityReserve;
 import edu.nju.healthClub.model.User;
 
-public class ReserveDAO {
-	private DAOHelper helper;
+public class ReserveDAO implements ReserveDAOInterface {
+	private DAPHelperInterface helper;
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ReserveDAOInterface#add(edu.nju.healthClub.model.ActivityReserve)
+	 */
+	@Override
 	public void add(ActivityReserve reserve) {
 		helper.save(reserve);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ReserveDAOInterface#remove(edu.nju.healthClub.model.ActivityReserve)
+	 */
+	@Override
 	public void remove (ActivityReserve reserve) {
 		helper.remove(reserve);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ReserveDAOInterface#find(edu.nju.healthClub.model.User)
+	 */
+	@Override
 	public ArrayList<ActivityReserve> find (User user) {
 		ArrayList<SimpleExpression> expressions = new ArrayList<>();
 		expressions.add(Restrictions.eq("user", user));
@@ -29,6 +43,10 @@ public class ReserveDAO {
 		return activityReserves;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ReserveDAOInterface#find(java.lang.String, java.lang.String)
+	 */
+	@Override
 	public ActivityReserve find (String userId, String activityId) {
 		String hql = "from edu.nju.healthClub.model.ActivityReserve where userId = '" + userId + "' and activityId='" + activityId + "'";
 		@SuppressWarnings("unchecked")
@@ -40,11 +58,19 @@ public class ReserveDAO {
 		return activityReserve;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ReserveDAOInterface#find(int)
+	 */
+	@Override
 	public ActivityReserve find (int id) {
 		ActivityReserve reserve = (ActivityReserve)helper.findById(ActivityReserve.class, id);
 		return reserve;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ReserveDAOInterface#getMemberCount(java.lang.String)
+	 */
+	@Override
 	public long getMemberCount (String dateString) {
 		String hql = "select count(*) from edu.nju.healthClub.model.ActivityReserve where date = '" + dateString + "'";
 		@SuppressWarnings("unchecked")
@@ -55,7 +81,11 @@ public class ReserveDAO {
 		return counts.get(0);
 	}
 	
-	public void setHelper(DAOHelper helper) {
+	/* (non-Javadoc)
+	 * @see edu.nju.healthClub.dao.ReserveDAOInterface#setHelper(edu.nju.healthClub.dao.DAPHelperInterface)
+	 */
+	@Override
+	public void setHelper(DAPHelperInterface helper) {
 		this.helper = helper;
 	}
 	
