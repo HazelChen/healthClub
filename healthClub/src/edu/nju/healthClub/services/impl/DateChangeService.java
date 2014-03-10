@@ -34,4 +34,25 @@ public class DateChangeService {
 		}
 		return date;
 	}
+	
+	/**
+	 * 输入日期格式为yyyy.MM,得到这个月的第一天
+	 */
+	public Calendar getFirstDayCalendar(String managerDateString) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DATE, 1);
+		if (managerDateString == null) {
+			return calendar;
+		}
+		int year = Integer.parseInt(managerDateString.substring(0,4));
+		int month = 0;
+		if (managerDateString.length() > 6) {
+			month = Integer.parseInt(managerDateString.substring(5,7));
+		} else {
+			month = Integer.parseInt(managerDateString.substring(5,6));
+		}
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month - 1);
+		return calendar;
+	}
 }

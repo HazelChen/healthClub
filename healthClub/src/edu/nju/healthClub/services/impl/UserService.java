@@ -108,10 +108,11 @@ public class UserService {
 	}
 	
 	public MembershipStatistics getMembershipStatistics (String dateString) {
-		Calendar calendar = managerDateStringtoDate(dateString);
+		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
 		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
+		
 		int newCount = (int)userDAO.getNewCount(firstDayString, lastDayString);
 		int suspendCount = (int)userDAO.getSuspendCount(firstDayString, lastDayString);
 		int stopCount = (int)userDAO.getStopCount(firstDayString, lastDayString);
@@ -120,16 +121,17 @@ public class UserService {
 	}
 	
 	public MemberPlaceStatistics getMemberPlaceStatistics (String dateString) {
-		Calendar calendar = managerDateStringtoDate(dateString);
+		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
 		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
+		
 		MemberPlaceStatistics memberPlaceStatistics = userDAO.getMemberPlaceStatics(firstDayString, lastDayString);
 		return memberPlaceStatistics;
 	}
 	
 	public MemberAgeStatistics getMemberAgeStatistics (String dateString) {
-		Calendar calendar = managerDateStringtoDate(dateString);
+		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
 		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
@@ -154,7 +156,7 @@ public class UserService {
 	}
 	
 	public MemberSexStatistics getMemberSexStatistics(String dateString) {
-		Calendar calendar = managerDateStringtoDate(dateString);
+		Calendar calendar = dateChangeService.getFirstDayCalendar(dateString);
 		String firstDayString = dateChangeService.normalDateToString(calendar.getTime());
 		calendar.add(Calendar.MONTH, 1);
 		String lastDayString = dateChangeService.normalDateToString(calendar.getTime());
@@ -230,21 +232,4 @@ public class UserService {
 		}
 	}
 	
-	private Calendar managerDateStringtoDate (String dateString) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.DATE, 1);
-		if (dateString == null) {
-			return calendar;
-		}
-		int year = Integer.parseInt(dateString.substring(0,4));
-		int month = 0;
-		if (dateString.length() > 6) {
-			month = Integer.parseInt(dateString.substring(5,7));
-		} else {
-			month = Integer.parseInt(dateString.substring(5,6));
-		}
-		calendar.set(Calendar.YEAR, year);
-		calendar.set(Calendar.MONTH, month - 1);
-		return calendar;
-	}
 }

@@ -6,9 +6,7 @@ import java.util.Calendar;
 import edu.nju.healthClub.dao.ReserveDAO;
 import edu.nju.healthClub.model.Activity;
 import edu.nju.healthClub.model.ActivityReserve;
-import edu.nju.healthClub.model.ClubCoachColumn;
 import edu.nju.healthClub.model.ClubMemberStatistics;
-import edu.nju.healthClub.model.ClubPlaceColumn;
 import edu.nju.healthClub.model.User;
 
 public class ReserveService {
@@ -51,7 +49,7 @@ public class ReserveService {
 	}
 	
 	public ClubMemberStatistics getClubMemberStatistics (String dateString) {
-		Calendar searchedCalendar = managerDateStringtoDate(dateString);
+		Calendar searchedCalendar = dateChangeService.getFirstDayCalendar(dateString);
 		int totalCount = 0;
 		int[] dayMemberCount = new int[searchedCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)];
 		for (int i = 0; i < dayMemberCount.length; i++) {
@@ -79,24 +77,4 @@ public class ReserveService {
 	public void setDateChangeService(DateChangeService dateChangeService) {
 		this.dateChangeService = dateChangeService;
 	}
-
-	private Calendar managerDateStringtoDate (String dateString) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.DATE, 1);
-		if (dateString == null) {
-			return calendar;
-		}
-		int year = Integer.parseInt(dateString.substring(0,4));
-		int month = 0;
-		if (dateString.length() > 6) {
-			month = Integer.parseInt(dateString.substring(5,7));
-		} else {
-			month = Integer.parseInt(dateString.substring(5,6));
-		}
-		calendar.set(Calendar.YEAR, year);
-		calendar.set(Calendar.MONTH, month - 1);
-		return calendar;
-	}
-	
-	
 }
